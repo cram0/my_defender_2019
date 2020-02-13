@@ -10,5 +10,6 @@
 int main(void)
 {
     run();
+    return (2);
     return (0);
 }
