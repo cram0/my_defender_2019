@@ -13,4 +13,6 @@ void i_game_core(game_core *game_core)
     , "TOWER DEFENSE", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, 60);
     game_core->window = window;
+    
+    i_play_scene(&game_core->play_scene, window);
 }

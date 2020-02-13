@@ -24,12 +24,18 @@ enum game_state {
     PAUSE
 } ;
 
-typedef struct menu_scene {
+typedef struct map {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+} map;
 
+typedef struct menu_scene {
+    sfRenderWindow *window;
 } menu_scene;
 
 typedef struct play_scene {
-
+    sfRenderWindow *window;
 } play_scene;
 
 typedef struct game_core {
@@ -40,9 +46,14 @@ typedef struct game_core {
 } game_core;
 
 void run(void);
-void i_game_core(game_core *game_core);
 
+//INITIALISATION
+void i_game_core(game_core *game_core);
+void i_play_scene(play_scene *, sfRenderWindow *);
+
+//UPDATE
 void u_game_core(game_core *game_core);
 
+//DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);
 #endif /* !MY_DEFENDER_H_ */
