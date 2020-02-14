@@ -13,4 +13,6 @@ void u_game_core(game_core *game_core)
         if (game_core->event.type == sfEvtClosed)
             sfRenderWindow_close(game_core->window);
     }
+    if (game_core->game_state == MENU)
+        u_menu_scene(&game_core->menu_scene);
 }
