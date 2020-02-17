@@ -7,24 +7,50 @@
 
 #include "../../include/my_defender.h"
 
+void fill_button_textures(button *button, char *file_path)
+{
+    char name_idle[256] = {0};
+    char name_hover[256] = {0};
+    char name_click[256] = {0};
+    my_strcat(name_idle, file_path);
+    my_strcat(name_idle, "idle.png");
+    my_strcat(name_hover, file_path);
+    my_strcat(name_hover, "hover.png");
+    my_strcat(name_click, file_path);
+    my_strcat(name_click, "click.png");
+    button->texture_idle = sfTexture_createFromFile(name_idle, NULL);
+    button->texture_hover = sfTexture_createFromFile(name_hover, NULL);
+    button->texture_click = sfTexture_createFromFile(name_click, NULL);
+}
+
 button create_button(char *file_path)
 {
     button temp;
     temp.sprite = sfSprite_create();
-    temp.texture = sfTexture_createFromFile(file_path, NULL);
+    fill_button_textures(&temp, file_path);
     temp.pos = (sfVector2f){500, 500};
     temp.state = IDLE;
     sfSprite_setPosition(temp.sprite, temp.pos);
-    sfSprite_setTexture(temp.sprite, temp.texture, sfTrue);
+    sfSprite_setTexture(temp.sprite, temp.texture_idle, sfTrue);
     return (temp);
 }
 
 void i_menu_ui(menu_ui *menu_ui)
 {
     menu_ui->play_btn = create_button("img/buttons/play_");
+    menu_ui->play_btn.pos = (sfVector2f){50, 100};
+    sfSprite_setPosition(menu_ui->play_btn.sprite,  menu_ui->play_btn.pos);
     menu_ui->hiscore_btn = create_button("img/buttons/highscores_");
+    menu_ui->hiscore_btn.pos = (sfVector2f){50, 200};
+    sfSprite_setPosition(menu_ui->hiscore_btn.sprite,  menu_ui->hiscore_btn.pos)
+    ;
     menu_ui->settings_btn = create_button("img/buttons/settings_");
+    menu_ui->settings_btn.pos = (sfVector2f){50, 300};
+    sfSprite_setPosition(menu_ui->settings_btn.sprite,
+    menu_ui->settings_btn.pos);
     menu_ui->quit_btn = create_button("img/buttons/quit_");
+    menu_ui->quit_btn.pos = (sfVector2f){50, 400};
+    sfSprite_setPosition(menu_ui->quit_btn.sprite,  menu_ui->quit_btn.pos);
 }
 
 void i_menu_background(menu_background *menu_background)

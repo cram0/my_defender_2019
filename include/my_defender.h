@@ -78,7 +78,12 @@ typedef struct game_core {
     int game_state;
 } game_core;
 
+//OTHER
 void run(void);
+char *my_strcat(char *, char *);
+int my_strlen(char *str);
+//GET
+sfVector2i get_mouse_pos(sfRenderWindow *window);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
@@ -91,9 +96,7 @@ void i_menu_ui(menu_ui *menu_ui);
 void u_game_core(game_core *game_core);
 void u_menu_scene(menu_scene *menu_scene);
 
-//GET
-sfVector2i get_mouse_pos(sfRenderWindow *window);
-
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);
+
 #endif /* !MY_DEFENDER_H_ */

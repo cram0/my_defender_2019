@@ -15,7 +15,6 @@ bool is_hovering(button button, sfRenderWindow *window)
 sfVector2i get_mouse_pos(sfRenderWindow *window)
 {
     sfVector2i cursor = sfMouse_getPositionRenderWindow(window);
-    printf("X: %d, Y: %d\n", cursor.x, cursor.y);
     return cursor;
 }
 
