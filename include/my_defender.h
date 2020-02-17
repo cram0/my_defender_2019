@@ -39,7 +39,9 @@ typedef struct map {
 
 typedef struct button {
     sfSprite *sprite;
-    sfTexture *texture;
+    sfTexture *texture_idle;
+    sfTexture *texture_hover;
+    sfTexture *texture_click;
     sfVector2f pos;
     int state;
 } button;
