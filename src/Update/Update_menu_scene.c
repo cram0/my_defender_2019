@@ -54,14 +54,15 @@ void hovering_button(menu_scene *menu_scene)
 
 void check_hover_click(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.play_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-        menu_scene->ui.play_btn.state == CLICK;
+    if (menu_scene->ui.play_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+        menu_scene->ui.play_btn.state = CLICK;
+    }
     if (menu_scene->ui.hiscore_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-        menu_scene->ui.hiscore_btn.state == CLICK;
+        menu_scene->ui.hiscore_btn.state = CLICK;
     if (menu_scene->ui.settings_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-        menu_scene->ui.settings_btn.state == CLICK;
+        menu_scene->ui.settings_btn.state = CLICK;
     if (menu_scene->ui.quit_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-        menu_scene->ui.quit_btn.state == CLICK;
+        menu_scene->ui.quit_btn.state = CLICK;
 }
 
 void settexture_state(button *button)
@@ -76,16 +77,33 @@ void settexture_state(button *button)
         case CLICK : sfSprite_setTexture(button->sprite, button->texture_click,
         sfTrue);
             break;
-        default : sfSprite_setTexture(button->sprite, button->texture_idle,
-        sfTrue);
-            break;
     }
+}
+
+void settexture_allbuttons(menu_scene *menu_scene)
+{
+    settexture_state(&menu_scene->ui.play_btn);
+    settexture_state(&menu_scene->ui.hiscore_btn);
+    settexture_state(&menu_scene->ui.settings_btn);
+    settexture_state(&menu_scene->ui.quit_btn);
 }
 
 void u_menu_scene(menu_scene *menu_scene)
 {
     hovering_button(menu_scene);
     check_hover_click(menu_scene);
-    settexture_state(menu_scene);
+    settexture_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
+    switch (menu_scene->ui.play_btn.state) {
+        case IDLE :
+            printf("IDLE\n");
+            break;
+        case HOVER :
+            printf("HOVER\n");
+            break;
+        case CLICK :
+            printf("CLICK\n");
+            break;
+        default : break;
+    }
 }
