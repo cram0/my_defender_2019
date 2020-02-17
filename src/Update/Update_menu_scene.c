@@ -22,12 +22,6 @@ sfVector2i get_mouse_pos(sfRenderWindow *window)
     return cursor;
 }
 
-//CHANGE SCENE
-void mouse_click_interaction(menu_scene *menu_scene)
-{
-
-}
-
 void hovering_button(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->ui.play_btn, menu_scene->window)) {
@@ -88,22 +82,15 @@ void settexture_allbuttons(menu_scene *menu_scene)
     settexture_state(&menu_scene->ui.quit_btn);
 }
 
+void mouse_click_interaction(menu_scene *menu_scene)
+{
+    if ()
+}
+
 void u_menu_scene(menu_scene *menu_scene)
 {
     hovering_button(menu_scene);
     check_hover_click(menu_scene);
     settexture_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
-    switch (menu_scene->ui.play_btn.state) {
-        case IDLE :
-            printf("IDLE\n");
-            break;
-        case HOVER :
-            printf("HOVER\n");
-            break;
-        case CLICK :
-            printf("CLICK\n");
-            break;
-        default : break;
-    }
 }
