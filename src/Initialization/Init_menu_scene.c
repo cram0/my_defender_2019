@@ -37,4 +37,5 @@ void i_menu_background(menu_background *menu_background)
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
 {
     i_menu_background(&menu_scene->menu_background);
+    i_menu_ui(&menu_scene->ui);
 }

@@ -60,6 +60,7 @@ typedef struct menu_background {
 typedef struct menu_scene {
     sfRenderWindow *window;
     menu_background menu_background;
+    menu_ui ui;
 } menu_scene;
 
 typedef struct play_scene {

@@ -9,12 +9,12 @@
 
 bool is_hovering(button button, sfRenderWindow *window)
 {
-    
+
 }
 
 void button_mouse_interaction(menu_scene *menu_scene)
 {
-
+    
 }
 
 void u_menu_scene(menu_scene *menu_scene)
