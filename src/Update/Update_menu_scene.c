@@ -84,7 +84,7 @@ void settexture_allbuttons(menu_scene *menu_scene)
 
 void mouse_click_interaction(menu_scene *menu_scene)
 {
-    if ()
+    
 }
 
 void u_menu_scene(menu_scene *menu_scene)
