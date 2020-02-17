@@ -12,7 +12,7 @@ button create_button(char *file_path)
     button temp;
     temp.sprite = sfSprite_create();
     temp.texture = sfTexture_createFromFile(file_path, NULL);
-    temp.pos = (sfVector2f){0, 0};
+    temp.pos = (sfVector2f){500, 500};
     temp.state = IDLE;
     return (temp);
 }
@@ -30,8 +30,8 @@ void i_menu_background(menu_background *menu_background)
     menu_background->background_sprite = sfSprite_create();
     menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/bg_placeholder.png", NULL);
     menu_background->pos = (sfVector2f){0.0, 0.0};
-    sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
     sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);
+    sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
 }
 
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
