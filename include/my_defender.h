@@ -72,6 +72,7 @@ typedef struct game_core {
     play_scene play_scene;
     menu_scene menu_scene;
     sfEvent event;
+    sfVector2i mouse_pos;
     int game_state;
 } game_core;
 
@@ -87,6 +88,9 @@ void i_menu_ui(menu_ui *menu_ui);
 //UPDATE
 void u_game_core(game_core *game_core);
 void u_menu_scene(menu_scene *menu_scene);
+
+//GET
+sfVector2i get_mouse_pos(sfRenderWindow *window);
 
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);
