@@ -32,15 +32,23 @@ void hovering_button(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->ui.play_btn, menu_scene->window)) {
         menu_scene->ui.play_btn.state = HOVER;
+    } else {
+        menu_scene->ui.play_btn.state = IDLE;
     }
     if (is_hovering(menu_scene->ui.hiscore_btn, menu_scene->window)) {
         menu_scene->ui.hiscore_btn.state = HOVER;
+    } else {
+        menu_scene->ui.hiscore_btn.state = IDLE;
     }
     if (is_hovering(menu_scene->ui.quit_btn, menu_scene->window)) {
         menu_scene->ui.quit_btn.state = HOVER;
+    } else {
+        menu_scene->ui.quit_btn.state = IDLE;
     }
     if (is_hovering(menu_scene->ui.settings_btn, menu_scene->window)) {
         menu_scene->ui.settings_btn.state = HOVER;
+    } else {
+        menu_scene->ui.quit_btn.state = IDLE;
     }
 }
 
