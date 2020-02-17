@@ -48,7 +48,7 @@ void hovering_button(menu_scene *menu_scene)
     if (is_hovering(menu_scene->ui.settings_btn, menu_scene->window)) {
         menu_scene->ui.settings_btn.state = HOVER;
     } else {
-        menu_scene->ui.quit_btn.state = IDLE;
+        menu_scene->ui.settings_btn.state = IDLE;
     }
 }
 
