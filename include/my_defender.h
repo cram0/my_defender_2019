@@ -21,7 +21,11 @@
 
 enum game_state {
     PLAY,
+<<<<<<< HEAD
+    MENU,
+=======
     MENU
+>>>>>>> 67066061c20a2d7b81b758136894d52e9eb7be64
 } ;
 
 enum button_state {
@@ -80,6 +84,7 @@ typedef struct menu_scene {
     menu_background menu_background;
     settings_ui opt_ui;
     menu_ui ui;
+    int opt_state;
     int *game_state;
 } menu_scene;
 
