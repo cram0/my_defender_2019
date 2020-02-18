@@ -57,9 +57,8 @@ void hovering_settings_buttons(menu_scene *menu_scene)
 
 void check_hover_click(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.play_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (menu_scene->ui.play_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->ui.play_btn.state = CLICK;
-    }
     if (menu_scene->ui.hiscore_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->ui.hiscore_btn.state = CLICK;
     if (menu_scene->ui.settings_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
@@ -113,6 +112,7 @@ void settings_interaction(menu_scene *menu_scene)
 void play_interaction(menu_scene *menu_scene)
 {
     if (menu_scene->ui.play_btn.state == CLICK) {
+        menu_scene->choice_state = 1;
     }
 
 }

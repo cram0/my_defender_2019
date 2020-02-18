@@ -21,10 +21,21 @@ void d_settings_ui(settings_ui *ui, sfRenderWindow *window)
 
 }
 
+void d_settings(menu_scene *menu_scene)
+{
+    d_settings_background(&menu_scene->opt_ui, menu_scene->window);
+    d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
+}
+
 void d_settings_background(settings_ui *ui, sfRenderWindow *window)
 {
     sfRenderWindow_drawSprite(window, ui->background.background_sprite, NULL);
     sfRenderWindow_drawSprite(window, ui->fps_bg.background_sprite, NULL);
+}
+
+void d_choice_menu_bg(simple_entity *backround, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, backround->sprite, NULL);
 }
 
 void d_menu_background(menu_background *bg, sfRenderWindow *window)
@@ -32,13 +43,20 @@ void d_menu_background(menu_background *bg, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
 }
 
+void d_choice_menu(menu_scene *menu_scene)
+{
+    d_choice_menu_bg(&menu_scene->choice_menu.background, menu_scene->window);
+}
+
 void d_menu_scene(menu_scene *menu_scene)
 {
     d_menu_background(&menu_scene->menu_background, menu_scene->window);
     d_menu_ui(&menu_scene->ui, menu_scene->window);
     if (menu_scene->opt_state == 1) {
-        d_settings_background(&menu_scene->opt_ui, menu_scene->window);
-        d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
+        d_settings(menu_scene);
+    }
+    if (menu_scene->choice_state == 1) {
+        d_choice_menu(menu_scene);
     }
 }
 

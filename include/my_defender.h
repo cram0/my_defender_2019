@@ -88,6 +88,7 @@ typedef struct menu_scene {
     menu_ui ui;
     choice_menu choice_menu;
     int opt_state;
+    int choice_state;
     int *game_state;
 } menu_scene;
 

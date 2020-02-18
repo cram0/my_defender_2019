@@ -14,7 +14,6 @@ void close_events(game_core *game_core)
     if (game_core->game_state == MENU && sfKeyboard_isKeyPressed(sfKeyEscape)) {
         sfRenderWindow_close(game_core->window);
     }
-
 }
 
 void u_game_core(game_core *game_core)
