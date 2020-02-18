@@ -30,6 +30,17 @@ enum button_state {
     CLICK
 } ;
 
+typedef struct button {
+    sfSprite *sprite;
+    sfTexture *texture_idle;
+    sfTexture *texture_hover;
+    sfTexture *texture_click;
+    sfVector2f pos;
+    int width;
+    int height;
+    int state;
+} button;
+
 typedef struct simple_entity {
     sfSprite *sprite;
     sfTexture *texture;
@@ -49,17 +60,6 @@ typedef struct map {
     sfTexture *texture;
     sfVector2f pos;
 } map;
-
-typedef struct button {
-    sfSprite *sprite;
-    sfTexture *texture_idle;
-    sfTexture *texture_hover;
-    sfTexture *texture_click;
-    sfVector2f pos;
-    int width;
-    int height;
-    int state;
-} button;
 
 typedef struct menu_ui {
     button play_btn;
