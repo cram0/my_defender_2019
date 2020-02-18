@@ -52,6 +52,8 @@ typedef struct button {
     sfTexture *texture_hover;
     sfTexture *texture_click;
     sfVector2f pos;
+    int width;
+    int height;
     int state;
 } button;
 

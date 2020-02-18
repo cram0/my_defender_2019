@@ -9,8 +9,8 @@
 
 bool is_hovering(button button, sfRenderWindow *window)
 {
-    if ((get_mouse_pos(window).x > button.pos.x && get_mouse_pos(window).x < (button.pos.x + 285)) &&
-    (get_mouse_pos(window).y > button.pos.y && get_mouse_pos(window).y < (button.pos.y + 60))) {
+    if ((get_mouse_pos(window).x > button.pos.x && get_mouse_pos(window).x < (button.pos.x + button.width)) &&
+    (get_mouse_pos(window).y > button.pos.y && get_mouse_pos(window).y < (button.pos.y + button.height))) {
         return (true);
     }
     return (false);
@@ -50,7 +50,6 @@ void hovering_settings_buttons(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
         menu_scene->opt_ui.close_button.state = HOVER;
-        printf("ahaha\n");
     } else {
         menu_scene->opt_ui.close_button.state = IDLE;
     }

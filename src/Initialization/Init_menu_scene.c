@@ -35,22 +35,43 @@ button create_button(char *file_path)
     return (temp);
 }
 
+void set_size_button(menu_ui *menu_ui)
+{
+    menu_ui->play_btn.height = 60;
+    menu_ui->play_btn.width = 285;
+    menu_ui->hiscore_btn.height = 60;
+    menu_ui->hiscore_btn.width = 285;
+    menu_ui->settings_btn.height = 60;
+    menu_ui->settings_btn.width = 285;
+    menu_ui->settings_btn.height = 60;
+    menu_ui->settings_btn.width = 285;
+    menu_ui->quit_btn.height = 60;
+    menu_ui->quit_btn.width = 285;
+}
+
 void i_menu_ui(menu_ui *menu_ui)
 {
     menu_ui->play_btn = create_button("img/buttons/play_");
     menu_ui->play_btn.pos = (sfVector2f){50, 600};
+    menu_ui->play_btn.height = 60;
+    menu_ui->play_btn.width = 285;
     sfSprite_setPosition(menu_ui->play_btn.sprite,  menu_ui->play_btn.pos);
     menu_ui->hiscore_btn = create_button("img/buttons/highscores_");
     menu_ui->hiscore_btn.pos = (sfVector2f){50, 700};
-    sfSprite_setPosition(menu_ui->hiscore_btn.sprite,  menu_ui->hiscore_btn.pos)
+    menu_ui->hiscore_btn.height = 60;
+    menu_ui->hiscore_btn.width = 285;
+    sfSprite_setPosition(menu_ui->hiscore_btn.sprite, menu_ui->hiscore_btn.pos)
     ;
     menu_ui->settings_btn = create_button("img/buttons/settings_");
     menu_ui->settings_btn.pos = (sfVector2f){50, 800};
+    menu_ui->settings_btn.height = 60;
+    menu_ui->settings_btn.width = 285;
     sfSprite_setPosition(menu_ui->settings_btn.sprite,
     menu_ui->settings_btn.pos);
     menu_ui->quit_btn = create_button("img/buttons/quit_");
     menu_ui->quit_btn.pos = (sfVector2f){50, 900};
     sfSprite_setPosition(menu_ui->quit_btn.sprite,  menu_ui->quit_btn.pos);
+    set_size_button(menu_ui);
 }
 
 void i_opt_background(menu_background *menu_background)
@@ -81,6 +102,8 @@ void i_settings_ui(settings_ui *opt_ui)
     opt_ui->close_button.pos = (sfVector2f){1090.0, 320.0};
     sfSprite_setPosition(opt_ui->close_button.sprite, opt_ui->close_button.pos);
     sfSprite_setScale(opt_ui->close_button.sprite, (sfVector2f){0.80, 0.80});
+    opt_ui->close_button.width = 64;
+    opt_ui->close_button.height = 64;
 }
 
 void i_menu_background(menu_background *menu_background)
