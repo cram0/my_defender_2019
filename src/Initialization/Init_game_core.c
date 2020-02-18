@@ -9,7 +9,7 @@
 
 void i_game_core(game_core *game_core)
 {
-    sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){1600, 900, 32}
+    sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32}
     , "TOWER DEFENSE", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, 60);
     game_core->window = window;

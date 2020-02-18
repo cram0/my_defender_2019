@@ -38,18 +38,18 @@ button create_button(char *file_path)
 void i_menu_ui(menu_ui *menu_ui)
 {
     menu_ui->play_btn = create_button("img/buttons/play_");
-    menu_ui->play_btn.pos = (sfVector2f){50, 100};
+    menu_ui->play_btn.pos = (sfVector2f){50, 600};
     sfSprite_setPosition(menu_ui->play_btn.sprite,  menu_ui->play_btn.pos);
     menu_ui->hiscore_btn = create_button("img/buttons/highscores_");
-    menu_ui->hiscore_btn.pos = (sfVector2f){50, 200};
+    menu_ui->hiscore_btn.pos = (sfVector2f){50, 700};
     sfSprite_setPosition(menu_ui->hiscore_btn.sprite,  menu_ui->hiscore_btn.pos)
     ;
     menu_ui->settings_btn = create_button("img/buttons/settings_");
-    menu_ui->settings_btn.pos = (sfVector2f){50, 300};
+    menu_ui->settings_btn.pos = (sfVector2f){50, 800};
     sfSprite_setPosition(menu_ui->settings_btn.sprite,
     menu_ui->settings_btn.pos);
     menu_ui->quit_btn = create_button("img/buttons/quit_");
-    menu_ui->quit_btn.pos = (sfVector2f){50, 400};
+    menu_ui->quit_btn.pos = (sfVector2f){50, 900};
     sfSprite_setPosition(menu_ui->quit_btn.sprite,  menu_ui->quit_btn.pos);
 }
 
