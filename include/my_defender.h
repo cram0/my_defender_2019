@@ -57,11 +57,19 @@ typedef struct menu_background {
     sfSprite *background_sprite;
     sfTexture *background_texture;
     sfVector2f pos;
-} menu_background ;
+} menu_background;
+
+typedef struct settings_ui {
+    button close_button;
+    menu_background background;
+    menu_background fps_bg;
+    menu_background sound_bg;
+} settings_ui;
 
 typedef struct menu_scene {
     sfRenderWindow *window;
     menu_background menu_background;
+    settings_ui opt_ui;
     menu_ui ui;
     int *game_state;
 } menu_scene;

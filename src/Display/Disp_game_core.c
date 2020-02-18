@@ -15,6 +15,18 @@ void d_menu_ui(menu_ui *ui, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, ui->quit_btn.sprite, NULL);
 }
 
+void d_settings_ui(settings_ui *ui, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, ui->close_button.sprite, NULL);
+
+}
+
+void d_settings_background(settings_ui *ui, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, ui->background.background_sprite, NULL);
+    sfRenderWindow_drawSprite(window, ui->fps_bg.background_sprite, NULL);
+}
+
 void d_menu_background(menu_background *bg, sfRenderWindow *window)
 {
     sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
@@ -24,6 +36,8 @@ void d_menu_scene(menu_scene *menu_scene)
 {
     d_menu_background(&menu_scene->menu_background, menu_scene->window);
     d_menu_ui(&menu_scene->ui, menu_scene->window);
+    d_settings_background(&menu_scene->opt_ui, menu_scene->window);
+    d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
 }
 
 void d_game_core(game_core *game_core, sfRenderWindow *window)
