@@ -92,6 +92,13 @@ void i_menu_background(menu_background *menu_background)
     sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
 }
 
+void i_choice_menu(choice_menu *choice_menu)
+{
+    choice_menu->background = set_simple_entity("img/play_scene/choice_menu/background.png", (sfFloatRect){100, 400, 500, 700});
+    choice_menu->close_btn = create_button("img/buttons/close_");
+    choice_menu->
+}
+
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
 {
     menu_scene->window = window;
@@ -99,4 +106,5 @@ void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
     i_menu_background(&menu_scene->menu_background);
     i_settings_ui(&menu_scene->opt_ui);
     i_menu_ui(&menu_scene->ui);
+    i_choice_menu(&menu_scene->choice_menu);
 }

@@ -50,7 +50,6 @@ void hovering_settings_buttons(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
         menu_scene->opt_ui.close_button.state = HOVER;
-        printf("ahaha\n");
     } else {
         menu_scene->opt_ui.close_button.state = IDLE;
     }
