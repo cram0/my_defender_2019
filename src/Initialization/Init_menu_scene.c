@@ -23,55 +23,32 @@ void fill_button_textures(button *button, char *file_path)
     button->texture_click = sfTexture_createFromFile(name_click, NULL);
 }
 
-button create_button(char *file_path)
+button create_button(char *file_path, sfFloatRect rect)
 {
     button temp;
     temp.sprite = sfSprite_create();
     fill_button_textures(&temp, file_path);
-    temp.pos = (sfVector2f){500, 500};
+    temp.pos.x = rect.left;
+    temp.pos.y  = rect.top;
     temp.state = IDLE;
     sfSprite_setPosition(temp.sprite, temp.pos);
     sfSprite_setTexture(temp.sprite, temp.texture_idle, sfTrue);
+    temp.height = rect.height;
+    temp.width = rect.width;
     return (temp);
-}
-
-void set_size_button(menu_ui *menu_ui)
-{
-    menu_ui->play_btn.height = 60;
-    menu_ui->play_btn.width = 285;
-    menu_ui->hiscore_btn.height = 60;
-    menu_ui->hiscore_btn.width = 285;
-    menu_ui->settings_btn.height = 60;
-    menu_ui->settings_btn.width = 285;
-    menu_ui->settings_btn.height = 60;
-    menu_ui->settings_btn.width = 285;
-    menu_ui->quit_btn.height = 60;
-    menu_ui->quit_btn.width = 285;
 }
 
 void i_menu_ui(menu_ui *menu_ui)
 {
-    menu_ui->play_btn = create_button("img/buttons/play_");
-    menu_ui->play_btn.pos = (sfVector2f){50, 600};
-    menu_ui->play_btn.height = 60;
-    menu_ui->play_btn.width = 285;
+    menu_ui->play_btn = create_button("img/buttons/play_", (sfFloatRect){50, 600, 285, 60});
     sfSprite_setPosition(menu_ui->play_btn.sprite,  menu_ui->play_btn.pos);
-    menu_ui->hiscore_btn = create_button("img/buttons/highscores_");
-    menu_ui->hiscore_btn.pos = (sfVector2f){50, 700};
-    menu_ui->hiscore_btn.height = 60;
-    menu_ui->hiscore_btn.width = 285;
-    sfSprite_setPosition(menu_ui->hiscore_btn.sprite, menu_ui->hiscore_btn.pos)
-    ;
-    menu_ui->settings_btn = create_button("img/buttons/settings_");
-    menu_ui->settings_btn.pos = (sfVector2f){50, 800};
-    menu_ui->settings_btn.height = 60;
-    menu_ui->settings_btn.width = 285;
+    menu_ui->hiscore_btn = create_button("img/buttons/highscores_", (sfFloatRect){50, 700, 285, 60});
+    sfSprite_setPosition(menu_ui->hiscore_btn.sprite, menu_ui->hiscore_btn.pos);
+    menu_ui->settings_btn = create_button("img/buttons/settings_", (sfFloatRect){50, 800, 285, 60});
     sfSprite_setPosition(menu_ui->settings_btn.sprite,
     menu_ui->settings_btn.pos);
-    menu_ui->quit_btn = create_button("img/buttons/quit_");
-    menu_ui->quit_btn.pos = (sfVector2f){50, 900};
+    menu_ui->quit_btn = create_button("img/buttons/quit_", (sfFloatRect){50, 900, 285, 60});
     sfSprite_setPosition(menu_ui->quit_btn.sprite,  menu_ui->quit_btn.pos);
-    set_size_button(menu_ui);
 }
 
 void i_opt_background(menu_background *menu_background)
