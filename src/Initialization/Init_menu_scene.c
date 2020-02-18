@@ -75,12 +75,9 @@ void i_settings_ui(settings_ui *opt_ui)
 {
     i_opt_background(&opt_ui->background);
     i_fps_background(&opt_ui->fps_bg);
-    opt_ui->close_button = create_button("img/buttons/close_");
-    opt_ui->close_button.pos = (sfVector2f){1090.0, 320.0};
+    opt_ui->close_button = create_button("img/buttons/close_", (sfFloatRect){1090.0, 320.0, 64, 64});
     sfSprite_setPosition(opt_ui->close_button.sprite, opt_ui->close_button.pos);
     sfSprite_setScale(opt_ui->close_button.sprite, (sfVector2f){0.80, 0.80});
-    opt_ui->close_button.width = 64;
-    opt_ui->close_button.height = 64;
 }
 
 void i_menu_background(menu_background *menu_background)
