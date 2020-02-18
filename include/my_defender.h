@@ -42,9 +42,6 @@ typedef struct choice_menu {
     simple_entity background;
     button close_btn;
     button map_one_btn;
-    button map_two_btn;
-    button map_three_btn;
-    button load_map_btn;
 } choice_menu;
 
 typedef struct map {
