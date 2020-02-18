@@ -63,10 +63,12 @@ typedef struct menu_scene {
     sfRenderWindow *window;
     menu_background menu_background;
     menu_ui ui;
+    int *game_state;
 } menu_scene;
 
 typedef struct play_scene {
     sfRenderWindow *window;
+    int *game_state;
 } play_scene;
 
 typedef struct game_core {
