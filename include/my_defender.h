@@ -21,11 +21,7 @@
 
 enum game_state {
     PLAY,
-<<<<<<< HEAD
-    MENU,
-=======
     MENU
->>>>>>> 67066061c20a2d7b81b758136894d52e9eb7be64
 } ;
 
 enum button_state {
