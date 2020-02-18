@@ -34,10 +34,17 @@ typedef struct simple_entity {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f pos;
+    float width;
+    float height;
 } simple_entity;
 
 typedef struct choice_menu {
     simple_entity background;
+    button close_btn;
+    button map_one_btn;
+    button map_two_btn;
+    button map_three_btn;
+    button load_map_btn;
 } choice_menu;
 
 typedef struct map {
@@ -82,13 +89,13 @@ typedef struct menu_scene {
     menu_background menu_background;
     settings_ui opt_ui;
     menu_ui ui;
+    choice_menu choice_menu;
     int opt_state;
     int *game_state;
 } menu_scene;
 
 typedef struct play_scene {
     sfRenderWindow *window;
-
     int *game_state;
 } play_scene;
 
@@ -110,7 +117,7 @@ int my_strlen(char *str);
 sfVector2i get_mouse_pos(sfRenderWindow *window);
 
 //SET
-simple_entity set_simple_entity(char *pathname);
+simple_entity set_simple_entity(char *pathname, sfFloatRect size);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
