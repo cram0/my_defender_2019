@@ -82,9 +82,25 @@ void settexture_allbuttons(menu_scene *menu_scene)
     settexture_state(&menu_scene->ui.quit_btn);
 }
 
+void quit_interaction(menu_scene *menu_scene)
+{
+    if (menu_scene->ui.quit_btn.state == CLICK) {
+        sfRenderWindow_close(menu_scene->window);
+    }
+}
+
+void play_interaction(menu_scene *menu_scene)
+{
+    if (menu_scene->ui.play_btn.state == CLICK) {
+        
+    }
+
+}
+
 void mouse_click_interaction(menu_scene *menu_scene)
 {
-    
+    quit_interaction(menu_scene);
+    play_interaction(menu_scene);
 }
 
 void u_menu_scene(menu_scene *menu_scene)
