@@ -67,9 +67,10 @@ void i_fps_background(menu_background *menu_background)
     menu_background->background_sprite = sfSprite_create();
     menu_background->background_sprite = sfSprite_create();
     menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/fps_bg.png", NULL);
-    menu_background->pos = (sfVector2f){750.0, 280.0};
+    menu_background->pos = (sfVector2f){820.0, 320.0};
     sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);
     sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
+    sfSprite_setScale(menu_background->background_sprite, (sfVector2f){0.40, 0.40});
 }
 
 void i_settings_ui(settings_ui *opt_ui)
@@ -79,6 +80,7 @@ void i_settings_ui(settings_ui *opt_ui)
     opt_ui->close_button = create_button("img/buttons/close_");
     opt_ui->close_button.pos = (sfVector2f){1090.0, 320.0};
     sfSprite_setPosition(opt_ui->close_button.sprite, opt_ui->close_button.pos);
+    sfSprite_setScale(opt_ui->close_button.sprite, (sfVector2f){0.80, 0.80});
 }
 
 void i_menu_background(menu_background *menu_background)
@@ -93,6 +95,7 @@ void i_menu_background(menu_background *menu_background)
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
 {
     menu_scene->window = window;
+    menu_scene->opt_state = 0;
     i_menu_background(&menu_scene->menu_background);
     i_settings_ui(&menu_scene->opt_ui);
     i_menu_ui(&menu_scene->ui);

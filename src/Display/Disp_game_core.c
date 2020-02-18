@@ -36,8 +36,10 @@ void d_menu_scene(menu_scene *menu_scene)
 {
     d_menu_background(&menu_scene->menu_background, menu_scene->window);
     d_menu_ui(&menu_scene->ui, menu_scene->window);
-    d_settings_background(&menu_scene->opt_ui, menu_scene->window);
-    d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
+    if (menu_scene->opt_state == 1) {
+        d_settings_background(&menu_scene->opt_ui, menu_scene->window);
+        d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
+    }
 }
 
 void d_game_core(game_core *game_core, sfRenderWindow *window)

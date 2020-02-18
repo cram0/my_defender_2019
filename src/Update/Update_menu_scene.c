@@ -46,6 +46,16 @@ void hovering_button(menu_scene *menu_scene)
     }
 }
 
+void hovering_settings_buttons(menu_scene *menu_scene)
+{
+    if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
+        menu_scene->opt_ui.close_button.state = HOVER;
+        printf("ahaha\n");
+    } else {
+        menu_scene->opt_ui.close_button.state = IDLE;
+    }
+}
+
 void check_hover_click(menu_scene *menu_scene)
 {
     if (menu_scene->ui.play_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
@@ -57,6 +67,8 @@ void check_hover_click(menu_scene *menu_scene)
         menu_scene->ui.settings_btn.state = CLICK;
     if (menu_scene->ui.quit_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->ui.quit_btn.state = CLICK;
+    if (menu_scene->opt_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+        menu_scene->opt_ui.close_button.state = CLICK;
 }
 
 void settexture_state(button *button)
@@ -89,10 +101,19 @@ void quit_interaction(menu_scene *menu_scene)
     }
 }
 
+void settings_interaction(menu_scene *menu_scene)
+{
+    if (menu_scene->ui.settings_btn.state == CLICK) {
+        menu_scene->opt_state = 1;
+    }
+    if (menu_scene->opt_ui.close_button.state == CLICK) {
+        menu_scene->opt_state = 0;
+    }
+}
+
 void play_interaction(menu_scene *menu_scene)
 {
     if (menu_scene->ui.play_btn.state == CLICK) {
-        
     }
 
 }
@@ -100,12 +121,14 @@ void play_interaction(menu_scene *menu_scene)
 void mouse_click_interaction(menu_scene *menu_scene)
 {
     quit_interaction(menu_scene);
+    settings_interaction(menu_scene);
     play_interaction(menu_scene);
 }
 
 void u_menu_scene(menu_scene *menu_scene)
 {
     hovering_button(menu_scene);
+    hovering_settings_buttons(menu_scene);
     check_hover_click(menu_scene);
     settexture_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);

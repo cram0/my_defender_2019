@@ -22,7 +22,6 @@
 enum game_state {
     PLAY,
     MENU,
-    PAUSE
 } ;
 
 enum button_state {
@@ -71,6 +70,7 @@ typedef struct menu_scene {
     menu_background menu_background;
     settings_ui opt_ui;
     menu_ui ui;
+    int opt_state;
     int *game_state;
 } menu_scene;
 
