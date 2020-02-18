@@ -21,7 +21,11 @@
 
 enum game_state {
     PLAY,
+<<<<<<< HEAD
     MENU,
+=======
+    MENU
+>>>>>>> 67066061c20a2d7b81b758136894d52e9eb7be64
 } ;
 
 enum button_state {
@@ -29,6 +33,17 @@ enum button_state {
     HOVER,
     CLICK
 } ;
+
+typedef struct simple_entity {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+} simple_entity;
+
+typedef struct choice_menu {
+    simple_entity background;
+    simple_entity 
+} choice_menu;
 
 typedef struct map {
     sfSprite *sprite;
@@ -76,6 +91,7 @@ typedef struct menu_scene {
 
 typedef struct play_scene {
     sfRenderWindow *window;
+
     int *game_state;
 } play_scene;
 
@@ -92,8 +108,12 @@ typedef struct game_core {
 void run(void);
 char *my_strcat(char *, char *);
 int my_strlen(char *str);
+
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
+
+//SET
+simple_entity set_simple_entity(char *pathname);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
