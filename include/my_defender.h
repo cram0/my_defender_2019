@@ -38,7 +38,6 @@ typedef struct simple_entity {
 
 typedef struct choice_menu {
     simple_entity background;
-    simple_entity 
 } choice_menu;
 
 typedef struct map {
