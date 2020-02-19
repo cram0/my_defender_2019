@@ -47,6 +47,8 @@ void d_choice_menu_btns(choice_menu *choice, sfRenderWindow *window)
 {
     sfRenderWindow_drawSprite(window, choice->close_btn.sprite, NULL);
     sfRenderWindow_drawSprite(window, choice->map_one_btn.sprite, NULL);
+    sfRenderWindow_drawSprite(window, choice->map_two_btn.sprite, NULL);
+    sfRenderWindow_drawSprite(window, choice->map_three_btn.sprite, NULL);
 }
 
 void d_choice_menu(menu_scene *menu_scene)

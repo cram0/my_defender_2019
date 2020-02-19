@@ -90,9 +90,11 @@ void i_menu_background(menu_background *menu_background)
 
 void i_choice_menu(choice_menu *choice_menu)
 {
-    choice_menu->background = set_simple_entity("img/play_scene/choice_menu/background.png", (sfFloatRect){1200, 200, 500, 700});
+    choice_menu->background = set_simple_entity("img/menu_scene/choice_menu/background.png", (sfFloatRect){1200, 200, 500, 700});
     choice_menu->close_btn = create_button("img/buttons/close_", (sfFloatRect){1636, 200, 64, 64});
-    choice_menu->map_one_btn = create_button("img/play_scene/choice_menu/map1_",(sfFloatRect){1200, 200, 300, 200});
+    choice_menu->map_one_btn = create_button("img/menu_scene/choice_menu/map1_",(sfFloatRect){1200, 200, 300, 200});
+    choice_menu->map_two_btn = create_button("img/menu_scene/choice_menu/map2_",(sfFloatRect){1200, 450, 300, 200});
+    choice_menu->map_three_btn = create_button("img/menu_scene/choice_menu/map3_",(sfFloatRect){1200, 700, 300, 200});
 }
 
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
