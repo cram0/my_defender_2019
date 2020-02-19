@@ -46,6 +46,15 @@ void hovering_button(menu_scene *menu_scene)
     }
 }
 
+void hovering_choice_menu_buttons(menu_scene *menu_scene)
+{
+    if (is_hovering(menu_scene->choice_menu.close_btn, menu_scene->window)) {
+        menu_scene->choice_menu.close_btn.state = HOVER;
+    } else {
+        menu_scene->choice_menu.close_btn.state = IDLE;
+    }
+}
+
 void hovering_settings_buttons(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
@@ -67,6 +76,8 @@ void check_hover_click(menu_scene *menu_scene)
         menu_scene->ui.quit_btn.state = CLICK;
     if (menu_scene->opt_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->opt_ui.close_button.state = CLICK;
+    if (menu_scene->choice_menu.close_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+        menu_scene->choice_menu.close_btn.state = CLICK;
 }
 
 void settexture_state(button *button)
@@ -114,7 +125,9 @@ void play_interaction(menu_scene *menu_scene)
     if (menu_scene->ui.play_btn.state == CLICK) {
         menu_scene->choice_state = 1;
     }
-
+    if (menu_scene->choice_menu.close_btn.state == CLICK) {
+        menu_scene->choice_state = 0;
+    }
 }
 
 void mouse_click_interaction(menu_scene *menu_scene)
@@ -128,6 +141,7 @@ void u_menu_scene(menu_scene *menu_scene)
 {
     hovering_button(menu_scene);
     hovering_settings_buttons(menu_scene);
+    hovering_choice_menu_buttons(menu_scene);
     check_hover_click(menu_scene);
     settexture_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
