@@ -30,6 +30,12 @@ enum button_state {
     CLICK
 } ;
 
+enum game_difficulty {
+    EASY,
+    NORMAL,
+    HARD
+} ;
+
 typedef struct button {
     sfSprite *sprite;
     sfTexture *texture_idle;
@@ -53,13 +59,9 @@ typedef struct choice_menu {
     simple_entity background;
     button close_btn;
     button map_one_btn;
+    button map_two_btn;
+    button map_three_btn;
 } choice_menu;
-
-typedef struct map {
-    sfSprite *sprite;
-    sfTexture *texture;
-    sfVector2f pos;
-} map;
 
 typedef struct menu_ui {
     button play_btn;
@@ -92,8 +94,25 @@ typedef struct menu_scene {
     int *game_state;
 } menu_scene;
 
+typedef struct coord {
+    int index;
+    sfVector2f pos;
+    struct cord *previous;
+    struct cord *next;
+} coord;
+
+typedef struct map {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+    int map_index;
+    struct coord coord;
+} map;
+
 typedef struct play_scene {
     sfRenderWindow *window;
+    map map;
+    int difficulty;
     int *game_state;
 } play_scene;
 
