@@ -13,10 +13,10 @@ simple_entity set_simple_entity(char *pathname, sfFloatRect size)
     temp.sprite = sfSprite_create();
     temp.texture = sfTexture_createFromFile(pathname, NULL);
     sfSprite_setTexture(temp.sprite, temp.texture, sfTrue);
-    sfSprite_setPosition(temp.sprite, temp.pos);
     temp.pos.x = size.left;
     temp.pos.y = size.top;
     temp.width = size.width;
     temp.height = size.height;
+    sfSprite_setPosition(temp.sprite, temp.pos);
     return (temp);
 }
