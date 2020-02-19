@@ -18,4 +18,5 @@ simple_entity set_simple_entity(char *pathname, sfFloatRect size)
     temp.pos.y = size.top;
     temp.width = size.width;
     temp.height = size.height;
+    return (temp);
 }

@@ -63,7 +63,6 @@ void i_opt_background(menu_background *menu_background)
 void i_fps_background(menu_background *menu_background)
 {
     menu_background->background_sprite = sfSprite_create();
-    menu_background->background_sprite = sfSprite_create();
     menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/fps_bg.png", NULL);
     menu_background->pos = (sfVector2f){820.0, 320.0};
     sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);

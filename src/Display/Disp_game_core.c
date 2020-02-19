@@ -21,21 +21,21 @@ void d_settings_ui(settings_ui *ui, sfRenderWindow *window)
 
 }
 
-void d_settings(menu_scene *menu_scene)
-{
-    d_settings_background(&menu_scene->opt_ui, menu_scene->window);
-    d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
-}
-
 void d_settings_background(settings_ui *ui, sfRenderWindow *window)
 {
     sfRenderWindow_drawSprite(window, ui->background.background_sprite, NULL);
     sfRenderWindow_drawSprite(window, ui->fps_bg.background_sprite, NULL);
 }
 
-void d_choice_menu_bg(simple_entity *backround, sfRenderWindow *window)
+void d_settings(menu_scene *menu_scene)
 {
-    sfRenderWindow_drawSprite(window, backround->sprite, NULL);
+    d_settings_background(&menu_scene->opt_ui, menu_scene->window);
+    d_settings_ui(&menu_scene->opt_ui,menu_scene->window);
+}
+
+void d_choice_menu_bg(simple_entity *background, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, background->sprite, NULL);
 }
 
 void d_menu_background(menu_background *bg, sfRenderWindow *window)
@@ -43,9 +43,16 @@ void d_menu_background(menu_background *bg, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
 }
 
+void d_choice_menu_btns(choice_menu *choice, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, choice->close_btn.sprite, NULL);
+    sfRenderWindow_drawSprite(window, choice->map_one_btn.sprite, NULL);
+}
+
 void d_choice_menu(menu_scene *menu_scene)
 {
     d_choice_menu_bg(&menu_scene->choice_menu.background, menu_scene->window);
+    d_choice_menu_btns(&menu_scene->choice_menu, menu_scene->window);
 }
 
 void d_menu_scene(menu_scene *menu_scene)
