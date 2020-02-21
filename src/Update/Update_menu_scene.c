@@ -50,18 +50,24 @@ void hovering_choice_menu_buttons(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->choice_menu.close_btn, menu_scene->window)) {
         menu_scene->choice_menu.close_btn.state = HOVER;
-    } else {
+    } else
         menu_scene->choice_menu.close_btn.state = IDLE;
-    }
+    if (is_hovering(menu_scene->choice_menu.map_one_btn, menu_scene->window)) {
+        menu_scene->choice_menu.map_one_btn.state = HOVER;
+    } else
+        menu_scene->choice_menu.map_one_btn.state = IDLE;
+    if (is_hovering(menu_scene->choice_menu.map_two_btn, menu_scene->window)) {
+        menu_scene->choice_menu.map_two_btn.state = HOVER;
+    } else
+        menu_scene->choice_menu.map_two_btn.state = IDLE;
 }
 
 void hovering_settings_buttons(menu_scene *menu_scene)
 {
     if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
         menu_scene->opt_ui.close_button.state = HOVER;
-    } else {
+    } else
         menu_scene->opt_ui.close_button.state = IDLE;
-    }
 }
 
 void check_hover_click(menu_scene *menu_scene)
@@ -78,6 +84,11 @@ void check_hover_click(menu_scene *menu_scene)
         menu_scene->opt_ui.close_button.state = CLICK;
     if (menu_scene->choice_menu.close_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->choice_menu.close_btn.state = CLICK;
+    if (menu_scene->choice_menu.map_one_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+        menu_scene->choice_menu.map_one_btn.state = CLICK;
+    if (menu_scene->choice_menu.map_two_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+        menu_scene->choice_menu.map_two_btn.state = CLICK;
+
 }
 
 void settexture_state(button *button)
