@@ -42,15 +42,23 @@ void i_map_coord(map *map)
     }
 }
 
+void i_hud(play_scene *play_scene)
+{
+    play_scene->background.background_sprite = sfSprite_create();
+    play_scene->background.background_texture = sfTexture_createFromFile("img/play_scene/in_game/game_hud.png", NULL);
+    play_scene->background.pos = (sfVector2f){0.0, 0.0};
+}
+
 void i_map(play_scene *play_scene)
 {
     play_scene->map.sprite = sfSprite_create();
-    play_scene->map.pos = (sfVector2f){500, 500};
+    play_scene->map.pos = (sfVector2f){235, 0};
     play_scene->difficulty = EASY;
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 {
     play_scene->window = window;
+    i_hud(play_scene);
     i_map(play_scene);
 }
