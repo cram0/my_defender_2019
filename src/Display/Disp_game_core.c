@@ -92,5 +92,6 @@ void d_game_core(game_core *game_core, sfRenderWindow *window)
         d_menu_scene(&game_core->menu_scene);
     //if (game_core->game_state == PLAY)
         //d_play_scene(&game_core->play_scene);
+    d_cursor(game_core);
     sfRenderWindow_display(window);
 }
