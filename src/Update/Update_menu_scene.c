@@ -116,6 +116,26 @@ void settexture_allbuttons(menu_scene *menu_scene)
     settexture_state(&menu_scene->choice_menu.close_btn);
 }
 
+void setscale_state(button *button)
+{
+    switch (button->state) {
+        case IDLE : sfSprite_setScale(button->sprite, (sfVector2f){1.0, 1.0});
+            break;
+        case HOVER : sfSprite_setOrigin(button->sprite, (sfVector2f){37.5, 37.5});
+            sfSprite_setScale(button->sprite, (sfVector2f){1.15, 1.15});
+            break;
+        case CLICK : sfSprite_setScale(button->sprite, (sfVector2f){0.85, 0.85});
+            break;
+    }
+
+}
+
+void setscale_allbuttons(menu_scene *menu_scene)
+{
+    setscale_state(&menu_scene->opt_ui.close_button);
+    setscale_state(&menu_scene->choice_menu.close_btn);
+}
+
 void quit_interaction(menu_scene *menu_scene)
 {
     if (menu_scene->ui.quit_btn.state == CLICK) {
@@ -157,5 +177,6 @@ void u_menu_scene(menu_scene *menu_scene)
     hovering_choice_menu_buttons(menu_scene);
     check_hover_click(menu_scene);
     settexture_allbuttons(menu_scene);
+    setscale_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
 }
