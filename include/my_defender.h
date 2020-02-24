@@ -24,6 +24,11 @@ enum game_state {
     MENU
 } ;
 
+typedef enum cursor_state {
+    NON_CLICKED,
+    CLICKED
+} cursor_state;
+
 enum button_state {
     IDLE,
     HOVER,
@@ -35,6 +40,13 @@ enum game_difficulty {
     NORMAL,
     HARD
 } ;
+
+typedef struct cursor {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+    cursor_state state;
+} cursor;
 
 typedef struct button {
     sfSprite *sprite;
@@ -123,6 +135,7 @@ typedef struct game_core {
     sfEvent event;
     sfVector2i mouse_pos;
     int game_state;
+    cursor mouse_cursor;
 } game_core;
 
 //OTHER
@@ -142,6 +155,7 @@ void i_play_scene(play_scene *, sfRenderWindow *);
 void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *);
 void i_menu_background(menu_background *menu_background);
 void i_menu_ui(menu_ui *menu_ui);
+void i_cursor(game_core *gc);
 
 //UPDATE
 void u_game_core(game_core *game_core);

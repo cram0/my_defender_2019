@@ -18,6 +18,7 @@ void i_game_core(game_core *game_core)
     game_core->play_scene.game_state = malloc(sizeof(int));
     game_core->menu_scene.game_state = &game_core->game_state;
     game_core->play_scene.game_state = &game_core->game_state;
+    i_cursor(game_core);
     i_menu_scene(&game_core->menu_scene, window);
     i_play_scene(&game_core->play_scene, window);
 }
