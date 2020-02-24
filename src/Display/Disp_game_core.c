@@ -68,9 +68,15 @@ void d_menu_scene(menu_scene *menu_scene)
     }
 }
 
-// void d_play_scene(play_scene *play_scene)
-// {
-//    d_play_hud();
+void d_play_hud(menu_background *bg, sfRenderWindow *window)
+{
+    sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
+
+}
+
+//void d_play_scene(play_scene *play_scene)
+//{
+//    d_play_hud(play_scene);
 //    d_play_map();
 // }
 
@@ -84,8 +90,7 @@ void d_game_core(game_core *game_core, sfRenderWindow *window)
 {
     if (game_core->game_state == MENU)
         d_menu_scene(&game_core->menu_scene);
-    // if (game_core->game_state == PLAY)
-    //     d_play_scene(&game_core->play_scene);
-    d_cursor(game_core);
+    //if (game_core->game_state == PLAY)
+        //d_play_scene(&game_core->play_scene);
     sfRenderWindow_display(window);
 }

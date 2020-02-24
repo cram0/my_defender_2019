@@ -54,17 +54,18 @@ void i_menu_ui(menu_ui *menu_ui)
 void i_opt_background(menu_background *menu_background)
 {
     menu_background->background_sprite = sfSprite_create();
-    menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/paper-cartoon.png", NULL);
-    menu_background->pos = (sfVector2f){650.0, 210.0};
+    menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/settings_bg.png", NULL);
+    menu_background->pos = (sfVector2f){570.0, 210.0};
     sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);
     sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
+    sfSprite_setScale(menu_background->background_sprite, (sfVector2f){1.35, 1.35});
 }
 
 void i_fps_background(menu_background *menu_background)
 {
     menu_background->background_sprite = sfSprite_create();
     menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/fps_bg.png", NULL);
-    menu_background->pos = (sfVector2f){820.0, 320.0};
+    menu_background->pos = (sfVector2f){720.0, 320.0};
     sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);
     sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
     sfSprite_setScale(menu_background->background_sprite, (sfVector2f){0.40, 0.40});
@@ -74,9 +75,8 @@ void i_settings_ui(settings_ui *opt_ui)
 {
     i_opt_background(&opt_ui->background);
     i_fps_background(&opt_ui->fps_bg);
-    opt_ui->close_button = create_button("img/buttons/close_", (sfFloatRect){1090.0, 320.0, 64, 64});
+    opt_ui->close_button = create_button("img/in_game_buttons/close_", (sfFloatRect){1220.0, 280.0, 75, 75});
     sfSprite_setPosition(opt_ui->close_button.sprite, opt_ui->close_button.pos);
-    sfSprite_setScale(opt_ui->close_button.sprite, (sfVector2f){0.80, 0.80});
 }
 
 void i_menu_background(menu_background *menu_background)

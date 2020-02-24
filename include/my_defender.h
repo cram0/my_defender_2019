@@ -124,6 +124,7 @@ typedef struct map {
 typedef struct play_scene {
     sfRenderWindow *window;
     map map;
+    menu_background background;
     int difficulty;
     int *game_state;
 } play_scene;
