@@ -38,4 +38,5 @@ void u_game_core(game_core *game_core)
     }
     if (game_core->game_state == MENU)
         u_menu_scene(&game_core->menu_scene);
+    printf("MAP INDEX : %d\n", game_core->play_scene.map.map_index);
 }

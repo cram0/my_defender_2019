@@ -53,6 +53,7 @@ void i_map(play_scene *play_scene)
     play_scene->map.sprite = sfSprite_create();
     play_scene->map.pos = (sfVector2f){235, 0};
     play_scene->difficulty = EASY;
+    play_scene->map.map_index = 0;
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
