@@ -156,7 +156,7 @@ simple_entity set_simple_entity(char *pathname, sfFloatRect size);
 //INITIALISATION
 void i_game_core(game_core *game_core);
 void i_play_scene(play_scene *, sfRenderWindow *);
-void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *);
+void i_menu_scene(menu_scene *, sfRenderWindow *);
 void i_menu_background(menu_background *menu_background);
 void i_menu_ui(menu_ui *menu_ui);
 void i_cursor(game_core *gc);
