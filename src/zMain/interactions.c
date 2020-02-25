@@ -9,7 +9,8 @@
 
 void quit_interaction(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.quit_btn.state == CLICK) {
+    if (menu_scene->ui.quit_btn.state == CLICK && menu_scene->opt_state == 0 &&
+    menu_scene->choice_state == 0) {
         sfRenderWindow_close(menu_scene->window);
     }
 }
@@ -26,7 +27,7 @@ void settings_interaction(menu_scene *menu_scene)
 
 void play_interaction(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.play_btn.state == CLICK) {
+    if (menu_scene->ui.play_btn.state == CLICK && menu_scene->opt_state == 0) {
         menu_scene->choice_state = 1;
     }
     if (menu_scene->choice_menu.close_btn.state == CLICK) {
