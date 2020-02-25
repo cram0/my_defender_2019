@@ -152,14 +152,28 @@ sfVector2i get_mouse_pos(sfRenderWindow *window);
 
 //SET
 simple_entity set_simple_entity(char *pathname, sfFloatRect size);
+button create_button(char *file_path, sfFloatRect rect);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
 void i_play_scene(play_scene *, sfRenderWindow *);
 void i_menu_scene(menu_scene *, sfRenderWindow *);
 void i_menu_background(menu_background *menu_background);
+void i_opt_background(menu_background *menu_background);
+void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
+void i_settings_ui(settings_ui *opt_ui);
 void i_cursor(game_core *gc);
+void i_map(play_scene *play_scene);
+void i_map_coord(map *map);
+void i_hud(play_scene *play_scene);
+
+
+//INITIALISATION UNCLASSED
+void fill_button_textures(button *button, char *file_path);
+void fill_coord_one(map *map);
+void fill_coord_two(map *map);
+void fill_coord_three(map *map);
 
 //UPDATE
 void u_game_core(game_core *game_core);
