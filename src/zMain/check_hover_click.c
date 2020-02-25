@@ -36,7 +36,7 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
 }
 void check_hover_click_options_menu(menu_scene *menu_scene)
 {
-    if (menu_scene->opt_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft) && menu_scene->choice_state == 1)
+    if (menu_scene->opt_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         menu_scene->opt_ui.close_button.state = CLICK;
 }
 
