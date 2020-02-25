@@ -17,7 +17,7 @@ void quit_interaction(menu_scene *menu_scene)
 
 void settings_interaction(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.settings_btn.state == CLICK) {
+    if (menu_scene->ui.settings_btn.state == CLICK && menu_scene->choice_state == 0) {
         menu_scene->opt_state = 1;
     }
     if (menu_scene->opt_ui.close_button.state == CLICK) {
