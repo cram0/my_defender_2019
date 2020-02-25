@@ -73,6 +73,9 @@ typedef struct choice_menu {
     button map_one_btn;
     button map_two_btn;
     button map_three_btn;
+    simple_entity map1_name_holder;
+    simple_entity map2_name_holder;
+    simple_entity map3_name_holder;
 } choice_menu;
 
 typedef struct menu_ui {

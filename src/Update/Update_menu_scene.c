@@ -114,6 +114,9 @@ void settexture_allbuttons(menu_scene *menu_scene)
     settexture_state(&menu_scene->ui.quit_btn);
     settexture_state(&menu_scene->opt_ui.close_button);
     settexture_state(&menu_scene->choice_menu.close_btn);
+    settexture_state(&menu_scene->choice_menu.map_one_btn);
+    settexture_state(&menu_scene->choice_menu.map_two_btn);
+    settexture_state(&menu_scene->choice_menu.map_three_btn);
 }
 
 void setscale_state(button *button)
@@ -121,8 +124,9 @@ void setscale_state(button *button)
     switch (button->state) {
         case IDLE : sfSprite_setScale(button->sprite, (sfVector2f){1.0, 1.0});
             break;
-        case HOVER : sfSprite_setOrigin(button->sprite, (sfVector2f){37.5, 37.5});
+        case HOVER : sfSprite_setOrigin(button->sprite, (sfVector2f){2, 2});
             sfSprite_setScale(button->sprite, (sfVector2f){1.15, 1.15});
+            sfSprite_setPosition(button->sprite, button->pos);
             break;
         case CLICK : sfSprite_setScale(button->sprite, (sfVector2f){0.85, 0.85});
             break;
@@ -163,6 +167,12 @@ void play_interaction(menu_scene *menu_scene)
     }
 }
 
+void chose_map(menu_scene *menu_scene)
+{
+
+
+}
+
 void mouse_click_interaction(menu_scene *menu_scene)
 {
     quit_interaction(menu_scene);
@@ -179,4 +189,5 @@ void u_menu_scene(menu_scene *menu_scene)
     settexture_allbuttons(menu_scene);
     setscale_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
+    chose_map(menu_scene);
 }
