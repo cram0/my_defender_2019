@@ -12,8 +12,7 @@ void setscale_state(button *button)
     switch (button->state) {
         case IDLE : sfSprite_setScale(button->sprite, (sfVector2f){1.0, 1.0});
             break;
-        case HOVER : sfSprite_setOrigin(button->sprite, (sfVector2f){37.5, 37.5});
-            sfSprite_setScale(button->sprite, (sfVector2f){1.15, 1.15});
+        case HOVER : sfSprite_setScale(button->sprite, (sfVector2f){1.15, 1.15});
             break;
         case CLICK : sfSprite_setScale(button->sprite, (sfVector2f){0.85, 0.85});
             break;
