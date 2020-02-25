@@ -178,6 +178,7 @@ void i_play_scene(play_scene *, sfRenderWindow *);
 void i_menu_scene(menu_scene *, sfRenderWindow *);
 void i_menu_background(menu_background *menu_background);
 void i_opt_background(menu_background *menu_background);
+void i_fps_background(menu_background *menu_background);
 void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
 void i_settings_ui(settings_ui *opt_ui);
