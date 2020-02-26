@@ -19,7 +19,7 @@ void u_cursor(game_core *game_core)
 {
     game_core->mouse_cursor.pos.x = sfMouse_getPositionRenderWindow(game_core->window).x;
     game_core->mouse_cursor.pos.y = sfMouse_getPositionRenderWindow(game_core->window).y;
-    if (game_core->event.mouseButton.type == sfEvtMouseButtonPressed)
+    if (sfMouse_isButtonPressed(sfMouseLeft))
         sfSprite_setTextureRect(game_core->mouse_cursor.sprite, (sfIntRect){0, 64, 64, 64});
     else
         sfSprite_setTextureRect(game_core->mouse_cursor.sprite, (sfIntRect){0, 0, 64, 64});

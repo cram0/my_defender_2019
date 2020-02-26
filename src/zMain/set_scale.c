@@ -22,7 +22,7 @@ void setscale_state(button *button)
 
 void setscale_allbuttons(menu_scene *menu_scene)
 {
-    setscale_state(&menu_scene->opt_ui.close_button);
+    setscale_state(&menu_scene->settings_ui.close_button);
     setscale_state(&menu_scene->choice_menu.close_btn);
     setscale_state(&menu_scene->ui.hiscore_btn);
     setscale_state(&menu_scene->ui.play_btn);

@@ -42,17 +42,34 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
         *menu_scene->map_index = 3;
 }
 
-void check_hover_click_options_menu(menu_scene *menu_scene)
+void volume_selection(menu_scene *scene)
 {
-    if (menu_scene->opt_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-        menu_scene->opt_ui.close_button.state = CLICKING;
-    if (menu_scene->opt_ui.close_button.state == HOVER && menu_scene->event->mouseButton.type == sfEvtMouseButtonReleased && menu_scene->opt_state == 1)
-        menu_scene->opt_ui.close_button.state = CLICKED;
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    sfRectangleShape *rect = scene->settings_ui.volume_rect;
+    float rect_y = sfRectangleShape_getSize(scene->settings_ui.volume_rect).y;
+    if (sfMouse_isButtonPressed(sfMouseLeft)) {
+        if (pos.x >= 1242 && pos.x <= 1744 && pos.y >= 397 && pos.y <= 451) {
+            sfMouse_setPositionRenderWindow((sfVector2i){pos.x, 420}, scene->window);
+            sfRectangleShape_setSize(rect, (sfVector2f){pos.x - 1242, rect_y});
+        }
+    }
+}
+
+void check_hover_click_settings_menu(menu_scene *menu_scene)
+{
+    if (menu_scene->settings_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+        menu_scene->settings_ui.close_button.state = CLICKING;
+    if (menu_scene->settings_ui.close_button.state == HOVER && menu_scene->event->mouseButton.type == sfEvtMouseButtonReleased && menu_scene->settings_state == 1)
+        menu_scene->settings_ui.close_button.state = CLICKED;
+    if (menu_scene->settings_state == 1) {
+        fps_selection(menu_scene);
+        volume_selection(menu_scene);
+    }
 }
 
 void check_hover_click(menu_scene *menu_scene)
 {
     check_hover_click_ui(menu_scene);
-    check_hover_click_options_menu(menu_scene);
+    check_hover_click_settings_menu(menu_scene);
     check_hover_click_choice_menu(menu_scene);
 }

@@ -39,8 +39,8 @@ void hovering_choice_menu_buttons(menu_scene *menu_scene)
 
 void hovering_settings_buttons(menu_scene *menu_scene)
 {
-    if (is_hovering(menu_scene->opt_ui.close_button, menu_scene->window)) {
-        menu_scene->opt_ui.close_button.state = HOVER;
+    if (is_hovering(menu_scene->settings_ui.close_button, menu_scene->window)) {
+        menu_scene->settings_ui.close_button.state = HOVER;
     } else
-        menu_scene->opt_ui.close_button.state = IDLE;
+        menu_scene->settings_ui.close_button.state = IDLE;
 }

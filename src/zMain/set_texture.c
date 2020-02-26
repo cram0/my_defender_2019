@@ -28,7 +28,7 @@ void settexture_allbuttons(menu_scene *menu_scene)
     settexture_state(&menu_scene->ui.hiscore_btn);
     settexture_state(&menu_scene->ui.settings_btn);
     settexture_state(&menu_scene->ui.quit_btn);
-    settexture_state(&menu_scene->opt_ui.close_button);
+    settexture_state(&menu_scene->settings_ui.close_button);
     settexture_state(&menu_scene->choice_menu.close_btn);
     settexture_state(&menu_scene->choice_menu.map_one_btn);
     settexture_state(&menu_scene->choice_menu.map_two_btn);

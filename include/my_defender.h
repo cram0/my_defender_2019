@@ -89,18 +89,19 @@ typedef struct menu_background {
 typedef struct settings_ui {
     button close_button;
     menu_background background;
-    menu_background fps_bg;
     menu_background sound_bg;
+    simple_entity check_mark;
+    sfRectangleShape *volume_rect;
 } settings_ui;
 
 typedef struct menu_scene {
     sfRenderWindow *window;
     menu_background menu_background;
-    settings_ui opt_ui;
+    settings_ui settings_ui;
     menu_ui ui;
     choice_menu choice_menu;
     bool map_selected;
-    int opt_state;
+    int settings_state;
     int choice_state;
     int *game_state;
     int *map_index;
@@ -135,6 +136,7 @@ typedef struct play_scene {
 
 typedef struct game_core {
     sfRenderWindow *window;
+    sfMusic *music;
     play_scene play_scene;
     menu_scene menu_scene;
     sfEvent event;
@@ -149,7 +151,7 @@ char *my_strcat(char *, char *);
 int my_strlen(char *str);
 button create_button(char *file_path, sfFloatRect rect);
 void check_hover_click_ui(menu_scene *menu_scene);
-void check_hover_click_opt(menu_scene *menu_scene);
+void check_hover_click_settings(menu_scene *menu_scene);
 void check_hover_click(menu_scene *menu_scene);
 void fill_button_textures(button *button, char *file_path);
 void hovering_button(menu_scene *menu_scene);
@@ -161,6 +163,8 @@ void settings_interaction(menu_scene *menu_scene);
 void play_interaction(menu_scene *menu_scene);
 void mouse_click_interaction(menu_scene *menu_scene);
 void fill_map_texture(play_scene *play_scene);
+void fps_selection(menu_scene *menu_scene);
+int fps_selection_two(sfVector2i pos, simple_entity check);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
@@ -178,13 +182,12 @@ void i_game_core_pointers(game_core *game_core);
 void i_play_scene(play_scene *, sfRenderWindow *);
 void i_menu_scene(menu_scene *, sfRenderWindow *);
 void i_menu_background(menu_background *menu_background);
-void i_opt_background(menu_background *menu_background);
-void i_fps_background(menu_background *menu_background);
+void i_settings_background(menu_background *menu_background);
 void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
-void i_settings_ui(settings_ui *opt_ui);
+void i_settings_ui(settings_ui *settings_ui);
 void i_cursor(game_core *gc);
-void i_settings_ui(settings_ui *opt_ui);
+void i_settings_ui(settings_ui *settings_ui);
 void i_choice_menu(choice_menu *choice_menu);
 void i_map(play_scene *play_scene);
 
