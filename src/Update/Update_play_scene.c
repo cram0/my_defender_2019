@@ -9,5 +9,5 @@
 
 void u_play_scene(play_scene *play_scene)
 {
-    fill_map_texture(play_scene);
+    
 }
