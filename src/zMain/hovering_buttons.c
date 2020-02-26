@@ -41,6 +41,10 @@ void hovering_choice_menu_buttons(menu_scene *menu_scene)
         menu_scene->choice_menu.map_two_btn.state = HOVER;
     } else
         menu_scene->choice_menu.map_two_btn.state = IDLE;
+    if (is_hovering(menu_scene->choice_menu.map_three_btn, menu_scene->window)) {
+        menu_scene->choice_menu.map_three_btn.state = HOVER;
+    } else
+        menu_scene->choice_menu.map_three_btn.state = IDLE;
 }
 
 void hovering_settings_buttons(menu_scene *menu_scene)
