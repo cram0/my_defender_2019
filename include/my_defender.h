@@ -153,6 +153,7 @@ button create_button(char *file_path, sfFloatRect rect);
 void check_hover_click_ui(menu_scene *menu_scene);
 void check_hover_click_settings(menu_scene *menu_scene);
 void check_hover_click(menu_scene *menu_scene);
+void check_hover_click_choosing_map(menu_scene *menu_scene);
 void fill_button_textures(button *button, char *file_path);
 void hovering_button(menu_scene *menu_scene);
 void hovering_choice_menu_buttons(menu_scene *menu_scene);
