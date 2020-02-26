@@ -104,6 +104,7 @@ typedef struct menu_scene {
     settings_ui opt_ui;
     menu_ui ui;
     choice_menu choice_menu;
+    bool map_selected;
     int opt_state;
     int choice_state;
     int *game_state;
@@ -113,13 +114,15 @@ typedef struct menu_scene {
 typedef struct coord {
     int index;
     sfVector2f pos;
-    struct cord *previous;
-    struct cord *next;
+    struct coord *previous;
+    struct coord *next;
 } coord;
 
 typedef struct map {
     sfSprite *sprite;
-    sfTexture *texture;
+    sfTexture *texture_one;
+    sfTexture *texture_two;
+    sfTexture *texture_three;
     sfVector2f pos;
     int map_index;
     struct coord coord;
@@ -160,6 +163,7 @@ void quit_interaction(menu_scene *menu_scene);
 void settings_interaction(menu_scene *menu_scene);
 void play_interaction(menu_scene *menu_scene);
 void mouse_click_interaction(menu_scene *menu_scene);
+void fill_map_texture(play_scene *play_scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
@@ -185,11 +189,13 @@ void i_settings_ui(settings_ui *opt_ui);
 void i_cursor(game_core *gc);
 void i_settings_ui(settings_ui *opt_ui);
 void i_choice_menu(choice_menu *choice_menu);
+void i_map(play_scene *play_scene);
 
 
 //UPDATE
 void u_game_core(game_core *game_core);
 void u_menu_scene(menu_scene *menu_scene);
+void u_play_scene(play_scene *play_scene);
 
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);

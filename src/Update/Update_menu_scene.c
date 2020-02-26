@@ -16,5 +16,4 @@ void u_menu_scene(menu_scene *menu_scene)
     settexture_allbuttons(menu_scene);
     setscale_allbuttons(menu_scene);
     mouse_click_interaction(menu_scene);
-    // chose_map(menu_scene);
 }

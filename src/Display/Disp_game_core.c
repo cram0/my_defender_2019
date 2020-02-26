@@ -63,24 +63,27 @@ void d_menu_scene(menu_scene *menu_scene)
 {
     d_menu_background(&menu_scene->menu_background, menu_scene->window);
     d_menu_ui(&menu_scene->ui, menu_scene->window);
-    if (menu_scene->opt_state == 1) {
+    if (menu_scene->opt_state == 1)
         d_settings(menu_scene);
-    }
-    if (menu_scene->choice_state == 1) {
+    if (menu_scene->choice_state == 1)
         d_choice_menu(menu_scene);
-    }
 }
 
-void d_play_hud(menu_background *bg, sfRenderWindow *window)
+void d_play_hud(play_scene *play_scene)
 {
-    sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
+    sfRenderWindow_drawSprite(play_scene->window, play_scene->background.background_sprite, NULL);
 }
 
-// void d_play_scene(play_scene *play_scene)
-// {
-//    d_play_hud(play_scene);
-//    d_play_map();
-// }
+void d_play_map(play_scene *play_scene)
+{
+    sfRenderWindow_drawSprite(play_scene->window, play_scene->map.sprite, NULL);
+}
+
+void d_play_scene(play_scene *play_scene)
+{
+   d_play_map(play_scene);
+   d_play_hud(play_scene);
+}
 
 void d_cursor(game_core *game_core)
 {
@@ -90,10 +93,11 @@ void d_cursor(game_core *game_core)
 
 void d_game_core(game_core *game_core, sfRenderWindow *window)
 {
+    sfRenderWindow_clear(window, sfBlack);
     if (game_core->game_state == MENU)
         d_menu_scene(&game_core->menu_scene);
-    // if (game_core->game_state == PLAY)
-    //     d_play_scene(&game_core->play_scene);
+    if (game_core->game_state == PLAY)
+        d_play_scene(&game_core->play_scene);
     d_cursor(game_core);
     sfRenderWindow_display(window);
 }
