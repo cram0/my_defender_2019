@@ -49,15 +49,14 @@ void d_choice_menu_btns(choice_menu *choice, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, choice->map_one_btn.sprite, NULL);
     sfRenderWindow_drawSprite(window, choice->map_two_btn.sprite, NULL);
     sfRenderWindow_drawSprite(window, choice->map_three_btn.sprite, NULL);
-    sfRenderWindow_drawSprite(window, choice->map1_name_holder.sprite, NULL);
-    sfRenderWindow_drawSprite(window, choice->map2_name_holder.sprite, NULL);
-    sfRenderWindow_drawSprite(window, choice->map3_name_holder.sprite, NULL);
 }
 
 void d_choice_menu(menu_scene *menu_scene)
 {
     d_choice_menu_bg(&menu_scene->choice_menu.background, menu_scene->window);
     d_choice_menu_btns(&menu_scene->choice_menu, menu_scene->window);
+    sfRenderWindow_drawSprite(menu_scene->window,
+    menu_scene->choice_menu.difficulty_check.sprite, NULL);
 }
 
 void d_menu_scene(menu_scene *menu_scene)
@@ -80,10 +79,19 @@ void d_play_map(play_scene *play_scene)
     sfRenderWindow_drawSprite(play_scene->window, play_scene->map.sprite, NULL);
 }
 
+void d_player_infos(play_scene *play_scene)
+{
+    sfRenderWindow_drawText(play_scene->window,
+    play_scene->player_infos.health_text, NULL);
+    sfRenderWindow_drawText(play_scene->window,
+    play_scene->player_infos.money_text, NULL);
+}
+
 void d_play_scene(play_scene *play_scene)
 {
    d_play_map(play_scene);
    d_play_hud(play_scene);
+   d_player_infos(play_scene);
 }
 
 void d_cursor(game_core *game_core)

@@ -22,8 +22,30 @@ void check_hover_click_ui(menu_scene *menu_scene)
             buttons[i]->state = CLICKED;
 }
 
+void check_difficulty(menu_scene *menu_scene)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(menu_scene->window);
+    sfSprite *check = menu_scene->choice_menu.difficulty_check.sprite;
+    if ((menu_scene->event->mouseButton.type == sfEvtMouseButtonPressed) &&
+    menu_scene->choice_state == 1) {
+        if (pos.x >= 527 && pos.x <= 527 + 64 && pos.y >= 714 && pos.y <= 781) {
+            sfSprite_setPosition(check, (sfVector2f){537, 724});
+            menu_scene->game_core->play_scene.difficulty = EASY;
+        }
+        if (pos.x >= 865 && pos.x <= 865 + 64 && pos.y >= 714 && pos.y <= 781) {
+            sfSprite_setPosition(check, (sfVector2f){875, 724});
+            menu_scene->game_core->play_scene.difficulty = NORMAL;
+        }
+        if (pos.x >= 1203 && pos.x <= 1267 && pos.y >= 714 && pos.y <= 781) {
+            sfSprite_setPosition(check, (sfVector2f){1213, 724});
+            menu_scene->game_core->play_scene.difficulty = HARD;
+        }
+    }
+}
+
 void check_hover_click_choice_menu(menu_scene *menu_scene)
 {
+    check_difficulty(menu_scene);
     if (menu_scene->choice_menu.close_btn.state == HOVER &&
     sfMouse_isButtonPressed(sfMouseLeft) && menu_scene->choice_state == 1)
         menu_scene->choice_menu.close_btn.state = CLICKING;
@@ -41,7 +63,7 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
     sfMouse_isButtonPressed(sfMouseLeft) && menu_scene->choice_state == 1)
         *menu_scene->map_index = 3;
     if (*menu_scene->map_index != 0) {
-        change_map_values(&menu_scene->game_core->play_scene);
+        set_play_values(&menu_scene->game_core->play_scene);
         *menu_scene->game_state = PLAY;
     }
 }

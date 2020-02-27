@@ -68,9 +68,7 @@ typedef struct choice_menu {
     button map_one_btn;
     button map_two_btn;
     button map_three_btn;
-    simple_entity map1_name_holder;
-    simple_entity map2_name_holder;
-    simple_entity map3_name_holder;
+    simple_entity difficulty_check;
 } choice_menu;
 
 typedef struct menu_ui {
@@ -132,15 +130,27 @@ typedef struct turret_hud {
     simple_entity sniper;
 }  turret_hud;
 
+typedef struct player_infos {
+    int health;
+    int money;
+    sfText *health_text;
+    sfText *money_text;
+    char health_str[4];
+    char money_str[11];
+} player_infos;
+
 typedef struct play_scene {
     sfRenderWindow *window;
     struct game_core *game_core;
     map map;
     turret_hud turret_hud;
+    player_infos player_infos;
     menu_background background;
     int difficulty;
     int *game_state;
+    sfClock *general_clock;
     sfEvent *event;
+    sfFont *font;
 } play_scene;
 
 typedef struct game_core {
@@ -158,6 +168,8 @@ typedef struct game_core {
 void run(void);
 char *my_strcat(char *, char *);
 int my_strlen(char *str);
+char *my_revstr(char *str);
+char *my_itoa(int number, char* str);
 button create_button(char *file_path, sfFloatRect rect);
 void check_hover_click_ui(menu_scene *menu_scene);
 void check_hover_click_settings(menu_scene *menu_scene);
@@ -175,7 +187,13 @@ void mouse_click_interaction(menu_scene *menu_scene);
 void fill_map_texture(play_scene *play_scene);
 void fps_selection(menu_scene *menu_scene);
 int fps_selection_two(sfVector2i pos, simple_entity check);
-void change_map_values(play_scene *play_scene);
+void set_play_values(play_scene *play_scene);
+void set_map_coord(map *map);
+void fill_coord_three(map *map);
+void fill_coord_two(map *map);
+void fill_coord_one(map *map);
+void add_coord(map *map, sfVector2f list[], int len);
+void add_coord_node(coord *node, sfVector2f pos, int index);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
@@ -201,7 +219,7 @@ void i_cursor(game_core *gc);
 void i_settings_ui(settings_ui *settings_ui);
 void i_choice_menu(choice_menu *choice_menu);
 void i_map(play_scene *play_scene);
-
+void i_font(play_scene *play_scene);
 
 //UPDATE
 void u_game_core(game_core *game_core);
