@@ -7,18 +7,37 @@
 
 #include "../../include/my_defender.h"
 
+void add_coord_node(coord *node, sfVector2f pos, int index)
+{
+    if (node->index == -1) {
+        node->index = 0;
+        node->pos.x = pos.x;
+        node->pos.y = pos.y;
+        node->previous = NULL;
+        node->next = NULL;
+    } else {
+        coord *temp = malloc(sizeof(coord));
+        while (node->next != NULL)
+            node = node->next;
+        temp->pos.x = pos.x;
+        temp->pos.y = pos.y;
+        node->next = temp;
+        temp->previous = node;
+        temp->next = NULL;
+        temp->index = index;
+    }
+}
+
 void add_coord(map *map, sfVector2f list[], int len)
 {
     for (int i = 0; i < len; i++) {
-        while (map->coord.next != NULL)
-            map->coord = *map->coord.next;
-        coord *temp = malloc(sizeof(coord));
-        temp->index = i;
-        temp->pos = list[i];
-        temp->previous = &map->coord;
-        temp->next = NULL;
-        map->coord.next = temp;
+        add_coord_node(map->coord, list[i], len);
     }
+    while (map->coord->next != NULL) {
+        printf("Coord[] X : %f | Y : %f\n", map->coord->pos.x , map->coord->pos.y);
+        map->coord = map->coord->next;
+    }
+    printf("Coord[] X : %f | Y : %f\n", map->coord->pos.x , map->coord->pos.y);
 }
 
 void fill_coord_one(map *map)
@@ -79,13 +98,23 @@ void i_map(play_scene *play_scene)
     play_scene->map.pos = (sfVector2f){235, 0};
     play_scene->difficulty = EASY;
     play_scene->map.map_index = 0;
+    play_scene->map.coord = malloc(sizeof(coord));
+    play_scene->map.coord->index = -1;
     play_scene->map.texture_one = sfTexture_createFromFile("img/play_scene/maps/map1.png", NULL);
     play_scene->map.texture_two = sfTexture_createFromFile("img/play_scene/maps/map2.png", NULL);
     play_scene->map.texture_three = sfTexture_createFromFile("img/play_scene/maps/map3.png", NULL);
+    sfSprite_setPosition(play_scene->map.sprite, play_scene->map.pos);
+}
+
+void change_map_values(play_scene *play_scene)
+{
+    fill_map_texture(play_scene);
+    i_map_coord(&play_scene->map);
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 {
     play_scene->window = window;
     i_hud(play_scene);
+    i_map(play_scene);
 }

@@ -96,11 +96,11 @@ typedef struct settings_ui {
 
 typedef struct menu_scene {
     sfRenderWindow *window;
+    struct game_core *game_core;
     menu_background menu_background;
     settings_ui settings_ui;
     menu_ui ui;
     choice_menu choice_menu;
-    bool map_selected;
     int settings_state;
     int choice_state;
     int *game_state;
@@ -122,12 +122,21 @@ typedef struct map {
     sfTexture *texture_three;
     sfVector2f pos;
     int map_index;
-    struct coord coord;
+    struct coord *coord;
 } map;
+
+typedef struct turret_hud {
+    simple_entity simple;
+    simple_entity bomb;
+    simple_entity freeze;
+    simple_entity sniper;
+}  turret_hud;
 
 typedef struct play_scene {
     sfRenderWindow *window;
+    struct game_core *game_core;
     map map;
+    turret_hud turret_hud;
     menu_background background;
     int difficulty;
     int *game_state;
@@ -166,6 +175,7 @@ void mouse_click_interaction(menu_scene *menu_scene);
 void fill_map_texture(play_scene *play_scene);
 void fps_selection(menu_scene *menu_scene);
 int fps_selection_two(sfVector2i pos, simple_entity check);
+void change_map_values(play_scene *play_scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);

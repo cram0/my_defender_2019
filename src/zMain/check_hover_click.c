@@ -40,6 +40,10 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
     if (menu_scene->choice_menu.map_three_btn.state == HOVER &&
     sfMouse_isButtonPressed(sfMouseLeft) && menu_scene->choice_state == 1)
         *menu_scene->map_index = 3;
+    if (*menu_scene->map_index != 0) {
+        change_map_values(&menu_scene->game_core->play_scene);
+        *menu_scene->game_state = PLAY;
+    }
 }
 
 void volume_selection(menu_scene *scene)

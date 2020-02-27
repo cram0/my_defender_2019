@@ -19,4 +19,8 @@ void i_game_core_pointers(game_core *game_core)
     game_core->menu_scene.event = &game_core->event;
     game_core->play_scene.event = malloc(sizeof(sfEvent));
     game_core->play_scene.event = &game_core->event;
+    game_core->play_scene.game_core = malloc(sizeof(game_core));
+    game_core->play_scene.game_core = game_core;
+    game_core->menu_scene.game_core = malloc(sizeof(game_core));
+    game_core->menu_scene.game_core = game_core;
 }

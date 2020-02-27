@@ -11,7 +11,6 @@ void i_menu_scene(menu_scene *menu_scene, sfRenderWindow *window)
 {
     menu_scene->window = window;
     menu_scene->settings_state = 0;
-    menu_scene->map_selected = false;
     menu_scene->choice_state = 0;
     i_menu_background(&menu_scene->menu_background);
     i_settings_ui(&menu_scene->settings_ui);
