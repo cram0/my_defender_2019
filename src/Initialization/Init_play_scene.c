@@ -95,9 +95,22 @@ void i_font(play_scene *play_scene)
     sfText_setFont(play_scene->player_infos.money_text, play_scene->font);
 }
 
+void i_dragndrop(play_scene *scene)
+{
+    scene->dragndrop.sprite = sfSprite_create();
+    scene->dragndrop.texture = sfTexture_createFromFile("img/play_scene/towers/turrets.png", NULL);
+    sfSprite_setTexture(scene->dragndrop.sprite, scene->dragndrop.texture, sfFalse);
+    scene->dragndrop.display = false;
+    scene->dragndrop.turret_selected = -1;
+    scene->dragndrop.pos = (sfVector2f){0, 0};
+}
+
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 {
     play_scene->window = window;
     i_hud(play_scene);
     i_map(play_scene);
+    i_turrets_price(play_scene);
+    i_turret_hud(play_scene);
+    i_dragndrop(play_scene);
 }

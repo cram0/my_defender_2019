@@ -37,6 +37,13 @@ enum game_difficulty {
     HARD
 } ;
 
+enum turret_selected {
+    SIMPLE_TURRET,
+    BOMB_TURRET,
+    FREEZE_TURRET,
+    SNIPER_TURRET
+} ;
+
 typedef struct cursor {
     sfSprite *sprite;
     sfTexture *texture;
@@ -123,11 +130,23 @@ typedef struct map {
     struct coord *coord;
 } map;
 
+typedef struct turrets_price {
+    int simple;
+    int bomb;
+    int freeze;
+    int sniper;
+} turrets_price ;
+
 typedef struct turret_hud {
-    simple_entity simple;
-    simple_entity bomb;
-    simple_entity freeze;
-    simple_entity sniper;
+    sfTexture *sheet;
+    sfSprite *simple;
+    sfSprite *bomb;
+    sfSprite *freeze;
+    sfSprite *sniper;
+    bool is_buyable_simple;
+    bool is_buyable_bomb;
+    bool is_buyable_freeze;
+    bool is_buyable_sniper;
 }  turret_hud;
 
 typedef struct player_infos {
@@ -139,11 +158,26 @@ typedef struct player_infos {
     char money_str[11];
 } player_infos;
 
+typedef struct turrets_placed {
+    sfSprite *sprite;
+} turrets_placed ;
+
+typedef struct dragndrop {
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f pos;
+    int turret_selected;
+    bool display;
+} dragndrop ;
+
 typedef struct play_scene {
     sfRenderWindow *window;
     struct game_core *game_core;
     map map;
+    turrets_placed turrets_placed;
+    turrets_price turret_price;
     turret_hud turret_hud;
+    dragndrop dragndrop;
     player_infos player_infos;
     menu_background background;
     int difficulty;
@@ -194,6 +228,8 @@ void fill_coord_two(map *map);
 void fill_coord_one(map *map);
 void add_coord(map *map, sfVector2f list[], int len);
 void add_coord_node(coord *node, sfVector2f pos, int index);
+void change_texture_dnd(play_scene *scene);
+void change_origin_dnd(play_scene *scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
@@ -220,11 +256,22 @@ void i_settings_ui(settings_ui *settings_ui);
 void i_choice_menu(choice_menu *choice_menu);
 void i_map(play_scene *play_scene);
 void i_font(play_scene *play_scene);
+void i_turrets_price(play_scene *scene);
+void i_turret_hud(play_scene *scene);
+void i_turret_hud_two(play_scene *scene);
 
 //UPDATE
 void u_game_core(game_core *game_core);
 void u_menu_scene(menu_scene *menu_scene);
 void u_play_scene(play_scene *play_scene);
+void u_turret_hud(play_scene *scene);
+void check_is_n_buyable(play_scene *scene);
+void check_is_buyable(play_scene *scene);
+void u_turret_hud_money(play_scene *scene);
+void u_turret_click_hud_two(play_scene *scene);
+void u_turret_click_hud(play_scene *scene);
+void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos);
+void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos);
 
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);

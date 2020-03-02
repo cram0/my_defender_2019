@@ -69,9 +69,13 @@ void d_menu_scene(menu_scene *menu_scene)
         d_choice_menu(menu_scene);
 }
 
-void d_play_hud(play_scene *play_scene)
+void d_play_hud(play_scene *scene)
 {
-    sfRenderWindow_drawSprite(play_scene->window, play_scene->background.background_sprite, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->background.background_sprite, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->turret_hud.bomb, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->turret_hud.simple, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->turret_hud.freeze, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->turret_hud.sniper, NULL);
 }
 
 void d_play_map(play_scene *play_scene)
@@ -87,10 +91,17 @@ void d_player_infos(play_scene *play_scene)
     play_scene->player_infos.money_text, NULL);
 }
 
+void d_play_dragndrop(play_scene *scene)
+{
+    if (scene->dragndrop.display == true)
+        sfRenderWindow_drawSprite(scene->window, scene->dragndrop.sprite, NULL);
+}
+
 void d_play_scene(play_scene *play_scene)
 {
    d_play_map(play_scene);
    d_play_hud(play_scene);
+   d_play_dragndrop(play_scene);
    d_player_infos(play_scene);
 }
 
