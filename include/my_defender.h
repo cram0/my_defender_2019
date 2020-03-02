@@ -37,11 +37,12 @@ enum game_difficulty {
     HARD
 } ;
 
-enum turret_selected {
+enum turret_type {
     SIMPLE_TURRET,
     BOMB_TURRET,
     FREEZE_TURRET,
-    SNIPER_TURRET
+    SNIPER_TURRET,
+    NONE
 } ;
 
 typedef struct cursor {
@@ -158,8 +159,18 @@ typedef struct player_infos {
     char money_str[11];
 } player_infos;
 
-typedef struct turrets_placed {
+typedef struct turret_t {
     sfSprite *sprite;
+    sfVector2f pos;
+    int type;
+    int range;
+    struct turret_t *previous;
+    struct turret_t *next;
+} turret_t ;
+
+typedef struct turrets_placed {
+    sfTexture *texture;
+    turret_t *turrets;
 } turrets_placed ;
 
 typedef struct dragndrop {

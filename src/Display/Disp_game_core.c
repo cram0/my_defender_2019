@@ -97,12 +97,31 @@ void d_play_dragndrop(play_scene *scene)
         sfRenderWindow_drawSprite(scene->window, scene->dragndrop.sprite, NULL);
 }
 
+void d_turret_placed(play_scene *scene)
+{
+    turret_t *turret = scene->turrets_placed.turrets;
+    if (turret->previous == NULL && turret->next == NULL && turret->range != -1)
+            sfRenderWindow_drawSprite(scene->window, turret->sprite, NULL);
+    else {
+        if (turret->range != -1) {
+            while (turret->previous != NULL)
+                turret = turret->previous;
+            while (turret->next != NULL) {
+                sfRenderWindow_drawSprite(scene->window, turret->sprite, NULL);
+                turret = turret->next;
+            }
+            sfRenderWindow_drawSprite(scene->window, turret->sprite, NULL);
+        }
+    }
+}
+
 void d_play_scene(play_scene *play_scene)
 {
    d_play_map(play_scene);
    d_play_hud(play_scene);
    d_play_dragndrop(play_scene);
    d_player_infos(play_scene);
+   d_turret_placed(play_scene);
 }
 
 void d_cursor(game_core *game_core)

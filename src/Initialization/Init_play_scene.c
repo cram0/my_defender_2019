@@ -79,6 +79,13 @@ void i_player_infos(play_scene *play_scene)
     set_texts(play_scene);
 }
 
+void set_turret_node(play_scene *scene)
+{
+    scene->turrets_placed.texture = sfTexture_createFromFile("img/play_scene/towers/turrets.png", NULL);
+    scene->turrets_placed.turrets = malloc(sizeof(turret_t));
+    scene->turrets_placed.turrets->range = -1;
+}
+
 void set_play_values(play_scene *play_scene)
 {
     play_scene->general_clock = sfClock_create();
@@ -86,6 +93,7 @@ void set_play_values(play_scene *play_scene)
     set_map_coord(&play_scene->map);
     i_player_infos(play_scene);
     i_font(play_scene);
+    set_turret_node(play_scene);
 }
 
 void i_font(play_scene *play_scene)
