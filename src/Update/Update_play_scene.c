@@ -118,6 +118,7 @@ sfTexture *tx)
     scene->turrets_placed.turrets->sprite = sfSprite_create();
     scene->turrets_placed.turrets->pos = (sfVector2f){pos.x, pos.y};
     set_turret_texture(scene->turrets_placed.turrets->sprite, type, tx);
+    set_turret_origin(scene->turrets_placed.turrets->sprite, type);
     sfSprite_setPosition(scene->turrets_placed.turrets->sprite, scene->turrets_placed.turrets->pos);
     scene->turrets_placed.turrets->type = type;
     scene->turrets_placed.turrets->range = set_turret_range(type);
