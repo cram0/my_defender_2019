@@ -41,8 +41,8 @@ void u_turret_click_hud_two(play_scene *scene)
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
             sfSprite_setPosition(scene->dragndrop.sprite, (sfVector2f){pos.x, pos.y});
-            printf("DEBUG SPRITE POS X : %f, Y : %f\n", sfSprite_getPosition(scene->dragndrop.sprite).x ,sfSprite_getPosition(scene->dragndrop.sprite).y);
-            printf("POS X %d, POS Y %d\n", pos.x, pos.y);
+            // printf("DEBUG SPRITE POS X : %f, Y : %f\n", sfSprite_getPosition(scene->dragndrop.sprite).x ,sfSprite_getPosition(scene->dragndrop.sprite).y);
+            // printf("POS X %d, POS Y %d\n", pos.x, pos.y);
         }
     }
 }
@@ -89,11 +89,11 @@ void set_turret_texture(sfSprite *sprite, int turret_type, sfTexture *tx)
     switch (turret_type) {
         case SIMPLE_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 0, 67, 69});
             break;
-        case BOMB_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 69, 67, 98});
+        case BOMB_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 167, 73, 83});
             break;
         case FREEZE_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 250, 99, 99});
             break;
-        case SNIPER_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 167, 73, 83});
+        case SNIPER_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 69, 67, 98});
             break;
     }
 }
@@ -182,10 +182,88 @@ void u_turret_click_hud(play_scene *scene)
     u_turret_click_hud_two(scene);
 }
 
+void u_pause_button(play_scene *scene)
+{
+    if (is_hovering(scene->pause_btn, scene->window))
+        scene->pause_btn.state = HOVER;
+    else
+        scene->pause_btn.state = IDLE;
+    if (scene->pause_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+            scene->pause_btn.state = CLICKING;
+    if (scene->pause_btn.state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased)
+            scene->pause_btn.state = CLICKED;
+    setscale_state(&scene->pause_btn);
+}
+
+void u_hud_interaction(play_scene *scene)
+{
+    if (scene->pause_btn.state == CLICKED && scene->pause_state == 0)
+        scene->pause_state = 1;
+}
+
+void u_pause_menu_hover_click(play_scene *scene)
+{
+    button *buttons[4];
+    buttons[0] = &scene->pause_menu.resume;
+    buttons[1] = &scene->pause_menu.restart;
+    buttons[2] = &scene->pause_menu.main_menu;
+    buttons[3] = &scene->pause_menu.quit;
+    for (int i = 0; i < 4; i++)
+        if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft) && scene->pause_state == 1)
+            buttons[i]->state = CLICKING;
+    for (int i = 0; i < 4; i++)
+        if (buttons[i]->state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased && scene->pause_state == 1)
+            buttons[i]->state = CLICKED;
+}
+
+void u_pause_menu_hover(play_scene *scene)
+{
+    button *buttons[4];
+    buttons[0] = &scene->pause_menu.resume;
+    buttons[1] = &scene->pause_menu.restart;
+    buttons[2] = &scene->pause_menu.main_menu;
+    buttons[3] = &scene->pause_menu.quit;
+    for (int i = 0; i < 4; i++) {
+        if (is_hovering(*buttons[i], scene->window))
+            buttons[i]->state = HOVER;
+        else
+            buttons[i]->state = IDLE;
+    }
+}
+
+void u_pause_menu(play_scene *scene)
+{
+    u_pause_menu_hover(scene);
+    u_pause_menu_hover_click(scene);
+    setscale_state(&scene->pause_menu.resume);
+    setscale_state(&scene->pause_menu.restart);
+    setscale_state(&scene->pause_menu.main_menu);
+    setscale_state(&scene->pause_menu.quit);
+}
+
+void u_pause_menu_interactions(play_scene *scene)
+{
+    if (scene->pause_menu.quit.state == CLICKED)
+        sfRenderWindow_close(scene->window);
+    if (scene->pause_menu.restart.state == CLICKED)
+        set_play_values(scene);
+    if (scene->pause_menu.resume.state == CLICKED)
+        scene->pause_state = 0;
+    if (scene->pause_menu.main_menu.state == CLICKED) {
+        *scene->game_state = MENU;
+        scene->map.map_index = 0;
+        scene->pause_state = 0;
+    }
+}
+
 void u_hud(play_scene *scene)
 {
     u_turret_hud(scene);
     u_turret_click_hud(scene);
+    u_hud_interaction(scene);
+    u_pause_button(scene);
+    u_pause_menu(scene);
+    u_pause_menu_interactions(scene);
 }
 
 void u_play_scene(play_scene *scene)

@@ -24,7 +24,7 @@ void d_settings_ui(settings_ui *ui, sfRenderWindow *window)
 
 void d_settings_background(settings_ui *ui, sfRenderWindow *window)
 {
-    sfRenderWindow_drawSprite(window, ui->background.background_sprite, NULL);
+    sfRenderWindow_drawSprite(window, ui->background.sprite, NULL);
 }
 
 void d_settings(menu_scene *menu_scene)
@@ -40,7 +40,7 @@ void d_choice_menu_bg(simple_entity *background, sfRenderWindow *window)
 
 void d_menu_background(menu_background *bg, sfRenderWindow *window)
 {
-    sfRenderWindow_drawSprite(window, bg->background_sprite, NULL);
+    sfRenderWindow_drawSprite(window, bg->sprite, NULL);
 }
 
 void d_choice_menu_btns(choice_menu *choice, sfRenderWindow *window)
@@ -71,11 +71,12 @@ void d_menu_scene(menu_scene *menu_scene)
 
 void d_play_hud(play_scene *scene)
 {
-    sfRenderWindow_drawSprite(scene->window, scene->background.background_sprite, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->background.sprite, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.bomb, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.simple, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.freeze, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.sniper, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->pause_btn.sprite, NULL);
 }
 
 void d_play_map(play_scene *play_scene)
@@ -115,13 +116,25 @@ void d_turret_placed(play_scene *scene)
     }
 }
 
+void d_pause_menu(play_scene *scene)
+{
+    if (scene->pause_state == 1) {
+        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.background.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.resume.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.restart.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.main_menu.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.quit.sprite, NULL);
+    }
+}
+
 void d_play_scene(play_scene *play_scene)
 {
    d_play_map(play_scene);
    d_play_hud(play_scene);
-   d_play_dragndrop(play_scene);
    d_player_infos(play_scene);
    d_turret_placed(play_scene);
+   d_pause_menu(play_scene);
+   d_play_dragndrop(play_scene);
 }
 
 void d_cursor(game_core *game_core)

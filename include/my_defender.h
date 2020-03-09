@@ -87,8 +87,8 @@ typedef struct menu_ui {
 } menu_ui;
 
 typedef struct menu_background {
-    sfSprite *background_sprite;
-    sfTexture *background_texture;
+    sfSprite *sprite;
+    sfTexture *texture;
     sfVector2f pos;
 } menu_background;
 
@@ -181,6 +181,32 @@ typedef struct dragndrop {
     bool display;
 } dragndrop ;
 
+typedef struct enemy_t {
+    sfSprite *sprite;
+    sfVector2f pos;
+    sfIntRect hitbox;
+    int type;
+    int health;
+    struct enemy_t *previous;
+    struct enemy_t *next;
+} enemy_t ;
+
+typedef struct wave_t {
+    int index;
+    sfTexture *texture;
+    struct enemy_t *enemy;
+    struct wave_t *previous;
+    struct wave_t *next;
+} wave_t ;
+
+typedef struct pause_menu {
+    simple_entity background;
+    button resume;
+    button restart;
+    button main_menu;
+    button quit;
+} pause_menu ;
+
 typedef struct play_scene {
     sfRenderWindow *window;
     struct game_core *game_core;
@@ -191,6 +217,11 @@ typedef struct play_scene {
     dragndrop dragndrop;
     player_infos player_infos;
     menu_background background;
+    wave_t *waves;
+    sfTexture *enemy_texture;
+    pause_menu pause_menu;
+    button pause_btn;
+    int pause_state;
     int difficulty;
     int *game_state;
     sfClock *general_clock;
@@ -232,8 +263,6 @@ void mouse_click_interaction(menu_scene *menu_scene);
 void fill_map_texture(play_scene *play_scene);
 void fps_selection(menu_scene *menu_scene);
 int fps_selection_two(sfVector2i pos, simple_entity check);
-void set_play_values(play_scene *play_scene);
-void set_map_coord(map *map);
 void fill_coord_three(map *map);
 void fill_coord_two(map *map);
 void fill_coord_one(map *map);
@@ -251,6 +280,11 @@ void setscale_state(button *button);
 void setscale_allbuttons(menu_scene *menu_scene);
 void settexture_state(button *button);
 void settexture_allbuttons(menu_scene *menu_scene);
+void set_difficulty(play_scene *play_scene);
+void set_money(play_scene *play_scene);
+void set_play_values(play_scene *play_scene);
+void set_map_coord(map *map);
+void set_texts(play_scene *play_scene);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
@@ -270,6 +304,9 @@ void i_font(play_scene *play_scene);
 void i_turrets_price(play_scene *scene);
 void i_turret_hud(play_scene *scene);
 void i_turret_hud_two(play_scene *scene);
+void i_dragndrop(play_scene *scene);
+void i_font(play_scene *play_scene);
+void i_player_infos(play_scene *play_scene);
 
 //UPDATE
 void u_game_core(game_core *game_core);

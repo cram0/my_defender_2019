@@ -11,14 +11,14 @@ SRC     =       $(shell find . -name '*.c')
 
 OBJ     =       $(SRC:.c=.o)
 
-CFLAGS  +=      -Wall -Wextra
+CFLAGS  +=      -Wall -Wextra -g
 
 CFLAGS  +=      -I./include
 
 all     :       $(NAME)
 
 $(NAME) :       $(OBJ)
-				gcc -o $(NAME) $(OBJ) -g -l csfml-graphics -l csfml-audio -l csfml-window -l csfml-system
+				gcc -o $(NAME) $(OBJ) -l csfml-graphics -l csfml-audio -l csfml-window -l csfml-system
 
 clean   :
 				find . -name "*.o" -type f -delete

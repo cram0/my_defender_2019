@@ -9,9 +9,9 @@
 
 void i_menu_background(menu_background *menu_background)
 {
-    menu_background->background_sprite = sfSprite_create();
-    menu_background->background_texture = sfTexture_createFromFile("img/menu_scene/background.png", NULL);
+    menu_background->sprite = sfSprite_create();
+    menu_background->texture = sfTexture_createFromFile("img/menu_scene/background.png", NULL);
     menu_background->pos = (sfVector2f){0.0, 0.0};
-    sfSprite_setTexture(menu_background->background_sprite, menu_background->background_texture, sfTrue);
-    sfSprite_setPosition(menu_background->background_sprite, menu_background->pos);
+    sfSprite_setTexture(menu_background->sprite, menu_background->texture, sfTrue);
+    sfSprite_setPosition(menu_background->sprite, menu_background->pos);
 }

@@ -9,8 +9,7 @@
 
 void quit_interaction(menu_scene *menu_scene)
 {
-    if (menu_scene->ui.quit_btn.state == CLICKED && menu_scene->settings_state == 0 &&
-    menu_scene->choice_state == 0) {
+    if (menu_scene->ui.quit_btn.state == CLICKED && menu_scene->settings_state == 0 && menu_scene->choice_state == 0) {
         sfRenderWindow_close(menu_scene->window);
     }
 }
