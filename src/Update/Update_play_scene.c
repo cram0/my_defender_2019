@@ -251,6 +251,7 @@ void u_pause_menu_interactions(play_scene *scene)
         scene->pause_state = 0;
     if (scene->pause_menu.main_menu.state == CLICKED) {
         *scene->game_state = MENU;
+        sfMusic_play(scene->game_core->menu_scene.music);
         scene->map.map_index = 0;
         scene->pause_state = 0;
     }
