@@ -226,12 +226,15 @@ typedef struct play_scene {
     pause_menu pause_menu;
     button pause_btn;
     int pause_state;
+    int sound_state;
     int difficulty;
     int *game_state;
     sfClock *general_clock;
     sfEvent *event;
     sfFont *font;
     sfMusic *music;
+    sfSound *sound;
+    sfSoundBuffer *sound_buffer;
 } play_scene;
 
 typedef struct game_core {
