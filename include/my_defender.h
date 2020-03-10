@@ -113,6 +113,9 @@ typedef struct menu_scene {
     int *map_index;
     sfEvent *event;
     sfMusic *music;
+    sfSound *sound;
+    sfSoundBuffer *sound_buffer;
+    int sound_state;
 } menu_scene;
 
 typedef struct coord {
@@ -297,6 +300,7 @@ void i_menu_background(menu_background *menu_background);
 void i_settings_background(menu_background *menu_background);
 void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
+void i_sound_buttons(game_core *game_core);
 void i_settings_ui(settings_ui *settings_ui);
 void i_cursor(game_core *gc);
 void i_settings_ui(settings_ui *settings_ui);
