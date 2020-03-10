@@ -46,6 +46,6 @@ void fps_selection(menu_scene *menu_scene)
                 break;
             case 4: sfRenderWindow_setFramerateLimit(menu_scene->window, 0);
                 break;
-        }
+        } 
     }
 }
