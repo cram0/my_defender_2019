@@ -265,6 +265,7 @@ void u_hud(play_scene *scene)
     u_pause_button(scene);
     u_pause_menu(scene);
     u_pause_menu_interactions(scene);
+    u_escape_interaction(scene);
 }
 
 void u_play_scene(play_scene *scene)

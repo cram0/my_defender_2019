@@ -19,7 +19,7 @@ void close_events(game_core *game_core)
 {
     if (game_core->event.type == sfEvtClosed)
             sfRenderWindow_close(game_core->window);
-    if (sfKeyboard_isKeyPressed(sfKeyEscape))
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) && game_core->game_state == MENU && game_core->menu_scene.settings_state == 0 && game_core->menu_scene.choice_state == 0)
         sfRenderWindow_close(game_core->window);
 }
 
