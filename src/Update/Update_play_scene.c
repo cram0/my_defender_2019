@@ -188,10 +188,18 @@ void u_pause_button(play_scene *scene)
         scene->pause_btn.state = HOVER;
     else
         scene->pause_btn.state = IDLE;
-    if (scene->pause_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
-            scene->pause_btn.state = CLICKING;
-    if (scene->pause_btn.state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased)
+    if (scene->pause_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+        scene->pause_btn.state = CLICKING;
+        if (scene->sound_state == 0) {
+            sfSound_play(scene->sound);
+            scene->sound_state = 1;
+        }
+    }
+    if (scene->pause_btn.state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
             scene->pause_btn.state = CLICKED;
+            scene->pause_state = 1;
+            scene->sound_state = 0;
+    }
     setscale_state(&scene->pause_btn);
 }
 
@@ -208,12 +216,19 @@ void u_pause_menu_hover_click(play_scene *scene)
     buttons[1] = &scene->pause_menu.restart;
     buttons[2] = &scene->pause_menu.main_menu;
     buttons[3] = &scene->pause_menu.quit;
-    for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft) && scene->pause_state == 1)
+    for (int i = 0; i < 4; i++) 
+        if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
             buttons[i]->state = CLICKING;
+            if (scene->sound_state == 0) {
+                sfSound_play(scene->sound);
+                scene->sound_state = 1;
+            }
+        }
     for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased && scene->pause_state == 1)
+        if (buttons[i]->state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
             buttons[i]->state = CLICKED;
+            scene->sound_state = 0;
+        }
 }
 
 void u_pause_menu_hover(play_scene *scene)
@@ -247,7 +262,7 @@ void u_pause_menu_interactions(play_scene *scene)
         sfRenderWindow_close(scene->window);
     if (scene->pause_menu.restart.state == CLICKED)
         set_play_values(scene);
-    if (scene->pause_menu.resume.state == CLICKED)
+    if (scene->pause_menu.resume.state == CLICKED) 
         scene->pause_state = 0;
     if (scene->pause_menu.main_menu.state == CLICKED) {
         *scene->game_state = MENU;
@@ -261,10 +276,12 @@ void u_hud(play_scene *scene)
 {
     u_turret_hud(scene);
     u_turret_click_hud(scene);
-    u_hud_interaction(scene);
-    u_pause_button(scene);
-    u_pause_menu(scene);
-    u_pause_menu_interactions(scene);
+    if (scene->pause_state == 0)
+        u_pause_button(scene);
+    if (scene->pause_state == 1) {
+        u_pause_menu(scene);
+        u_pause_menu_interactions(scene);
+    }
     u_escape_interaction(scene);
 }
 
