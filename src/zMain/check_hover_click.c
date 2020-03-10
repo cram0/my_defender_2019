@@ -83,6 +83,7 @@ void volume_selection(menu_scene *scene)
         if (pos.x >= 1242 && pos.x <= 1744 && pos.y >= 397 && pos.y <= 451) {
             sfMouse_setPositionRenderWindow((sfVector2i){pos.x, 420}, scene->window);
             sfRectangleShape_setSize(rect, (sfVector2f){pos.x - 1242, rect_y});
+            sfMusic_setVolume(scene->music, ((pos.x - 1242) * 0.20));
         }
     }
 }
