@@ -112,6 +112,7 @@ typedef struct menu_scene {
     int *game_state;
     int *map_index;
     sfEvent *event;
+    sfMusic *music;
 } menu_scene;
 
 typedef struct coord {
@@ -227,6 +228,7 @@ typedef struct play_scene {
     sfClock *general_clock;
     sfEvent *event;
     sfFont *font;
+    sfMusic *music;
 } play_scene;
 
 typedef struct game_core {
