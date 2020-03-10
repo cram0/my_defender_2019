@@ -300,6 +300,7 @@ void i_menu_background(menu_background *menu_background);
 void i_settings_background(menu_background *menu_background);
 void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
+void i_music(game_core *game_core);
 void i_sound_buttons(game_core *game_core);
 void i_settings_ui(settings_ui *settings_ui);
 void i_cursor(game_core *gc);
