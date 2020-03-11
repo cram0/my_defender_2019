@@ -112,6 +112,10 @@ typedef struct menu_scene {
     int *game_state;
     int *map_index;
     sfEvent *event;
+    sfMusic *music;
+    sfSound *sound;
+    sfSoundBuffer *sound_buffer;
+    int sound_state;
 } menu_scene;
 
 typedef struct coord {
@@ -224,11 +228,15 @@ typedef struct play_scene {
     button pause_btn;
     button wave_btn;
     int pause_state;
+    int sound_state;
     int difficulty;
     int *game_state;
     sfClock *general_clock;
     sfEvent *event;
     sfFont *font;
+    sfMusic *music;
+    sfSound *sound;
+    sfSoundBuffer *sound_buffer;
 } play_scene;
 
 typedef struct game_core {
@@ -297,6 +305,8 @@ void i_menu_background(menu_background *menu_background);
 void i_settings_background(menu_background *menu_background);
 void i_choice_menu(choice_menu *choice_menu);
 void i_menu_ui(menu_ui *menu_ui);
+void i_music(game_core *game_core);
+void i_sound_buttons(game_core *game_core);
 void i_settings_ui(settings_ui *settings_ui);
 void i_cursor(game_core *gc);
 void i_settings_ui(settings_ui *settings_ui);
@@ -322,6 +332,7 @@ void u_turret_click_hud_two(play_scene *scene);
 void u_turret_click_hud(play_scene *scene);
 void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos);
 void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos);
+void u_escape_interaction(play_scene *play_scene);
 
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);

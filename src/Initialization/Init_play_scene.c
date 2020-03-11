@@ -243,6 +243,7 @@ void i_wave_index(play_scene *scene)
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 {
     play_scene->window = window;
+    play_scene->sound_state = 0;
     i_hud(play_scene);
     i_map(play_scene);
     i_turrets_price(play_scene);

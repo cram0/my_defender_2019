@@ -14,5 +14,5 @@ void i_settings_ui(settings_ui *ui)
     ui->check_mark = set_simple_entity("img/menu_scene/checked.png", (sfFloatRect){1357, 560, 48, 50});
     ui->volume_rect = sfRectangleShape_create();
     sfRectangleShape_setPosition(ui->volume_rect, (sfVector2f){1242, 397});
-    sfRectangleShape_setSize(ui->volume_rect, (sfVector2f){251, 54});
+    sfRectangleShape_setSize(ui->volume_rect, (sfVector2f){250, 54});
 }

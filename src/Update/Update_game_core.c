@@ -7,11 +7,19 @@
 
 #include "../../include/my_defender.h"
 
+void music_events(game_core *game_core)
+{
+    if (game_core->game_state == PLAY) {
+        sfMusic_stop(game_core->menu_scene.music);
+    }
+
+}
+
 void close_events(game_core *game_core)
 {
     if (game_core->event.type == sfEvtClosed)
             sfRenderWindow_close(game_core->window);
-    if (sfKeyboard_isKeyPressed(sfKeyEscape))
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) && game_core->game_state == MENU && game_core->menu_scene.settings_state == 0 && game_core->menu_scene.choice_state == 0)
         sfRenderWindow_close(game_core->window);
 }
 
@@ -31,6 +39,7 @@ void u_game_core(game_core *game_core)
     u_cursor(game_core);
     while (sfRenderWindow_pollEvent(game_core->window, &game_core->event)) {
         close_events(game_core);
+        music_events(game_core);
         game_core->mouse_pos = get_mouse_pos(game_core->window);
     }
     if (game_core->game_state == MENU)
