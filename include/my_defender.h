@@ -187,6 +187,7 @@ typedef struct enemy_t {
     sfIntRect hitbox;
     int type;
     int health;
+    int index_reached;
     struct enemy_t *previous;
     struct enemy_t *next;
 } enemy_t ;
@@ -221,6 +222,7 @@ typedef struct play_scene {
     sfTexture *enemy_texture;
     pause_menu pause_menu;
     button pause_btn;
+    button wave_btn;
     int pause_state;
     int difficulty;
     int *game_state;

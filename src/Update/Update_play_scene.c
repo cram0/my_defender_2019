@@ -41,8 +41,6 @@ void u_turret_click_hud_two(play_scene *scene)
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
             sfSprite_setPosition(scene->dragndrop.sprite, (sfVector2f){pos.x, pos.y});
-            // printf("DEBUG SPRITE POS X : %f, Y : %f\n", sfSprite_getPosition(scene->dragndrop.sprite).x ,sfSprite_getPosition(scene->dragndrop.sprite).y);
-            // printf("POS X %d, POS Y %d\n", pos.x, pos.y);
         }
     }
 }
@@ -182,6 +180,19 @@ void u_turret_click_hud(play_scene *scene)
     u_turret_click_hud_two(scene);
 }
 
+void u_wave_button(play_scene *scene)
+{
+    if (is_hovering(scene->wave_btn, scene->window))
+        scene->wave_btn.state = HOVER;
+    else
+        scene->wave_btn.state = IDLE;
+    if (scene->wave_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
+            scene->wave_btn.state = CLICKING;
+    if (scene->wave_btn.state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased)
+            scene->wave_btn.state = CLICKED;
+    setscale_state(&scene->wave_btn);
+}
+
 void u_pause_button(play_scene *scene)
 {
     if (is_hovering(scene->pause_btn, scene->window))
@@ -264,9 +275,16 @@ void u_hud(play_scene *scene)
     u_pause_button(scene);
     u_pause_menu(scene);
     u_pause_menu_interactions(scene);
+    u_wave_button(scene);
+}
+
+void u_waves(play_scene *scene)
+{
+    while (scene->waves->enemy->)
 }
 
 void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
+    u_waves(scene);
 }

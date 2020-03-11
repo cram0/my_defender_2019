@@ -17,6 +17,7 @@ void i_hud(play_scene *scene)
     sfTrue);
     scene->pause_btn = create_button("img/in_game_buttons/settings_",
     (sfFloatRect){1454, 891, 75, 75});
+    scene->wave_btn = create_button("img/in_game_buttons/wave_", (sfFloatRect){1370, 891, 75, 76});
 }
 
 void fill_map_texture(play_scene *play_scene)
@@ -127,16 +128,16 @@ void set_texture_enemy(sfSprite *sprite, sfTexture *texture, int e_list)
 
 void add_enemy_node(play_scene *scene, int *e_list, int index)
 {
-    printf("\tEnemy n°%d, of type %d\n", index, e_list[index]);
     if (scene->waves->enemy->health == -1) {
         scene->waves->enemy->sprite = sfSprite_create();
         scene->waves->enemy->hitbox = (sfIntRect){0, 0, 49, 65};
         set_texture_enemy(scene->waves->enemy->sprite, scene->waves->texture, e_list[index]);
         sfSprite_setOrigin(scene->waves->enemy->sprite, (sfVector2f){49 / 2, 65 / 2});
+        scene->waves->enemy->index_reached = -1;
         scene->waves->enemy->pos = (sfVector2f){-1000, -1000};
         scene->waves->enemy->hitbox = (sfIntRect){0, 0, 49, 65};
-        scene->waves->enemy->type = e_list[index];
         scene->waves->enemy->health = set_enemy_health(e_list[index]);
+        scene->waves->enemy->type = e_list[index];
         scene->waves->enemy->previous = NULL;
         scene->waves->enemy->next = NULL;
     }
@@ -151,6 +152,7 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
         temp->hitbox = (sfIntRect){0, 0, 49, 65};
         temp->type = e_list[index];
         temp->health = set_enemy_health(e_list[index]);
+        temp->index_reached = -1;
         scene->waves->enemy->next = temp;
         temp->previous = scene->waves->enemy;
         temp->next = NULL;
@@ -159,7 +161,6 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
 
 void add_wave_node(play_scene *scene, int index, int *e_list)
 {
-    printf("Index n°%d\n", index);
     if (scene->waves->index == -1) {
         scene->waves->index = index;
         scene->waves->texture = scene->enemy_texture;
@@ -167,8 +168,7 @@ void add_wave_node(play_scene *scene, int index, int *e_list)
             add_enemy_node(scene, e_list, i);
         scene->waves->previous = NULL;
         scene->waves->next = NULL;
-    }
-    else {
+    } else {
         while (scene->waves->next != NULL)
             scene->waves = scene->waves->next;
         wave_t *temp = malloc(sizeof(wave_t));
@@ -188,15 +188,37 @@ void set_waves(play_scene *scene)
 {
     int wave_nb = 10;
     int enemy_list[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {6, 6, 6, 6, 6, 6, 6, 6, 6, 6}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}};
-    for (int i = 0; i < wave_nb; i++) {
-        printf("Wave n°%d\n", i);
+    for (int i = 0; i < wave_nb; i++)
         add_wave_node(scene, i, enemy_list[i]);
+}
+
+void set_waves_positions_index(enemy_t *enemy, int index)
+{
+    switch (index) {
+        case 1 : enemy->pos = (sfVector2f){655, -70};
+            break;
+        case 2 : enemy->pos = (sfVector2f){621, 950};
+            break;
+        case 3 : enemy->pos = (sfVector2f){184, -90};
+            break;
     }
 }
 
 void set_waves_positions(play_scene *scene)
 {
-
+    while (scene->waves->previous != NULL)
+        scene->waves = scene->waves->previous;
+    while (scene->waves->next != NULL) {
+        while (scene->waves->enemy->previous != NULL)
+            scene->waves->enemy = scene->waves->enemy->previous;
+        while (scene->waves->enemy->next != NULL) {
+            set_waves_positions_index(scene->waves->enemy, scene->map.map_index)
+            ;
+            scene->waves->enemy = scene->waves->enemy->next;
+        }
+        set_waves_positions_index(scene->waves->enemy, scene->map.map_index);
+        scene->waves = scene->waves->next;
+    }
 }
 
 void i_pause_menu(play_scene *scene)
@@ -241,4 +263,19 @@ void set_play_values(play_scene *play_scene)
     set_turret_node(play_scene);
     set_waves(play_scene);
     set_waves_positions(play_scene);
+
+    //////////////////////////////// DEBUG ////////////////////////
+    while (play_scene->waves->previous != NULL)
+        play_scene->waves = play_scene->waves->previous;
+    while (play_scene->waves->next != NULL) {
+        while (play_scene->waves->enemy->previous != NULL)
+            play_scene->waves->enemy = play_scene->waves->enemy->previous;
+        while (play_scene->waves->enemy->next != NULL) {
+            printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
+            play_scene->waves->enemy = play_scene->waves->enemy->next;
+        }
+        printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
+        play_scene->waves = play_scene->waves->next;
+    }
+    ///////////////////////////////////////////////////////////////
 }

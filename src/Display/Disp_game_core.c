@@ -77,6 +77,7 @@ void d_play_hud(play_scene *scene)
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.freeze, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->turret_hud.sniper, NULL);
     sfRenderWindow_drawSprite(scene->window, scene->pause_btn.sprite, NULL);
+    sfRenderWindow_drawSprite(scene->window, scene->wave_btn.sprite, NULL);
 }
 
 void d_play_map(play_scene *play_scene)
