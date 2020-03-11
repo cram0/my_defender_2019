@@ -23,8 +23,8 @@ void i_sound_buttons(game_core *game_core)
     game_core->play_scene.sound = sfSound_create();
     sfSound_setBuffer(game_core->menu_scene.sound, game_core->menu_scene.sound_buffer);
     sfSound_setBuffer(game_core->play_scene.sound, game_core->play_scene.sound_buffer);
-    sfSound_setVolume(game_core->menu_scene.sound, 90.0);
-    sfSound_setVolume(game_core->play_scene.sound, 90.0);
+    sfSound_setVolume(game_core->menu_scene.sound, 110.0);
+    sfSound_setVolume(game_core->play_scene.sound, 110.0);
     sfSound_setPitch(game_core->menu_scene.sound, 1.50);
     sfSound_setPitch(game_core->play_scene.sound, 1.50);
 }
