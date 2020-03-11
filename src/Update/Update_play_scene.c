@@ -165,6 +165,17 @@ void place_turret(play_scene *scene, int type, sfVector2i pos, sfTexture *tx)
     }
 }
 
+int is_the_turret_in_zones(play_scene *scene)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x = pos.x;
+    int y = pos.y;
+    if (x >= 236 && x <= 1496 && y >= 0 && y <= 785) {
+        return (1);
+    }
+    return (-1);
+}
+
 void u_turret_click_hud(play_scene *scene)
 {
     if (scene->event->mouseButton.type == sfEvtMouseButtonPressed) {
@@ -172,8 +183,11 @@ void u_turret_click_hud(play_scene *scene)
         u_turret_click_hud_pos(scene, pos);
     }
     if (scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
-        if (scene->dragndrop.turret_selected != NONE)
-            place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+        if (scene->dragndrop.turret_selected != NONE) {
+            if (is_the_turret_in_zones(scene) == 1) {
+                place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+            }
+        }
         scene->dragndrop.display = false;
         scene->dragndrop.turret_selected = NONE;
     }
