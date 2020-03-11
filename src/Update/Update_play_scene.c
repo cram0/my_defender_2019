@@ -165,13 +165,43 @@ void place_turret(play_scene *scene, int type, sfVector2i pos, sfTexture *tx)
     }
 }
 
+int is_out_path_1(int x, int y)
+{
+    if (x >= 853 && x <= 924 && y >= 0 && y <= 138)
+        return (0);
+    if (x >= 440 && x <= 924 && y >= 60 && y <= 138)
+        return 0;
+    if (x >= 440 && x <= 524 && y >= 60 && y <= 685)
+        return 0;
+    if (x >= 440 && x <= 1133 && y >= 603 && y <= 685)
+        return 0;
+    if (x >= 1040 && x <= 1133 && y >= 283 && y <= 685)
+        return 0;
+    if (x >= 850 && x <= 1133 && y >= 283 && y <= 359)
+        return 0;
+    if (x >= 850 && x <= 935 && y >= 283 && y <= 565)
+        return 0;
+    return 1;
+}
+
 int is_the_turret_in_zones(play_scene *scene)
 {
     sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
     int x = pos.x;
     int y = pos.y;
     if (x >= 236 && x <= 1496 && y >= 0 && y <= 785) {
-        return (1);
+        if (scene->map.map_index == 1) {
+            if (is_out_path_1(x, y) == 1)
+                return (1);
+        }
+        //if (scene->map.map_index == 2) {
+        //    if (is_out_path_2(x, y) == 1)
+        //       return (1);
+        //}
+        //if (scene->map.map_index == 3) {
+        //    if (is_out_path_3(x, y) == 1)
+        //        return (1);
+        //}
     }
     return (-1);
 }
