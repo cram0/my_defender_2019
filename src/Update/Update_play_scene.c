@@ -343,7 +343,7 @@ void u_hud(play_scene *scene)
 
 void u_waves(play_scene *scene)
 {
-    // while (scene->waves->enemy->)
+    scene->waves->enemy->pos.y = 500;
 }
 
 void u_play_scene(play_scene *scene)
