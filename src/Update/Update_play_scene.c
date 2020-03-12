@@ -73,9 +73,9 @@ void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos)
 int set_turret_range(int turret_type)
 {
     switch (turret_type) {
-        case SIMPLE_TURRET : return (100);
-        case BOMB_TURRET : return (75);
-        case FREEZE_TURRET : return (50);
+        case SIMPLE_TURRET : return (130);
+        case BOMB_TURRET : return (105);
+        case FREEZE_TURRET : return (70);
         case SNIPER_TURRET : return (999999);
         default : return (0);
     }
@@ -211,15 +211,14 @@ int is_the_turret_in_zones(play_scene *scene)
     sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
     int x = pos.x;
     int y = pos.y;
-    if (x >= 236 && x <= 1496 && y >= 0 && y <= 785) {
+    if (is_mouse_in_map(scene)) {
         if (scene->map.map_index == 1) {
             if (is_out_path_1(x, y) == 1)
                 return (1);
         }
-        //if (scene->map.map_index == 2) {
-        //    if (is_out_path_2(x, y) == 1)
-        //       return (1);
-        //}
+        if (scene->map.map_index == 2) {
+            return (1);
+        }
         if (scene->map.map_index == 3) {
             if (is_out_path_3(x, y) == 1)
                 return (1);
@@ -363,6 +362,48 @@ void u_hud(play_scene *scene)
     u_wave_button(scene);
 }
 
+void u_turret_direction(play_scene *scene, turret_t *turret)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x1 = turret->pos.x;
+    int y1 = turret->pos.y;
+    int x2 = pos.x;
+    int y2 = pos.y;
+    int dist = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;
+    if (dist <= turret->range) {
+        sfSprite_setRotation(turret->sprite, angle + 90);
+    }
+}
+
+bool is_mouse_in_map(play_scene *scene)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x = pos.x;
+    int y = pos.y;
+    if (x >= 236 && x <= 1496 && y >= 0 && y <= 871) {
+        return true;
+    }
+    return false;
+}
+
+void u_turret_tracking(play_scene *scene)
+{
+    if (scene->turrets_placed.turrets->range != -1 && is_mouse_in_map(scene)) {
+        while (scene->turrets_placed.turrets->previous != NULL) {
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
+        }
+        u_turret_direction(scene, scene->turrets_placed.turrets);
+        while (scene->turrets_placed.turrets->next != NULL) {
+            u_turret_direction(scene, scene->turrets_placed.turrets);
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
+            if (scene->turrets_placed.turrets->next == NULL) {
+                u_turret_direction(scene, scene->turrets_placed.turrets);
+            }
+        }
+    }
+}
+
 void u_waves(play_scene *scene)
 {
     while (scene->waves->previous != NULL)
@@ -400,4 +441,6 @@ void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
     // u_waves(scene);
+    u_waves(scene);
+    u_turret_tracking(scene);
 }

@@ -19,6 +19,8 @@
 #include <math.h>
 #include <stdbool.h>
 
+#define PI 3.14159265
+
 enum game_state {
     PLAY,
     MENU
@@ -282,6 +284,7 @@ void add_coord(map *map, sfVector2f list[], int len);
 void add_coord_node(coord *node, sfVector2f pos, int index);
 void change_texture_dnd(play_scene *scene);
 void change_origin_dnd(play_scene *scene);
+bool is_mouse_in_map(play_scene *scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
@@ -335,6 +338,8 @@ void u_turret_click_hud(play_scene *scene);
 void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos);
 void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos);
 void u_escape_interaction(play_scene *play_scene);
+void u_turret_tracking(play_scene *scene);
+void u_turret_direction(play_scene *scene, turret_t *turret);
 
 //DISPLAY
 void d_game_core(game_core *, sfRenderWindow *);
