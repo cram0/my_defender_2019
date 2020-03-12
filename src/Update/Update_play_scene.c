@@ -216,10 +216,9 @@ int is_the_turret_in_zones(play_scene *scene)
             if (is_out_path_1(x, y) == 1)
                 return (1);
         }
-        //if (scene->map.map_index == 2) {
-        //    if (is_out_path_2(x, y) == 1)
-        //       return (1);
-        //}
+        if (scene->map.map_index == 2) { 
+            return (1);
+        }
         if (scene->map.map_index == 3) {
             if (is_out_path_3(x, y) == 1)
                 return (1);
@@ -383,6 +382,7 @@ void u_turret_tracking(play_scene *scene)
         while (scene->turrets_placed.turrets->previous != NULL) {
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
         }
+        u_turret_direction(scene, scene->turrets_placed.turrets);
         while (scene->turrets_placed.turrets->next != NULL) {
             u_turret_direction(scene, scene->turrets_placed.turrets);
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
