@@ -224,7 +224,7 @@ int is_the_turret_in_zones(play_scene *scene)
             if (is_out_path_3(x, y) == 1)
                 return (1);
         }
-    }
+    } 
     return (-1);
 }
 
