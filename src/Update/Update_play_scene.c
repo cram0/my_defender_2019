@@ -184,6 +184,28 @@ int is_out_path_1(int x, int y)
     return 1;
 }
 
+int is_out_path_3(int x, int y)
+{
+    if ((x >= 390 && x <= 445 && y >= 0 && y <= 180) || (x >= 390 && x <= 748 &&
+        y >= 124 && y <= 179) || (x >= 690 && x <= 748 && y >= 124 && y <= 467) ||
+        (x >= 390 && x <= 748 && y >= 394 && y <= 467) ||
+        (x >= 390 && x <= 452 && y >= 400 && y <= 816) ||
+        (x >= 390 && x <= 745 && y >= 762 && y <= 816) ||
+        (x >= 683 && x <= 745 && y >= 488 && y <= 816) ||
+        (x >= 685 && x <= 838 && y >= 488 && y <= 544) ||
+        (x >= 776 && x <= 838 && y >= 126 && y <= 544) ||
+        (x >= 776 && x <= 1373 && y >= 126 && y <= 187) ||
+        (x >= 1312 && x <= 1373 && y >= 126 && y <= 462) ||
+        (x >= 1062 && x <= 1373 && y >= 404 && y <= 462) ||
+        (x >= 1062 && x <= 1117 && y >= 404 && y <= 544) ||
+        (x >= 1062 && x <= 1373 && y >= 488 && y <= 544) ||
+        (x >= 1300 && x <= 1373 && y >= 488 && y <= 822) ||
+        (x >= 1300 && x <= 1500 && y >= 756 && y <= 822)) {
+            return (0);
+        }
+    return 1;
+}
+
 int is_the_turret_in_zones(play_scene *scene)
 {
     sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
@@ -198,10 +220,10 @@ int is_the_turret_in_zones(play_scene *scene)
         //    if (is_out_path_2(x, y) == 1)
         //       return (1);
         //}
-        //if (scene->map.map_index == 3) {
-        //    if (is_out_path_3(x, y) == 1)
-        //        return (1);
-        //}
+        if (scene->map.map_index == 3) {
+            if (is_out_path_3(x, y) == 1)
+                return (1);
+        }
     }
     return (-1);
 }
