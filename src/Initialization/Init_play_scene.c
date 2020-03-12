@@ -133,6 +133,7 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
         scene->waves->enemy->hitbox = (sfIntRect){0, 0, 49, 65};
         set_texture_enemy(scene->waves->enemy->sprite, scene->waves->texture, e_list[index]);
         sfSprite_setOrigin(scene->waves->enemy->sprite, (sfVector2f){49 / 2, 65 / 2});
+        scene->waves->enemy->moving = false;
         scene->waves->enemy->index_reached = -1;
         scene->waves->enemy->pos = (sfVector2f){-1000, -1000};
         scene->waves->enemy->hitbox = (sfIntRect){0, 0, 49, 65};
@@ -148,6 +149,7 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
         temp->sprite = sfSprite_create();
         set_texture_enemy(temp->sprite, scene->waves->texture, e_list[index]);
         sfSprite_setOrigin(temp->sprite, (sfVector2f){49 / 2, 65 / 2});
+        temp->moving = false;
         temp->pos = (sfVector2f){-1000, -1000};
         temp->hitbox = (sfIntRect){0, 0, 49, 65};
         temp->type = e_list[index];
@@ -195,11 +197,17 @@ void set_waves(play_scene *scene)
 void set_waves_positions_index(enemy_t *enemy, int index)
 {
     switch (index) {
-        case 1 : enemy->pos = (sfVector2f){655, -70};
+        case 1 :
+            enemy->pos = (sfVector2f){655 + 235, -90};
+            sfSprite_setPosition(enemy->sprite, enemy->pos);
             break;
-        case 2 : enemy->pos = (sfVector2f){621, 950};
+        case 2 :
+            enemy->pos = (sfVector2f){621 + 235, 950};
+            sfSprite_setPosition(enemy->sprite, enemy->pos);
             break;
-        case 3 : enemy->pos = (sfVector2f){184, -90};
+        case 3 :
+            enemy->pos = (sfVector2f){184 + 235, -90};
+            sfSprite_setPosition(enemy->sprite, enemy->pos);
             break;
     }
 }
@@ -257,6 +265,7 @@ void set_play_values(play_scene *play_scene)
 {
     play_scene->general_clock = sfClock_create();
     play_scene->pause_state = 0;
+    play_scene->playing = false;
     fill_map_texture(play_scene);
     set_map_coord(&play_scene->map);
     i_player_infos(play_scene);

@@ -33,9 +33,4 @@ void add_coord(map *map, sfVector2f list[], int len)
     for (int i = 0; i < len; i++) {
         add_coord_node(map->coord, list[i], len);
     }
-    // while (map->coord->next != NULL) {
-    //     printf("Coord[] X : %f | Y : %f\n", map->coord->pos.x , map->coord->pos.y);
-    //     map->coord = map->coord->next;
-    // }
-    // printf("Coord[] X : %f | Y : %f\n", map->coord->pos.x , map->coord->pos.y);
 }

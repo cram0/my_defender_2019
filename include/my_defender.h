@@ -132,7 +132,7 @@ typedef struct map {
     sfTexture *texture_three;
     sfVector2f pos;
     int map_index;
-    struct coord *coord;
+    coord *coord;
 } map;
 
 typedef struct turrets_price {
@@ -189,6 +189,7 @@ typedef struct enemy_t {
     sfSprite *sprite;
     sfVector2f pos;
     sfIntRect hitbox;
+    bool moving;
     int type;
     int health;
     int index_reached;
@@ -227,6 +228,7 @@ typedef struct play_scene {
     pause_menu pause_menu;
     button pause_btn;
     button wave_btn;
+    bool playing;
     int pause_state;
     int sound_state;
     int difficulty;

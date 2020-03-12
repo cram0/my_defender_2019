@@ -365,11 +365,39 @@ void u_hud(play_scene *scene)
 
 void u_waves(play_scene *scene)
 {
-    scene->waves->enemy->pos.y = 500;
+    while (scene->waves->previous != NULL)
+        scene->waves = scene->waves->previous;
+    while (scene->waves->next != NULL) {
+        while (scene->waves->enemy->previous != NULL)
+            scene->waves->enemy = scene->waves->enemy->previous;
+        while (scene->waves->enemy->next != NULL) {
+            while (scene->map.coord->previous != NULL)
+                scene->map.coord = scene->map.coord->previous;
+            while (scene->map.coord->next != NULL) {
+                printf("Current index of map : %d\n", scene->map.coord->index);
+                if (scene->map.coord->index == scene->waves->enemy->index_reached) {
+                    if (scene->waves->enemy->pos.x >= scene->map.coord->pos.x - 1 && scene->waves->enemy->pos.x <= scene->map.coord->pos.x + 1 && scene->waves->enemy->pos.y >= scene->map.coord->pos.y - 1 && scene->waves->enemy->pos.y <= scene->map.coord->pos.y) {
+                        scene->waves->enemy->index_reached = scene->map.coord->index;
+                    }
+                    if (scene->waves->enemy->pos.x < scene->map.coord->pos.x)
+                        scene->waves->enemy->pos.x++;
+                    if (scene->waves->enemy->pos.x > scene->map.coord->pos.x)
+                        scene->waves->enemy->pos.x--;
+                    if (scene->waves->enemy->pos.y < scene->map.coord->pos.y)
+                        scene->waves->enemy->pos.y++;
+                    if (scene->waves->enemy->pos.y > scene->map.coord->pos.y)
+                        scene->waves->enemy->pos.y--;
+                    scene->map.coord = scene->map.coord->next;
+                }
+                scene->waves->enemy = scene->waves->enemy->next;
+            }
+            scene->waves = scene->waves->next;
+        }
+    }
 }
 
 void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
-    u_waves(scene);
+    // u_waves(scene);
 }
