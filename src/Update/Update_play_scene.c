@@ -73,9 +73,9 @@ void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos)
 int set_turret_range(int turret_type)
 {
     switch (turret_type) {
-        case SIMPLE_TURRET : return (100);
-        case BOMB_TURRET : return (75);
-        case FREEZE_TURRET : return (50);
+        case SIMPLE_TURRET : return (130);
+        case BOMB_TURRET : return (105);
+        case FREEZE_TURRET : return (70);
         case SNIPER_TURRET : return (999999);
         default : return (0);
     }
@@ -363,6 +363,20 @@ void u_hud(play_scene *scene)
     u_wave_button(scene);
 }
 
+void u_turret_direction(play_scene *scene, turret_t *turret)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x1 = turret->pos.x;
+    int y1 = turret->pos.y;
+    int x2 = pos.x;
+    int y2 = pos.y;
+    int dist = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;
+    if (dist <= turret->range) {
+        sfSprite_setRotation(turret->sprite, angle + 90);
+    }
+}
+
 void u_waves(play_scene *scene)
 {
     // while (scene->waves->enemy->)
@@ -372,4 +386,16 @@ void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
     u_waves(scene);
+    if (scene->turrets_placed.turrets->range != -1) {
+        while (scene->turrets_placed.turrets->previous != NULL) {
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
+        }
+        while (scene->turrets_placed.turrets->next != NULL) {
+            u_turret_direction(scene, scene->turrets_placed.turrets);
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
+            if (scene->turrets_placed.turrets->next == NULL) {
+                u_turret_direction(scene, scene->turrets_placed.turrets);
+            }
+        }
+    }
 }
