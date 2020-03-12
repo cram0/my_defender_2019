@@ -335,6 +335,7 @@ void u_turret_click_hud(play_scene *scene);
 void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos);
 void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos);
 void u_escape_interaction(play_scene *play_scene);
+void u_turret_tracking(play_scene *scene);
 void u_turret_direction(play_scene *scene, turret_t *turret);
 
 //DISPLAY
