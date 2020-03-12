@@ -15,6 +15,14 @@ void music_events(game_core *game_core)
 
 }
 
+void pause_events(game_core *game_core)
+{
+    if (game_core->game_state == PLAY && game_core->event.key.type == sfEvtKeyPressed && game_core->play_scene.pause_state == 0)
+        game_core->play_scene.pause_state = 1;
+    if (game_core->game_state == PLAY && game_core->event.key.type == sfEvtKeyPressed && game_core->play_scene.pause_state == 1)
+        game_core->play_scene.pause_state = 0;
+}
+
 void close_events(game_core *game_core)
 {
     if (game_core->event.type == sfEvtClosed)
@@ -39,6 +47,7 @@ void u_game_core(game_core *game_core)
     u_cursor(game_core);
     while (sfRenderWindow_pollEvent(game_core->window, &game_core->event)) {
         close_events(game_core);
+        pause_events(game_core);
         music_events(game_core);
         game_core->mouse_pos = get_mouse_pos(game_core->window);
     }
