@@ -211,7 +211,7 @@ int is_the_turret_in_zones(play_scene *scene)
     sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
     int x = pos.x;
     int y = pos.y;
-    if (x >= 236 && x <= 1496 && y >= 0 && y <= 785) {
+    if (is_mouse_in_map(scene)) {
         if (scene->map.map_index == 1) {
             if (is_out_path_1(x, y) == 1)
                 return (1);
@@ -376,9 +376,20 @@ void u_turret_direction(play_scene *scene, turret_t *turret)
     }
 }
 
+bool is_mouse_in_map(play_scene *scene)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x = pos.x;
+    int y = pos.y;
+    if (x >= 236 && x <= 1496 && y >= 0 && y <= 871) {
+        return true;
+    }
+    return false;
+}
+
 void u_turret_tracking(play_scene *scene)
 {
-    if (scene->turrets_placed.turrets->range != -1) {
+    if (scene->turrets_placed.turrets->range != -1 && is_mouse_in_map(scene)) {
         while (scene->turrets_placed.turrets->previous != NULL) {
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
         }

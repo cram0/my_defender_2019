@@ -282,6 +282,7 @@ void add_coord(map *map, sfVector2f list[], int len);
 void add_coord_node(coord *node, sfVector2f pos, int index);
 void change_texture_dnd(play_scene *scene);
 void change_origin_dnd(play_scene *scene);
+bool is_mouse_in_map(play_scene *scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
