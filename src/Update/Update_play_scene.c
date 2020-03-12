@@ -165,6 +165,47 @@ void place_turret(play_scene *scene, int type, sfVector2i pos, sfTexture *tx)
     }
 }
 
+int is_out_path_1(int x, int y)
+{
+    if ((x >= 853 && x <= 924 && y >= 0 && y <= 138) || (x >= 440 && x <= 924 &&
+        y >= 60 && y <= 138) || (x >= 440 && x <= 524 && y >= 60 && y <= 685) ||
+        (x >= 440 && x <= 1133 && y >= 603 && y <= 685) ||
+        (x >= 1040 && x <= 1133 && y >= 283 && y <= 685) ||
+        (x >= 850 && x <= 1133 && y >= 283 && y <= 359) ||
+        (x >= 850 && x <= 935 && y >= 283 && y <= 565) ||
+        (x >= 635 && x <= 935 && y >= 486 && y <= 565) ||
+        (x >= 635 && x <= 724 && y >= 175 && y <= 565) ||
+        (x >= 635 && x <= 1333 && y >= 175 && y <= 249) ||
+        (x >= 1243 && x <= 1333 && y >= 175 && y <= 805) ||
+        (x >= 860 && x <= 1333 && y >= 726 && y <= 805) ||
+        (x >= 860 && x <= 944 && y >= 726 && 870)) {
+            return (0);
+        }
+    return 1;
+}
+
+int is_the_turret_in_zones(play_scene *scene)
+{
+    sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
+    int x = pos.x;
+    int y = pos.y;
+    if (x >= 236 && x <= 1496 && y >= 0 && y <= 785) {
+        if (scene->map.map_index == 1) {
+            if (is_out_path_1(x, y) == 1)
+                return (1);
+        }
+        //if (scene->map.map_index == 2) {
+        //    if (is_out_path_2(x, y) == 1)
+        //       return (1);
+        //}
+        //if (scene->map.map_index == 3) {
+        //    if (is_out_path_3(x, y) == 1)
+        //        return (1);
+        //}
+    }
+    return (-1);
+}
+
 void u_turret_click_hud(play_scene *scene)
 {
     if (scene->event->mouseButton.type == sfEvtMouseButtonPressed) {
@@ -172,8 +213,11 @@ void u_turret_click_hud(play_scene *scene)
         u_turret_click_hud_pos(scene, pos);
     }
     if (scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
-        if (scene->dragndrop.turret_selected != NONE)
-            place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+        if (scene->dragndrop.turret_selected != NONE) {
+            if (is_the_turret_in_zones(scene) == 1) {
+                place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+            }
+        }
         scene->dragndrop.display = false;
         scene->dragndrop.turret_selected = NONE;
     }
