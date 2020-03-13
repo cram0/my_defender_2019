@@ -93,6 +93,7 @@ void d_player_infos(play_scene *play_scene)
     play_scene->player_infos.money_text, NULL);
     sfRenderWindow_drawText(play_scene->window,
     play_scene->wave_text, NULL);
+    sfRenderWindow_drawText(play_scene->window, play_scene->wave_number, NULL);
 }
 
 void d_price_dnd(play_scene *scene)

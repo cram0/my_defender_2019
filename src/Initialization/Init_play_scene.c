@@ -61,14 +61,17 @@ void set_difficulty(play_scene *play_scene)
 
 void set_money(play_scene *play_scene)
 {
-    play_scene->player_infos.money = 100;
+    play_scene->player_infos.money = 1000;
 }
 
 void set_wave_text(play_scene *play_scene)
 {
     play_scene->wave_text = sfText_create();
+    play_scene->wave_number = sfText_create();
     sfText_setPosition(play_scene->wave_text, (sfVector2f){280, 900});
     sfText_setString(play_scene->wave_text, "Wave :");
+    sfText_setPosition(play_scene->wave_number, (sfVector2f){400, 900});
+    sfText_setString(play_scene->wave_number, my_itoa(play_scene->wave_max, play_scene->wave_max_str));
 }
 
 void set_dnd_texts(play_scene *play_scene)
@@ -263,6 +266,7 @@ void i_wave_index(play_scene *scene)
     scene->enemy_texture = sfTexture_createFromFile("img/play_scene/enemies/enemies.png", NULL);
     scene->waves->texture = scene->enemy_texture;
     scene->waves->spawn_rate = 0;
+    scene->wave_max = 1;
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)

@@ -36,6 +36,7 @@ void u_cursor(game_core *game_core)
 void u_game_core(game_core *game_core)
 {
     u_cursor(game_core);
+    game_core->event.type = -1;
     while (sfRenderWindow_pollEvent(game_core->window, &game_core->event)) {
         close_events(game_core);
         pause_events(game_core);

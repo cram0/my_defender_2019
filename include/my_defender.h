@@ -243,6 +243,7 @@ typedef struct play_scene {
     button wave_btn;
     sfClock *movement_clock;
     bool playing;
+    int wave_max;
     int pause_state;
     int sound_state;
     int difficulty;
@@ -254,6 +255,8 @@ typedef struct play_scene {
     sound_t click_sound;
     sound_t set_turret_sound;
     sfText *wave_text;
+    sfText *wave_number;
+    char wave_max_str[999];
     char wave_str[11];
 } play_scene;
 
