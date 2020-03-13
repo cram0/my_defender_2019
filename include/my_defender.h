@@ -343,6 +343,7 @@ void i_turret_hud_two(play_scene *scene);
 void i_dragndrop(play_scene *scene);
 void i_font(play_scene *play_scene);
 void i_player_infos(play_scene *play_scene);
+void i_text_out_thick(play_scene *play_scene);
 
 //UPDATE
 void u_game_core(game_core *game_core);

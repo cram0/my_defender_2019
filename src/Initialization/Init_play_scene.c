@@ -292,6 +292,7 @@ void set_play_values(play_scene *play_scene)
     set_map_coord(&play_scene->map);
     i_player_infos(play_scene);
     i_font(play_scene);
+    i_text_out_thick(play_scene);
     set_turret_node(play_scene);
     set_waves(play_scene);
     set_waves_positions(play_scene);
