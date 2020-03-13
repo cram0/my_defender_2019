@@ -39,6 +39,7 @@ void i_map(play_scene *play_scene)
     play_scene->map.pos = (sfVector2f){235, 0};
     play_scene->difficulty = NORMAL;
     play_scene->map.map_index = 0;
+    play_scene->map.coord = NULL;
     play_scene->map.coord = malloc(sizeof(coord));
     play_scene->map.coord->index = -1;
     play_scene->map.texture_one = sfTexture_createFromFile("img/play_scene/maps/map1.png", NULL);
@@ -98,6 +99,7 @@ void set_texts(play_scene *play_scene)
 void set_turret_node(play_scene *scene)
 {
     scene->turrets_placed.texture = sfTexture_createFromFile("img/play_scene/towers/turrets.png", NULL);
+    scene->turrets_placed.turrets = NULL;
     scene->turrets_placed.turrets = malloc(sizeof(turret_t));
     scene->turrets_placed.turrets->range = -1;
 }
@@ -164,7 +166,8 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
     else {
         while (scene->waves->enemy->next != NULL)
             scene->waves->enemy = scene->waves->enemy->next;
-        enemy_t *temp = malloc(sizeof(enemy_t));
+        enemy_t *temp = NULL;
+        temp = malloc(sizeof(enemy_t));
         temp->sprite = sfSprite_create();
         set_texture_enemy(temp->sprite, scene->waves->texture, e_list[index]);
         sfSprite_setOrigin(temp->sprite, (sfVector2f){49 / 2, 65 / 2});
@@ -185,19 +188,21 @@ void add_wave_node(play_scene *scene, int index, int *e_list)
     if (scene->waves->index == -1) {
         scene->waves->index = index;
         scene->waves->texture = scene->enemy_texture;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
             add_enemy_node(scene, e_list, i);
         scene->waves->previous = NULL;
         scene->waves->next = NULL;
     } else {
         while (scene->waves->next != NULL)
             scene->waves = scene->waves->next;
-        wave_t *temp = malloc(sizeof(wave_t));
+        wave_t *temp = NULL;
+        temp = malloc(sizeof(wave_t));
+        temp->enemy = NULL;
         temp->enemy = malloc(sizeof(enemy_t));
         temp->enemy->health = -1;
         temp->index = index;
         temp->texture = scene->enemy_texture;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
             add_enemy_node(scene, e_list, i);
         scene->waves->next = temp;
         temp->previous = scene->waves;
@@ -208,7 +213,9 @@ void add_wave_node(play_scene *scene, int index, int *e_list)
 void set_waves(play_scene *scene)
 {
     int wave_nb = 10;
-    int enemy_list[10][10] = {{1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}};
+    int enemy_list[10][20] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}};
+    scene->waves->index = -1;
+    scene->waves->enemy->health = -1;
     for (int i = 0; i < wave_nb; i++)
         add_wave_node(scene, i, enemy_list[i]);
 }
@@ -259,14 +266,16 @@ void i_pause_menu(play_scene *scene)
 
 void i_wave_index(play_scene *scene)
 {
+    scene->waves = NULL;
     scene->waves = malloc(sizeof(wave_t));
     scene->waves->index = -1;
+    scene->waves->enemy = NULL;
     scene->waves->enemy = malloc(sizeof(enemy_t));
     scene->waves->enemy->health = -1;
     scene->enemy_texture = sfTexture_createFromFile("img/play_scene/enemies/enemies.png", NULL);
     scene->waves->texture = scene->enemy_texture;
     scene->waves->spawn_rate = 0;
-    scene->wave_max = 1;
+    scene->wave_max = 0;
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
@@ -285,30 +294,19 @@ void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 void set_play_values(play_scene *play_scene)
 {
     play_scene->general_clock = sfClock_create();
+    sfClock_restart(play_scene->general_clock);
     play_scene->movement_clock = sfClock_create();
+    sfClock_restart(play_scene->movement_clock);
     play_scene->pause_state = 0;
     play_scene->playing = false;
+    play_scene->map.coord->index = -1;
     fill_map_texture(play_scene);
     set_map_coord(&play_scene->map);
     i_player_infos(play_scene);
     i_font(play_scene);
     i_text_out_thick(play_scene);
     set_turret_node(play_scene);
+    i_wave_index(play_scene);
     set_waves(play_scene);
     set_waves_positions(play_scene);
-
-    //////////////////////////////// DEBUG ////////////////////////
-    // while (play_scene->waves->previous != NULL)
-    //     play_scene->waves = play_scene->waves->previous;
-    // while (play_scene->waves->next != NULL) {
-    //     while (play_scene->waves->enemy->previous != NULL)
-    //         play_scene->waves->enemy = play_scene->waves->enemy->previous;
-    //     while (play_scene->waves->enemy->next != NULL) {
-    //         printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
-    //         play_scene->waves->enemy = play_scene->waves->enemy->next;
-    //     }
-    //     printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
-    //     play_scene->waves = play_scene->waves->next;
-    // }
-    ///////////////////////////////////////////////////////////////
 }

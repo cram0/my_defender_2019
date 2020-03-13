@@ -169,7 +169,8 @@ sfTexture *tx)
 void add_turret_node_non_existing(play_scene *scene, int type, sfVector2i pos,
 sfTexture *tx)
 {
-    turret_t *temp = malloc(sizeof(turret_t));
+    turret_t *temp = NULL;
+    temp = malloc(sizeof(turret_t));
     while (scene->turrets_placed.turrets->next != NULL)
         scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
     temp->sprite = sfSprite_create();
@@ -482,25 +483,25 @@ void u_waves(play_scene *scene)
             }
             else {
                 if (scene->waves->enemy->previous->moving == true && sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)) >= 1 && scene->waves->enemy->moving == false) {
-                        scene->waves->enemy->moving = true;
-                        sfClock_restart(scene->movement_clock);
+                    scene->waves->enemy->moving = true;
+                    sfClock_restart(scene->movement_clock);
                 }
             }
             while (scene->map.coord->previous != NULL)
                 scene->map.coord = scene->map.coord->previous;
             while (scene->map.coord->next != NULL) {
                 if (scene->map.coord->index - 1 == scene->waves->enemy->index_reached) {
-                    if (scene->waves->enemy->pos.x >= scene->map.coord->pos.x - 1 && scene->waves->enemy->pos.x <= scene->map.coord->pos.x + 1 && scene->waves->enemy->pos.y >= scene->map.coord->pos.y - 1 && scene->waves->enemy->pos.y <= scene->map.coord->pos.y + 1) {
+                    if (scene->waves->enemy->pos.x >= scene->map.coord->pos.x - 4 && scene->waves->enemy->pos.x <= scene->map.coord->pos.x + 4 && scene->waves->enemy->pos.y >= scene->map.coord->pos.y - 4 && scene->waves->enemy->pos.y <= scene->map.coord->pos.y + 4) {
                         scene->waves->enemy->index_reached += 1;
                     }
                     if (scene->waves->enemy->pos.x < scene->map.coord->pos.x && scene->waves->enemy->moving == true)
-                        scene->waves->enemy->pos.x += 1;
+                        scene->waves->enemy->pos.x += 0.06 * sfTime_asMilliseconds(sfClock_getElapsedTime(scene->general_clock));
                     if (scene->waves->enemy->pos.x > scene->map.coord->pos.x && scene->waves->enemy->moving == true)
-                        scene->waves->enemy->pos.x -= 1;
+                        scene->waves->enemy->pos.x -= 0.06 * sfTime_asMilliseconds(sfClock_getElapsedTime(scene->general_clock));
                     if (scene->waves->enemy->pos.y < scene->map.coord->pos.y && scene->waves->enemy->moving == true)
-                        scene->waves->enemy->pos.y += 1;
+                        scene->waves->enemy->pos.y += 0.06 * sfTime_asMilliseconds(sfClock_getElapsedTime(scene->general_clock));
                     if (scene->waves->enemy->pos.y > scene->map.coord->pos.y && scene->waves->enemy->moving == true)
-                        scene->waves->enemy->pos.y -= 1;
+                        scene->waves->enemy->pos.y -= 0.06 * sfTime_asMilliseconds(sfClock_getElapsedTime(scene->general_clock));
                     sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 }
                 scene->map.coord = scene->map.coord->next;
@@ -525,4 +526,5 @@ void u_play_scene(play_scene *scene)
     u_hud(scene);
     u_waves(scene);
     u_turret_tracking(scene);
+    sfClock_restart(scene->general_clock);
 }

@@ -16,7 +16,8 @@ void add_coord_node(coord *node, sfVector2f pos, int index)
         node->previous = NULL;
         node->next = NULL;
     } else {
-        coord *temp = malloc(sizeof(coord));
+        coord *temp = NULL;
+        temp = malloc(sizeof(coord));
         while (node->next != NULL)
             node = node->next;
         temp->pos.x = pos.x + 235;
