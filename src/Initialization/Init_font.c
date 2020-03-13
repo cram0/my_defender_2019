@@ -12,4 +12,5 @@ void i_font(play_scene *play_scene)
     play_scene->font = sfFont_createFromFile("font/font.TTF");
     sfText_setFont(play_scene->player_infos.health_text, play_scene->font);
     sfText_setFont(play_scene->player_infos.money_text, play_scene->font);
+    sfText_setFont(play_scene->dragndrop.price_text, play_scene->font);
 }

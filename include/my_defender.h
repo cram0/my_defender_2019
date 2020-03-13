@@ -188,8 +188,13 @@ typedef struct dragndrop {
     sfTexture *texture;
     sfVector2f pos;
     sfCircleShape *circle;
+    sfText *price_text;
     int turret_selected;
     bool display;
+    char money_str[11];
+    char money_str2[11];
+    char money_str3[11];
+    char money_str4[11];
 } dragndrop ;
 
 typedef struct enemy_t {
@@ -307,6 +312,7 @@ void set_money(play_scene *play_scene);
 void set_play_values(play_scene *play_scene);
 void set_map_coord(map *map);
 void set_texts(play_scene *play_scene);
+void set_dnd_texts(play_scene *play_scene);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);

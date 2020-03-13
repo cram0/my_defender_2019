@@ -93,6 +93,14 @@ void d_player_infos(play_scene *play_scene)
     play_scene->player_infos.money_text, NULL);
 }
 
+void d_price_dnd(play_scene *scene)
+{
+    if (scene->dragndrop.display == true) {
+        sfRenderWindow_drawText(scene->window,
+        scene->dragndrop.price_text, NULL);
+    }
+}
+
 void d_play_dragndrop(play_scene *scene)
 {
     if (scene->dragndrop.display == true) {
@@ -157,6 +165,7 @@ void d_play_scene(play_scene *play_scene)
    d_play_dragndrop(play_scene);
    d_turret_placed(play_scene);
    d_play_hud(play_scene);
+   d_price_dnd(play_scene);
    d_player_infos(play_scene);
    d_pause_menu(play_scene);
    //d_waves(play_scene);

@@ -64,6 +64,14 @@ void set_money(play_scene *play_scene)
     play_scene->player_infos.money = 100;
 }
 
+void set_dnd_texts(play_scene *play_scene)
+{
+    play_scene->dragndrop.price_text = sfText_create();
+    sfText_setPosition(play_scene->dragndrop.price_text, (sfVector2f){1580, 184});
+    sfText_setString(play_scene->dragndrop.price_text, my_itoa
+    (play_scene->turret_price.bomb, play_scene->dragndrop.money_str));
+}
+
 void set_texts(play_scene *play_scene)
 {
     play_scene->player_infos.money_text = sfText_create();

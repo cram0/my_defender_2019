@@ -54,16 +54,35 @@ void change_origin_circle(play_scene *scene)
     }
 }
 
+void change_price_dnd( play_scene *scene)
+{
+    dragndrop *dnd = &scene->dragndrop;
+    if (dnd->turret_selected == SIMPLE_TURRET) {
+        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.simple, scene->dragndrop.money_str));
+    }
+    if (dnd->turret_selected == BOMB_TURRET) {
+        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.bomb, scene->dragndrop.money_str2));
+    }
+    if (dnd->turret_selected == FREEZE_TURRET) {
+        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.freeze, scene->dragndrop.money_str3));
+    }
+    if (dnd->turret_selected == SNIPER_TURRET) {
+        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.sniper, scene->dragndrop.money_str4));
+    }
+}
+
 void u_turret_click_hud_two(play_scene *scene)
 {
     if (scene->dragndrop.display == true) {
         change_origin_dnd(scene);
         change_texture_dnd(scene);
         change_origin_circle(scene);
+        change_price_dnd(scene);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
             sfSprite_setPosition(scene->dragndrop.sprite, (sfVector2f){pos.x, pos.y});
             sfCircleShape_setPosition(scene->dragndrop.circle, (sfVector2f){pos.x, pos.y});
+            sfText_setPosition(scene->dragndrop.price_text, (sfVector2f){pos.x - 50, pos.y - 100});
         }
     }
 }
