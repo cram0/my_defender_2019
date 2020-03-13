@@ -250,6 +250,15 @@ int is_the_turret_in_zones(play_scene *scene)
     return (-1);
 }
 
+void u_turret_range_color(play_scene *scene)
+{
+    if (is_the_turret_in_zones(scene) > 0) {
+        sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(218,128,128,128));
+    } else {
+        sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
+    }
+}
+
 void u_turret_click_hud(play_scene *scene)
 {
     if (scene->event->mouseButton.type == sfEvtMouseButtonPressed) {
@@ -290,7 +299,7 @@ void u_pause_button(play_scene *scene)
     if (scene->pause_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
         scene->pause_btn.state = CLICKING;
         if (scene->sound_state == 0) {
-            sfSound_play(scene->sound);
+            sfSound_play(scene->click_sound.sound);
             scene->sound_state = 1;
         }
     }
@@ -319,7 +328,7 @@ void u_pause_menu_hover_click(play_scene *scene)
         if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
             buttons[i]->state = CLICKING;
             if (scene->sound_state == 0) {
-                sfSound_play(scene->sound);
+                sfSound_play(scene->click_sound.sound);
                 scene->sound_state = 1;
             }
         }
@@ -365,7 +374,6 @@ void u_pause_menu_interactions(play_scene *scene)
         scene->pause_state = 0;
     if (scene->pause_menu.main_menu.state == CLICKED) {
         *scene->game_state = MENU;
-        sfMusic_play(scene->game_core->menu_scene.music);
         scene->map.map_index = 0;
         scene->pause_state = 0;
     }
@@ -381,7 +389,6 @@ void u_hud(play_scene *scene)
         u_pause_menu(scene);
         u_pause_menu_interactions(scene);
     }
-    u_escape_interaction(scene);
     u_wave_button(scene);
 }
 

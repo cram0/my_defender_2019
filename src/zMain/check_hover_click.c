@@ -18,7 +18,7 @@ void check_hover_click_ui(menu_scene *menu_scene)
         if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
             buttons[i]->state = CLICKING;
             if (menu_scene->sound_state == 0) {
-                sfSound_play(menu_scene->sound);
+                sfSound_play(menu_scene->click_sound.sound);
                 menu_scene->sound_state = 1;
             }
         }
@@ -55,17 +55,17 @@ void map_selection_click(menu_scene *scene)
     if (scene->choice_menu.map_one_btn.state == HOVER &&
     sfMouse_isButtonPressed(sfMouseLeft) && scene->choice_state == 1) {
         *scene->map_index = 1;
-        sfSound_play(scene->sound);
+        sfSound_play(scene->click_sound.sound);
     }
     if (scene->choice_menu.map_two_btn.state == HOVER &&
     sfMouse_isButtonPressed(sfMouseLeft) && scene->choice_state == 1) {
         *scene->map_index = 2;
-        sfSound_play(scene->sound);
+        sfSound_play(scene->click_sound.sound);
     }
     if (scene->choice_menu.map_three_btn.state == HOVER &&
     sfMouse_isButtonPressed(sfMouseLeft) && scene->choice_state == 1) {
         *scene->map_index = 3;
-        sfSound_play(scene->sound);
+        sfSound_play(scene->click_sound.sound);
     }
 }
 
@@ -76,7 +76,7 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
     sfMouse_isButtonPressed(sfMouseLeft) && menu_scene->choice_state == 1) {
         menu_scene->choice_menu.close_btn.state = CLICKING;
         if (menu_scene->sound_state == 0) {
-            sfSound_play(menu_scene->sound);
+            sfSound_play(menu_scene->click_sound.sound);
             menu_scene->sound_state = 1;
         }
     }
@@ -114,7 +114,7 @@ void check_hover_click_settings_menu(menu_scene *menu_scene)
     if (menu_scene->settings_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
         menu_scene->settings_ui.close_button.state = CLICKING;
         if (menu_scene->sound_state == 0) {
-            sfSound_play(menu_scene->sound);
+            sfSound_play(menu_scene->click_sound.sound);
             menu_scene->sound_state = 1;
         }
     }

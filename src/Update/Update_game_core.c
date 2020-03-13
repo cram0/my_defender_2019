@@ -9,17 +9,16 @@
 
 void music_events(game_core *game_core)
 {
-    if (game_core->game_state == PLAY) {
-        sfMusic_stop(game_core->menu_scene.music);
+    if (game_core->game_state == MENU) {
+        sfMusic_play(game_core->play_scene.music);
+        printf("joue de la musique\n");
+        sfMusic_setLoop(game_core->play_scene.music, sfTrue);
     }
 }
 
 void pause_events(game_core *game_core)
 {
-    if (game_core->game_state == PLAY && game_core->event.key.type == sfEvtKeyPressed && game_core->play_scene.pause_state == 0)
-        game_core->play_scene.pause_state = 1;
-    if (game_core->game_state == PLAY && game_core->event.key.type == sfEvtKeyPressed && game_core->play_scene.pause_state == 1)
-        game_core->play_scene.pause_state = 0;
+    u_escape_interaction(&game_core->play_scene);
 }
 
 void close_events(game_core *game_core)
