@@ -64,6 +64,13 @@ void set_money(play_scene *play_scene)
     play_scene->player_infos.money = 100;
 }
 
+void set_wave_text(play_scene *play_scene)
+{
+    play_scene->wave_text = sfText_create();
+    sfText_setPosition(play_scene->wave_text, (sfVector2f){280, 900});
+    sfText_setString(play_scene->wave_text, "Wave :");
+}
+
 void set_dnd_texts(play_scene *play_scene)
 {
     play_scene->dragndrop.price_text = sfText_create();
@@ -82,6 +89,7 @@ void set_texts(play_scene *play_scene)
     (play_scene->player_infos.money, play_scene->player_infos.money_str));
     sfText_setString(play_scene->player_infos.health_text, my_itoa
     (play_scene->player_infos.health, play_scene->player_infos.health_str));
+    set_wave_text(play_scene);
 }
 
 void set_turret_node(play_scene *scene)

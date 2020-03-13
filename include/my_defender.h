@@ -252,6 +252,8 @@ typedef struct play_scene {
     sfMusic *music;
     sound_t click_sound;
     sound_t set_turret_sound;
+    sfText *wave_text;
+    char wave_str[11];
 } play_scene;
 
 typedef struct game_core {
