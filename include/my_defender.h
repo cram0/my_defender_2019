@@ -47,6 +47,11 @@ enum turret_type {
     NONE
 } ;
 
+typedef struct sound {
+    sfSoundBuffer *sound_buffer;
+    sfSound *sound;
+} sound_t;
+
 typedef struct cursor {
     sfSprite *sprite;
     sfTexture *texture;
@@ -115,8 +120,7 @@ typedef struct menu_scene {
     int *map_index;
     sfEvent *event;
     sfMusic *music;
-    sfSound *sound;
-    sfSoundBuffer *sound_buffer;
+    sound_t click_sound;
     int sound_state;
 } menu_scene;
 
@@ -241,8 +245,7 @@ typedef struct play_scene {
     sfEvent *event;
     sfFont *font;
     sfMusic *music;
-    sfSound *sound;
-    sfSoundBuffer *sound_buffer;
+    sound_t click_sound;
 } play_scene;
 
 typedef struct game_core {
@@ -287,6 +290,7 @@ void add_coord_node(coord *node, sfVector2f pos, int index);
 void change_texture_dnd(play_scene *scene);
 void change_origin_dnd(play_scene *scene);
 bool is_mouse_in_map(play_scene *scene);
+int is_the_turret_in_zones(play_scene *scene);
 
 //GET
 sfVector2i get_mouse_pos(sfRenderWindow *window);
