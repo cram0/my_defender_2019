@@ -96,10 +96,10 @@ void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos)
 int set_turret_range(int turret_type)
 {
     switch (turret_type) {
-        case SIMPLE_TURRET : return (130);
-        case BOMB_TURRET : return (105);
-        case FREEZE_TURRET : return (70);
-        case SNIPER_TURRET : return (999999);
+        case SIMPLE_TURRET : return (150);
+        case BOMB_TURRET : return (90);
+        case FREEZE_TURRET : return (100);
+        case SNIPER_TURRET : return (1999);
         default : return (0);
     }
 }
@@ -463,7 +463,6 @@ void u_waves(play_scene *scene)
 void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
-    // u_waves(scene);
-    u_waves(scene);
+    //u_waves(scene);
     u_turret_tracking(scene);
 }
