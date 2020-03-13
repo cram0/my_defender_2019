@@ -418,13 +418,14 @@ void u_hud(play_scene *scene)
 {
     u_turret_hud(scene);
     u_turret_click_hud(scene);
-    if (scene->pause_state == 0)
+    if (scene->pause_state == 0) {
         u_pause_button(scene);
+        u_wave_button(scene);
+    }
     if (scene->pause_state == 1) {
         u_pause_menu(scene);
         u_pause_menu_interactions(scene);
     }
-    u_wave_button(scene);
     u_hud_text(scene);
 }
 
