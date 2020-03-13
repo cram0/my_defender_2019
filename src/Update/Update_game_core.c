@@ -16,7 +16,9 @@ void music_events(game_core *game_core)
 
 void pause_events(game_core *game_core)
 {
-    u_escape_interaction(&game_core->play_scene);
+    if (game_core->play_scene.event->type == sfEvtKeyPressed && game_core->play_scene.event->key.code == sfKeyEscape) {
+        u_escape_interaction(&game_core->play_scene);
+    }
 }
 
 void close_events(game_core *game_core)
