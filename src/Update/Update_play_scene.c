@@ -438,28 +438,33 @@ void u_waves(play_scene *scene)
 {
     while (scene->waves->previous != NULL)
         scene->waves = scene->waves->previous;
-    while (scene->waves->next != NULL) {
+    while (scene->waves->index != 1) {
         while (scene->waves->enemy->previous != NULL)
             scene->waves->enemy = scene->waves->enemy->previous;
         while (scene->waves->enemy->next != NULL) {
-            printf("Wave n°%d\n\tEnemy n°%d\n", scene->waves->index, scene->waves->enemy->);
-            printf("Clock's elapsed time : %f\n", sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)));
+            printf("Wave n°%d\n\tEnemy n°%d, Moving : %d\n", scene->waves->index, scene->waves->enemy->type, scene->waves->enemy->moving);
+            // printf("Clock's elapsed time : %f\n", sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)));
+            if (scene->waves->enemy->previous == NULL) {
+                printf("FIRST IS NULL LOL\n");
+                scene->waves->enemy->moving = true;
+            }
+            else {
+                if (scene->waves->enemy->previous->moving == true) {
+                    if (scene->waves->spawn_rate >= 100) {
+                        scene->waves->enemy->moving = true;
+                        scene->waves->spawn_rate = 0;
+                        sfClock_restart(scene->movement_clock);
+                    }
+                    else
+                        scene->waves->spawn_rate += 10 * sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock));
+                }
+            }
             while (scene->map.coord->previous != NULL)
                 scene->map.coord = scene->map.coord->previous;
             while (scene->map.coord->next != NULL) {
-                if (scene->waves->enemy->previous == NULL)
-                    scene->waves->enemy->moving = true;
-                else {
-                    if (scene->waves->enemy->previous->moving == true) {
-                        if (sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)) >= 1) {
-                            scene->waves->enemy->moving = true;
-                            sfClock_restart(scene->movement_clock);
-                        }
-                    }
-                }
                 if (scene->map.coord->index - 1 == scene->waves->enemy->index_reached) {
-                    if (scene->waves->enemy->pos.x >= scene->map.coord->pos.x - 1 && scene->waves->enemy->pos.x <= scene->map.coord->pos.x + 1 && scene->waves->enemy->pos.y >= scene->map.coord->pos.y - 1 && scene->waves->enemy->pos.y <= scene->map.coord->pos.y) {
-                        scene->waves->enemy->index_reached = scene->map.coord->index;
+                    if (scene->waves->enemy->pos.x >= scene->map.coord->pos.x - 1 && scene->waves->enemy->pos.x <= scene->map.coord->pos.x + 1 && scene->waves->enemy->pos.y >= scene->map.coord->pos.y - 1 && scene->waves->enemy->pos.y <= scene->map.coord->pos.y + 1) {
+                        scene->waves->enemy->index_reached += 1;
                     }
                     if (scene->waves->enemy->pos.x < scene->map.coord->pos.x && scene->waves->enemy->moving == true)
                         scene->waves->enemy->pos.x += 1;
@@ -471,11 +476,21 @@ void u_waves(play_scene *scene)
                         scene->waves->enemy->pos.y -= 1;
                     sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 }
-                sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
+                // sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 scene->map.coord = scene->map.coord->next;
             }
             scene->waves->enemy = scene->waves->enemy->next;
         }
+        // if (scene->waves->enemy->previous == NULL)
+        //     scene->waves->enemy->moving = true;
+        // else {
+        //     if (scene->waves->enemy->previous->moving == true) {
+        //         if (sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)) >= 1) {
+        //             scene->waves->enemy->moving = true;
+        //             sfClock_restart(scene->movement_clock);
+        //         }
+        //     }
+        // }
         scene->waves = scene->waves->next;
     }
 }

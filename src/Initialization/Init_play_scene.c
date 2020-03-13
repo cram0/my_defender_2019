@@ -189,7 +189,7 @@ void add_wave_node(play_scene *scene, int index, int *e_list)
 void set_waves(play_scene *scene)
 {
     int wave_nb = 10;
-    int enemy_list[10][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, {3, 3, 3, 3, 3, 3, 3, 3, 3, 3}, {4, 4, 4, 4, 4, 4, 4, 4, 4, 4}, {5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, {6, 6, 6, 6, 6, 6, 6, 6, 6, 6}, {7, 7, 7, 7, 7, 7, 7, 7, 7, 7}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}, {8, 8, 8, 8, 8, 8, 8, 8, 8, 8}};
+    int enemy_list[10][10] = {{1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}};
     for (int i = 0; i < wave_nb; i++)
         add_wave_node(scene, i, enemy_list[i]);
 }
@@ -246,6 +246,7 @@ void i_wave_index(play_scene *scene)
     scene->waves->enemy->health = -1;
     scene->enemy_texture = sfTexture_createFromFile("img/play_scene/enemies/enemies.png", NULL);
     scene->waves->texture = scene->enemy_texture;
+    scene->waves->spawn_rate = 0;
 }
 
 void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
@@ -276,17 +277,17 @@ void set_play_values(play_scene *play_scene)
     set_waves_positions(play_scene);
 
     //////////////////////////////// DEBUG ////////////////////////
-    while (play_scene->waves->previous != NULL)
-        play_scene->waves = play_scene->waves->previous;
-    while (play_scene->waves->next != NULL) {
-        while (play_scene->waves->enemy->previous != NULL)
-            play_scene->waves->enemy = play_scene->waves->enemy->previous;
-        while (play_scene->waves->enemy->next != NULL) {
-            printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
-            play_scene->waves->enemy = play_scene->waves->enemy->next;
-        }
-        printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
-        play_scene->waves = play_scene->waves->next;
-    }
+    // while (play_scene->waves->previous != NULL)
+    //     play_scene->waves = play_scene->waves->previous;
+    // while (play_scene->waves->next != NULL) {
+    //     while (play_scene->waves->enemy->previous != NULL)
+    //         play_scene->waves->enemy = play_scene->waves->enemy->previous;
+    //     while (play_scene->waves->enemy->next != NULL) {
+    //         printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
+    //         play_scene->waves->enemy = play_scene->waves->enemy->next;
+    //     }
+    //     printf("Enemy of type %d, is at pos : %f, %f\n", play_scene->waves->enemy->type, play_scene->waves->enemy->pos.x, play_scene->waves->enemy->pos.y);
+    //     play_scene->waves = play_scene->waves->next;
+    // }
     ///////////////////////////////////////////////////////////////
 }

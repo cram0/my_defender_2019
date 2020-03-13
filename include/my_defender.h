@@ -206,6 +206,7 @@ typedef struct enemy_t {
 
 typedef struct wave_t {
     int index;
+    int spawn_rate;
     sfTexture *texture;
     struct enemy_t *enemy;
     struct wave_t *previous;
