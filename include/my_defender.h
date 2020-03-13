@@ -183,6 +183,7 @@ typedef struct dragndrop {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f pos;
+    sfCircleShape *circle;
     int turret_selected;
     bool display;
 } dragndrop ;
