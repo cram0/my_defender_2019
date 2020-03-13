@@ -21,16 +21,16 @@ void add_coord_node(coord *node, sfVector2f pos, int index)
             node = node->next;
         temp->pos.x = pos.x + 235;
         temp->pos.y = pos.y;
+        temp->index = index;
         node->next = temp;
         temp->previous = node;
         temp->next = NULL;
-        temp->index = index;
     }
 }
 
 void add_coord(map *map, sfVector2f list[], int len)
 {
     for (int i = 0; i < len; i++) {
-        add_coord_node(map->coord, list[i], len);
+        add_coord_node(map->coord, list[i], i);
     }
 }

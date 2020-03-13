@@ -61,7 +61,7 @@ void set_difficulty(play_scene *play_scene)
 
 void set_money(play_scene *play_scene)
 {
-    play_scene->player_infos.money = 1000;
+    play_scene->player_infos.money = 100;
 }
 
 void set_texts(play_scene *play_scene)
@@ -264,6 +264,7 @@ void i_play_scene(play_scene *play_scene, sfRenderWindow *window)
 void set_play_values(play_scene *play_scene)
 {
     play_scene->general_clock = sfClock_create();
+    play_scene->movement_clock = sfClock_create();
     play_scene->pause_state = 0;
     play_scene->playing = false;
     fill_map_texture(play_scene);

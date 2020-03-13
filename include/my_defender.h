@@ -230,6 +230,7 @@ typedef struct play_scene {
     pause_menu pause_menu;
     button pause_btn;
     button wave_btn;
+    sfClock *movement_clock;
     bool playing;
     int pause_state;
     int sound_state;
