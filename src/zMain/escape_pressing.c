@@ -9,10 +9,10 @@
 
 void u_escape_interaction(play_scene *play_scene)
 {
-    if (play_scene->event->type == sfEvtKeyPressed && play_scene->pause_state == 0) {
+    if (play_scene->pause_state == 0) {
         play_scene->pause_state = 1;
         sfSound_play(play_scene->click_sound.sound);
-    } else if (play_scene->event->type == sfEvtKeyPressed && play_scene->pause_state == 1) {
+    } else if (play_scene->pause_state == 1) {
         play_scene->pause_state = 0;
         sfSound_play(play_scene->click_sound.sound);
     }
