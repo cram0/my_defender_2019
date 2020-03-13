@@ -15,4 +15,6 @@ void i_dragndrop(play_scene *scene)
     scene->dragndrop.display = false;
     scene->dragndrop.turret_selected = -1;
     scene->dragndrop.pos = (sfVector2f){0, 0};
+    scene->dragndrop.circle = sfCircleShape_create();
+    sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
 }
