@@ -29,8 +29,17 @@ void i_sound_buttons(game_core *game_core)
     sfSound_setPitch(game_core->play_scene.click_sound.sound, 1.50);
 }
 
+void i_set_turret_sound(game_core *core)
+{
+    core->play_scene.set_turret_sound.sound_buffer = sfSoundBuffer_createFromFile("music/put_turret.wav");
+    core->play_scene.set_turret_sound.sound = sfSound_create();
+    sfSound_setBuffer(core->play_scene.set_turret_sound.sound, core->play_scene.set_turret_sound.sound_buffer);
+    sfSound_setVolume(core->play_scene.set_turret_sound.sound, 75.0);
+}
+
 void i_music(game_core *game_core)
 {
     i_sound_buttons(game_core);
+    i_set_turret_sound(game_core);
     i_game_music(game_core);
 }

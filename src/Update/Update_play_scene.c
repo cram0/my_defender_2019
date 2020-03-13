@@ -269,6 +269,7 @@ void u_turret_click_hud(play_scene *scene)
         if (scene->dragndrop.turret_selected != NONE) {
             if (is_the_turret_in_zones(scene) == 1) {
                 place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+                sfSound_play(scene->set_turret_sound.sound);
             }
         }
         scene->dragndrop.display = false;
