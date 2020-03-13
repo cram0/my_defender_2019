@@ -7,12 +7,12 @@
 
 #include "../../include/my_defender.h"
 
-void i_play_music(play_scene *scene)
+void i_game_music(game_core *game_core)
 {
-    scene->music = sfMusic_createFromFile("music/main_theme.ogg");
-    sfMusic_setVolume(scene->music, 20.0);
-    sfMusic_play(scene->music);
-    sfMusic_setLoop(scene->music, sfTrue);
+    game_core->menu_scene.music = sfMusic_createFromFile("music/main_theme.ogg");
+    sfMusic_setVolume(game_core->menu_scene.music, 20.0);
+    sfMusic_play(game_core->menu_scene.music);
+    sfMusic_setLoop(game_core->menu_scene.music, sfTrue);
 }
 
 void i_sound_buttons(game_core *game_core)
@@ -32,5 +32,5 @@ void i_sound_buttons(game_core *game_core)
 void i_music(game_core *game_core)
 {
     i_sound_buttons(game_core);
-    //i_play_music(&game_core->play_scene);
+    i_game_music(game_core);
 }
