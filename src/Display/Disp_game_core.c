@@ -95,8 +95,10 @@ void d_player_infos(play_scene *play_scene)
 
 void d_play_dragndrop(play_scene *scene)
 {
-    if (scene->dragndrop.display == true)
+    if (scene->dragndrop.display == true) {
         sfRenderWindow_drawSprite(scene->window, scene->dragndrop.sprite, NULL);
+        sfRenderWindow_drawCircleShape(scene->window, scene->dragndrop.circle, NULL);
+    }
 }
 
 void d_turret_placed(play_scene *scene)
@@ -131,11 +133,11 @@ void d_pause_menu(play_scene *scene)
 void d_play_scene(play_scene *play_scene)
 {
    d_play_map(play_scene);
+   d_play_dragndrop(play_scene);
    d_play_hud(play_scene);
    d_player_infos(play_scene);
    d_turret_placed(play_scene);
    d_pause_menu(play_scene);
-   d_play_dragndrop(play_scene);
 }
 
 void d_cursor(game_core *game_core)

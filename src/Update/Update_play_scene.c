@@ -33,14 +33,37 @@ void change_origin_dnd(play_scene *scene)
         sfSprite_setOrigin(dnd->sprite, (sfVector2f){67 / 2, 98 / 2});
 }
 
+void change_origin_circle(play_scene *scene)
+{
+    dragndrop *dnd = &scene->dragndrop;
+    if (dnd->turret_selected == SIMPLE_TURRET) {
+        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){150, 150});
+        sfCircleShape_setRadius(dnd->circle, 150);
+    }
+    if (dnd->turret_selected == BOMB_TURRET) {
+        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){90, 90});
+        sfCircleShape_setRadius(dnd->circle, 90);
+    }
+    if (dnd->turret_selected == FREEZE_TURRET) {
+        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){100, 100});
+        sfCircleShape_setRadius(dnd->circle, 100);
+    }
+    if (dnd->turret_selected == SNIPER_TURRET) {
+        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){1999, 1999});
+        sfCircleShape_setRadius(dnd->circle, 1999);
+    }
+}
+
 void u_turret_click_hud_two(play_scene *scene)
 {
     if (scene->dragndrop.display == true) {
         change_origin_dnd(scene);
         change_texture_dnd(scene);
+        change_origin_circle(scene);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
             sfSprite_setPosition(scene->dragndrop.sprite, (sfVector2f){pos.x, pos.y});
+            sfCircleShape_setPosition(scene->dragndrop.circle, (sfVector2f){pos.x, pos.y});
         }
     }
 }
