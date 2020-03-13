@@ -154,7 +154,7 @@ void d_play_scene(play_scene *play_scene)
    d_player_infos(play_scene);
    d_turret_placed(play_scene);
    d_pause_menu(play_scene);
-   //d_waves(play_scene);
+   d_waves(play_scene);
 }
 
 void d_cursor(game_core *game_core)

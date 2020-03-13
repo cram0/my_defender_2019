@@ -435,7 +435,8 @@ void u_waves(play_scene *scene)
         while (scene->waves->enemy->previous != NULL)
             scene->waves->enemy = scene->waves->enemy->previous;
         while (scene->waves->enemy->next != NULL) {
-            printf("Wave n°%d\n\tEnemy n°%d\n", scene->waves->index, scene->waves->enemy->type);
+            printf("Wave n°%d\n\tEnemy n°%d\n", scene->waves->index, scene->waves->enemy->);
+            printf("Clock's elapsed time : %f\n", sfTime_asSeconds(sfClock_getElapsedTime(scene->movement_clock)));
             while (scene->map.coord->previous != NULL)
                 scene->map.coord = scene->map.coord->previous;
             while (scene->map.coord->next != NULL) {
@@ -463,6 +464,7 @@ void u_waves(play_scene *scene)
                         scene->waves->enemy->pos.y -= 1;
                     sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 }
+                sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 scene->map.coord = scene->map.coord->next;
             }
             scene->waves->enemy = scene->waves->enemy->next;
