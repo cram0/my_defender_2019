@@ -12,7 +12,6 @@ void music_events(game_core *game_core)
     if (game_core->game_state == PLAY) {
         sfMusic_stop(game_core->menu_scene.music);
     }
-
 }
 
 void pause_events(game_core *game_core)
