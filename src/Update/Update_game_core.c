@@ -11,8 +11,6 @@ void music_events(game_core *game_core)
 {
     if (game_core->game_state == MENU) {
         sfMusic_play(game_core->play_scene.music);
-        printf("joue de la musique\n");
-        sfMusic_setLoop(game_core->play_scene.music, sfTrue);
     }
 }
 
@@ -46,7 +44,7 @@ void u_game_core(game_core *game_core)
     while (sfRenderWindow_pollEvent(game_core->window, &game_core->event)) {
         close_events(game_core);
         pause_events(game_core);
-        music_events(game_core);
+        //music_events(game_core);
         game_core->mouse_pos = get_mouse_pos(game_core->window);
     }
     if (game_core->game_state == MENU)
