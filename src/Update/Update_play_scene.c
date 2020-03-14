@@ -475,7 +475,6 @@ void u_turret_tracking(play_scene *scene)
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
             }
-<<<<<<< HEAD
             u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
             //while (scene->waves->enemy->previous != NULL)
@@ -484,9 +483,6 @@ void u_turret_tracking(play_scene *scene)
             //    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
             //    scene->waves->enemy = scene->waves->enemy->next;
             //}
-=======
-            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->previous);
->>>>>>> 12eaef84462a6e59abe20092d0e3be32eb0ec92b
         }
     }
 }
