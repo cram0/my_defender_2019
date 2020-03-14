@@ -279,7 +279,7 @@ void set_hbars_enemy(enemy_t *enemy)
 {
     enemy->hbar_max = sfRectangleShape_create();
     sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
-    sfRectangleShape_setSize(enemy->hbar_max, (sfVector2f){(enemy->health / enemy->max_health * 40), 7});
+    sfRectangleShape_setSize(enemy->hbar_max, (sfVector2f){40, 7});
     sfRectangleShape_setOrigin(enemy->hbar_max, (sfVector2f){20, 3.5});
     sfRectangleShape_setFillColor(enemy->hbar_max, sfRed);
     enemy->hbar = sfRectangleShape_create();

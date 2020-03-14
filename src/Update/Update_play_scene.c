@@ -454,8 +454,7 @@ void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock)
             turret->can_attack = true;
         }
         if (turret->can_attack == true && enemy->health != 0) {
-            enemy->health -= 0.1;
-            printf("NIGG\n");
+            enemy->health -= 1;
             turret->can_attack = false;
         }
     }
@@ -569,8 +568,10 @@ void u_waves(play_scene *scene)
                 }
                 scene->map.coord = scene->map.coord->next;
             }
+            u_waves_hpbar(scene->waves->enemy);
             scene->waves->enemy = scene->waves->enemy->next;
         }
+        u_waves_hpbar(scene->waves->enemy);
         if (scene->waves->enemy->previous == NULL) {
             scene->waves->enemy->moving = true;
         }
