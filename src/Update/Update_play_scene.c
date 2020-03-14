@@ -506,7 +506,7 @@ void u_turret_tracking(play_scene *scene)
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                         u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
-                        u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                        u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets->next, scene->attack_clock);
                     }
                     scene->waves->enemy = scene->waves->enemy->previous;
                     u_waves_hpbar(scene->waves->enemy);
