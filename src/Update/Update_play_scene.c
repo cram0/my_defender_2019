@@ -189,6 +189,7 @@ void add_turret_node(play_scene *scene, int type, sfVector2i pos, sfTexture *tx)
 {
     if (scene->turrets_placed.turrets->range == -1) {
         add_turret_node_existing(scene, type, pos, tx);
+        add_turret_node_non_existing(scene, type, pos, tx);
     } else {
         add_turret_node_non_existing(scene, type, pos, tx);
     }
@@ -460,21 +461,22 @@ void u_turret_tracking(play_scene *scene)
         while (scene->turrets_placed.turrets->previous != NULL)
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
         while (scene->turrets_placed.turrets->next != NULL) {
-            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
             while (scene->waves->previous != NULL)
                 scene->waves = scene->waves->previous;
             while (scene->waves->next != NULL) {
                 while (scene->waves->enemy->previous != NULL)
                     scene->waves->enemy = scene->waves->enemy->previous;
+                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 while (scene->waves->enemy->next != NULL) {
-                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->previous);
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
                     scene->waves->enemy = scene->waves->enemy->next;
                 }
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
             }
-            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->previous);
+            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
             //while (scene->waves->enemy->previous != NULL)
             //        scene->waves->enemy = scene->waves->enemy->previous;
             //while (scene->waves->enemy->next != NULL) {
