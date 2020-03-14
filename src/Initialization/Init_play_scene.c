@@ -73,6 +73,13 @@ void set_wave_text(play_scene *play_scene)
     sfText_setString(play_scene->wave_text, "Wave :");
     sfText_setPosition(play_scene->wave_number, (sfVector2f){400, 900});
     sfText_setString(play_scene->wave_number, my_itoa(play_scene->wave_max, play_scene->wave_max_str));
+    play_scene->wave_button = sfText_create();
+    sfText_setPosition(play_scene->wave_button, (sfVector2f){1370 - 510, 891 + 15});
+    sfText_setString(play_scene->wave_button, "Next Wave / Force Next Wave");
+    play_scene->setting_txt = sfText_create();
+    sfText_setPosition(play_scene->setting_txt, (sfVector2f){1454 - 200, 891 + 15});
+    sfText_setString(play_scene->setting_txt, "Menu");
+
 }
 
 void set_dnd_texts(play_scene *play_scene)

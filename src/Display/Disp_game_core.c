@@ -94,6 +94,10 @@ void d_player_infos(play_scene *play_scene)
     sfRenderWindow_drawText(play_scene->window,
     play_scene->wave_text, NULL);
     sfRenderWindow_drawText(play_scene->window, play_scene->wave_number, NULL);
+    if (play_scene->wave_btn.state == HOVER)
+        sfRenderWindow_drawText(play_scene->window, play_scene->wave_button, NULL);
+    if (play_scene->pause_btn.state == HOVER)
+        sfRenderWindow_drawText(play_scene->window, play_scene->setting_txt, NULL);
 }
 
 void d_price_dnd(play_scene *scene)

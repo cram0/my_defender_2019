@@ -256,6 +256,10 @@ typedef struct play_scene {
     sound_t set_turret_sound;
     sfText *wave_text;
     sfText *wave_number;
+    sfText *wave_button;
+    sfText *setting_txt;
+    char wave_button_str[99];
+    char settings_str[9];
     char wave_max_str[999];
     char wave_str[11];
 } play_scene;

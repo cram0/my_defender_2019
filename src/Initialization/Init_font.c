@@ -15,4 +15,6 @@ void i_font(play_scene *play_scene)
     sfText_setFont(play_scene->dragndrop.price_text, play_scene->font);
     sfText_setFont(play_scene->wave_text, play_scene->font);
     sfText_setFont(play_scene->wave_number, play_scene->font);
+    sfText_setFont(play_scene->wave_button, play_scene->font);
+    sfText_setFont(play_scene->setting_txt, play_scene->font);
 }
