@@ -464,13 +464,13 @@ void u_turret_tracking(play_scene *scene)
             while (scene->waves->previous != NULL)
                 scene->waves = scene->waves->previous;
             while (scene->waves->next != NULL) {
-                while (scene->waves->enemy->previous != NULL)
-                    scene->waves->enemy = scene->waves->enemy->previous;
+                while (scene->waves->enemy->next != NULL)
+                    scene->waves->enemy = scene->waves->enemy->next;
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                while (scene->waves->enemy->next != NULL) {
+                while (scene->waves->enemy->previous != NULL) {
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
-                    scene->waves->enemy = scene->waves->enemy->next;
+                    scene->waves->enemy = scene->waves->enemy->previous;
                 }
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
