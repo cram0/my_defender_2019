@@ -166,7 +166,9 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
         scene->waves->enemy->pos = (sfVector2f){-1000, -1000};
         scene->waves->enemy->hitbox = (sfIntRect){0, 0, 49, 65};
         scene->waves->enemy->health = set_enemy_health(e_list[index]);
+        scene->waves->enemy->max_health = set_enemy_health(e_list[index]);
         scene->waves->enemy->type = e_list[index];
+        set_hbars_enemy(scene->waves->enemy);
         scene->waves->enemy->previous = NULL;
         scene->waves->enemy->next = NULL;
     }
@@ -183,7 +185,9 @@ void add_enemy_node(play_scene *scene, int *e_list, int index)
         temp->hitbox = (sfIntRect){0, 0, 49, 65};
         temp->type = e_list[index];
         temp->health = set_enemy_health(e_list[index]);
+        temp->max_health = set_enemy_health(e_list[index]);
         temp->index_reached = -1;
+        set_hbars_enemy(temp);
         scene->waves->enemy->next = temp;
         temp->previous = scene->waves->enemy;
         temp->next = NULL;
@@ -271,6 +275,20 @@ void i_pause_menu(play_scene *scene)
     scene->pause_menu.quit = create_button("img/buttons/quit_", (sfFloatRect){760, 600, 314, 82});
 }
 
+void set_hbars_enemy(enemy_t *enemy)
+{
+    enemy->hbar_max = sfRectangleShape_create();
+    sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setSize(enemy->hbar_max, (sfVector2f){(enemy->health / enemy->max_health * 40), 7});
+    sfRectangleShape_setOrigin(enemy->hbar_max, (sfVector2f){20, 3.5});
+    sfRectangleShape_setFillColor(enemy->hbar_max, sfRed);
+    enemy->hbar = sfRectangleShape_create();
+    sfRectangleShape_setPosition(enemy->hbar, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setSize(enemy->hbar, (sfVector2f){(enemy->health / enemy->max_health * 40), 7});
+    sfRectangleShape_setOrigin(enemy->hbar, (sfVector2f){20, 3.5});
+    sfRectangleShape_setFillColor(enemy->hbar, sfGreen);
+}
+
 void i_wave_index(play_scene *scene)
 {
     scene->waves = NULL;
@@ -304,6 +322,8 @@ void set_play_values(play_scene *play_scene)
     sfClock_restart(play_scene->general_clock);
     play_scene->movement_clock = sfClock_create();
     sfClock_restart(play_scene->movement_clock);
+    play_scene->attack_clock = sfClock_create();
+    sfClock_restart(play_scene->attack_clock);
     play_scene->pause_state = 0;
     play_scene->playing = false;
     play_scene->map.coord->index = -1;

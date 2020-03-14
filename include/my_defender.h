@@ -174,6 +174,7 @@ typedef struct turret_t {
     sfVector2f pos;
     int type;
     int range;
+    bool can_attack;
     struct turret_t *previous;
     struct turret_t *next;
 } turret_t ;
@@ -201,9 +202,12 @@ typedef struct enemy_t {
     sfSprite *sprite;
     sfVector2f pos;
     sfIntRect hitbox;
+    sfRectangleShape *hbar_max;
+    sfRectangleShape *hbar;
     bool moving;
     int type;
     int health;
+    int max_health;
     int index_reached;
     struct enemy_t *previous;
     struct enemy_t *next;
@@ -241,7 +245,6 @@ typedef struct play_scene {
     pause_menu pause_menu;
     button pause_btn;
     button wave_btn;
-    sfClock *movement_clock;
     bool playing;
     int wave_max;
     int pause_state;
@@ -249,6 +252,8 @@ typedef struct play_scene {
     int difficulty;
     int *game_state;
     sfClock *general_clock;
+    sfClock *movement_clock;
+    sfClock *attack_clock;
     sfEvent *event;
     sfFont *font;
     sfMusic *music;
@@ -323,6 +328,7 @@ void set_play_values(play_scene *play_scene);
 void set_map_coord(map *map);
 void set_texts(play_scene *play_scene);
 void set_dnd_texts(play_scene *play_scene);
+void set_hbars_enemy(enemy_t *enemy);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);
@@ -364,6 +370,7 @@ void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos);
 void u_escape_interaction(play_scene *play_scene);
 void u_turret_tracking(play_scene *scene);
 void u_turret_direction(enemy_t *enemy, turret_t *turret);
+void u_waves_hpbar(enemy_t *enemy);
 
 
 //DISPLAY

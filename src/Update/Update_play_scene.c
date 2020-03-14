@@ -162,6 +162,7 @@ sfTexture *tx)
     sfSprite_setPosition(scene->turrets_placed.turrets->sprite, scene->turrets_placed.turrets->pos);
     scene->turrets_placed.turrets->type = type;
     scene->turrets_placed.turrets->range = set_turret_range(type);
+    scene->turrets_placed.turrets->can_attack = true;
     scene->turrets_placed.turrets->previous = NULL;
     scene->turrets_placed.turrets->next = NULL;
 }
@@ -180,6 +181,7 @@ sfTexture *tx)
     sfSprite_setPosition(temp->sprite, temp->pos);
     temp->type = type;
     temp->range = set_turret_range(type);
+    temp->can_attack = true;
     scene->turrets_placed.turrets->next = temp;
     temp->previous = scene->turrets_placed.turrets;
     temp->next = NULL;
@@ -439,6 +441,26 @@ void u_hud(play_scene *scene)
     u_hud_text(scene);
 }
 
+void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock)
+{
+    sfVector2f pos = enemy->pos;
+    int x1 = turret->pos.x;
+    int y1 = turret->pos.y;
+    int x2 = pos.x;
+    int y2 = pos.y;
+    int dist = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    if (dist <= turret->range && enemy->health != 0) {
+        if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) >= 1) {
+            turret->can_attack = true;
+        }
+        if (turret->can_attack == true && enemy->health != 0) {
+            enemy->health -= 0.1;
+            printf("NIGG\n");
+            turret->can_attack = false;
+        }
+    }
+}
+
 void u_turret_direction(enemy_t *enemy, turret_t *turret)
 {
     sfVector2f pos = enemy->pos;
@@ -448,7 +470,7 @@ void u_turret_direction(enemy_t *enemy, turret_t *turret)
     int y2 = pos.y;
     int dist = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
     double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;
-    if (dist <= turret->range) {
+    if (dist <= turret->range && enemy->health != 0) {
         sfSprite_setRotation(turret->sprite, angle + 90);
     }
 }
@@ -475,6 +497,7 @@ void u_turret_tracking(play_scene *scene)
             while (scene->waves->next != NULL) {
                 while (scene->waves->enemy->next != NULL)
                     scene->waves->enemy = scene->waves->enemy->next;
+<<<<<<< HEAD
                 if (is_the_ballons_in_map(scene->waves->enemy))
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 while (scene->waves->enemy->previous != NULL) {
@@ -482,23 +505,43 @@ void u_turret_tracking(play_scene *scene)
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
                     }
+=======
+                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                while (scene->waves->enemy->previous != NULL) {
+                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
+                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+>>>>>>> 056d9ea1700318e800ca4b8d337cde53419c9fe9
                     scene->waves->enemy = scene->waves->enemy->previous;
+                    u_waves_hpbar(scene->waves->enemy);
                 }
+<<<<<<< HEAD
                 if (is_the_ballons_in_map(scene->waves->enemy))
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
             }
             if (is_the_ballons_in_map(scene->waves->enemy))
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+=======
+                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                scene->waves = scene->waves->next;
+            }
+            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+            u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+>>>>>>> 056d9ea1700318e800ca4b8d337cde53419c9fe9
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
-            //while (scene->waves->enemy->previous != NULL)
-            //        scene->waves->enemy = scene->waves->enemy->previous;
-            //while (scene->waves->enemy->next != NULL) {
-            //    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-            //    scene->waves->enemy = scene->waves->enemy->next;
-            //}
         }
     }
+}
+
+void u_waves_hpbar(enemy_t *enemy)
+{
+    sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setPosition(enemy->hbar, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setSize(enemy->hbar, (sfVector2f){enemy->health / enemy->max_health * 40, 7});
 }
 
 void u_waves(play_scene *scene)
@@ -552,10 +595,18 @@ void u_waves(play_scene *scene)
     }
 }
 
+void u_clock_restart(play_scene *scene)
+{
+    sfClock_restart(scene->general_clock);
+    if (sfTime_asSeconds(sfClock_getElapsedTime(scene->attack_clock)) >= 1) {
+        sfClock_restart(scene->attack_clock);
+    }
+}
+
 void u_play_scene(play_scene *scene)
 {
     u_hud(scene);
     u_waves(scene);
     u_turret_tracking(scene);
-    sfClock_restart(scene->general_clock);
+    u_clock_restart(scene);
 }
