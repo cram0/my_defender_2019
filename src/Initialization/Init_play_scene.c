@@ -322,6 +322,8 @@ void set_play_values(play_scene *play_scene)
     sfClock_restart(play_scene->general_clock);
     play_scene->movement_clock = sfClock_create();
     sfClock_restart(play_scene->movement_clock);
+    play_scene->attack_clock = sfClock_create();
+    sfClock_restart(play_scene->attack_clock);
     play_scene->pause_state = 0;
     play_scene->playing = false;
     play_scene->map.coord->index = -1;
