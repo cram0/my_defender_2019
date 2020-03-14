@@ -49,8 +49,8 @@ void change_origin_circle(play_scene *scene)
         sfCircleShape_setRadius(dnd->circle, 100);
     }
     if (dnd->turret_selected == SNIPER_TURRET) {
-        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){1999, 1999});
-        sfCircleShape_setRadius(dnd->circle, 1999);
+        sfCircleShape_setOrigin(dnd->circle, (sfVector2f){900, 900});
+        sfCircleShape_setRadius(dnd->circle, 900);
     }
 }
 
@@ -118,7 +118,7 @@ int set_turret_range(int turret_type)
         case SIMPLE_TURRET : return (150);
         case BOMB_TURRET : return (90);
         case FREEZE_TURRET : return (100);
-        case SNIPER_TURRET : return (1999);
+        case SNIPER_TURRET : return (900);
         default : return (0);
     }
 }
@@ -189,7 +189,6 @@ void add_turret_node(play_scene *scene, int type, sfVector2i pos, sfTexture *tx)
 {
     if (scene->turrets_placed.turrets->range == -1) {
         add_turret_node_existing(scene, type, pos, tx);
-        add_turret_node_non_existing(scene, type, pos, tx);
     } else {
         add_turret_node_non_existing(scene, type, pos, tx);
     }
