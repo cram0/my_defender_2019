@@ -158,14 +158,14 @@ void d_waves(play_scene *scene)
         while (scene->waves->enemy->previous != NULL)
             scene->waves->enemy = scene->waves->enemy->previous;
         while (scene->waves->enemy->next != NULL) {
-            if (scene->waves->enemy->health != 0) {
+            if (scene->waves->enemy->health > 0) {
                 sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
                 sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
                 sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
             }
             scene->waves->enemy = scene->waves->enemy->next;
         }
-        if (scene->waves->enemy->health != 0) {
+        if (scene->waves->enemy->health > 0) {
             sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
             sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
             sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);

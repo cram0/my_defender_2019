@@ -444,6 +444,7 @@ void u_hud(play_scene *scene)
 void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock)
 {
     sfVector2f pos = enemy->pos;
+    printf("Health %d\n", enemy->health);
     int x1 = turret->pos.x;
     int y1 = turret->pos.y;
     int x2 = pos.x;
@@ -529,7 +530,7 @@ void u_waves_hpbar(enemy_t *enemy)
 {
     sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
     sfRectangleShape_setPosition(enemy->hbar, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
-    sfRectangleShape_setSize(enemy->hbar, (sfVector2f){enemy->health / enemy->max_health * 40, 7});
+    sfRectangleShape_setSize(enemy->hbar, (sfVector2f){(enemy->health / enemy->max_health) * 40, 7});
 }
 
 void u_waves(play_scene *scene)
