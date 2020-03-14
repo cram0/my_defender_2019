@@ -111,7 +111,7 @@ void d_price_dnd(play_scene *scene)
 void d_play_dragndrop(play_scene *scene)
 {
     if (scene->dragndrop.display == true) {
-        if (is_the_turret_in_zones(scene) > 0) {
+        if (is_the_cursor_in_zones(scene) > 0) {
             sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
         } else {
             sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(228,128,128,128));

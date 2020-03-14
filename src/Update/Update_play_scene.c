@@ -249,7 +249,17 @@ int is_out_path_3(int x, int y)
     return 1;
 }
 
-int is_the_turret_in_zones(play_scene *scene)
+bool is_the_ballons_in_map(enemy_t *enemy)
+{
+    int x = enemy->pos.x;
+    int y = enemy->pos.y;
+    if (x >= 236 && x <= 1496 && y >= 0 && y <= 871) {
+        return true;
+    }
+    return false;
+}
+
+int is_the_cursor_in_zones(play_scene *scene)
 {
     sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
     int x = pos.x;
@@ -272,7 +282,7 @@ int is_the_turret_in_zones(play_scene *scene)
 
 void u_turret_range_color(play_scene *scene)
 {
-    if (is_the_turret_in_zones(scene) > 0) {
+    if (is_the_cursor_in_zones(scene) > 0) {
         sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(218,128,128,128));
     } else {
         sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
@@ -287,7 +297,7 @@ void u_turret_click_hud(play_scene *scene)
     }
     if (scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
         if (scene->dragndrop.turret_selected != NONE) {
-            if (is_the_turret_in_zones(scene) == 1) {
+            if (is_the_cursor_in_zones(scene) == 1) {
                 place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
                 sfSound_play(scene->set_turret_sound.sound);
             }
@@ -465,16 +475,21 @@ void u_turret_tracking(play_scene *scene)
             while (scene->waves->next != NULL) {
                 while (scene->waves->enemy->next != NULL)
                     scene->waves->enemy = scene->waves->enemy->next;
-                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                while (scene->waves->enemy->previous != NULL) {
+                if (is_the_ballons_in_map(scene->waves->enemy))
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
+                while (scene->waves->enemy->previous != NULL) {
+                    if (is_the_ballons_in_map(scene->waves->enemy)) {
+                        u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                        u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
+                    }
                     scene->waves->enemy = scene->waves->enemy->previous;
                 }
-                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                if (is_the_ballons_in_map(scene->waves->enemy))
+                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
             }
-            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+            if (is_the_ballons_in_map(scene->waves->enemy))
+                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
             //while (scene->waves->enemy->previous != NULL)
             //        scene->waves->enemy = scene->waves->enemy->previous;
