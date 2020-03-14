@@ -158,11 +158,29 @@ void d_waves(play_scene *scene)
         while (scene->waves->enemy->previous != NULL)
             scene->waves->enemy = scene->waves->enemy->previous;
         while (scene->waves->enemy->next != NULL) {
-            sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
+            if (scene->waves->enemy->health != 0) {
+                sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
+                sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
+                sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
+            }
             scene->waves->enemy = scene->waves->enemy->next;
         }
-        sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
+        if (scene->waves->enemy->health != 0) {
+            sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
+            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
+            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
+        }
         scene->waves = scene->waves->next;
+    }
+    while (scene->waves->enemy->previous != NULL)
+        scene->waves->enemy = scene->waves->enemy->previous;
+    while (scene->waves->enemy->next != NULL) {
+        if (scene->waves->enemy->health != 0) {
+            sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
+            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
+            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
+        }
+        scene->waves->enemy = scene->waves->enemy->next;
     }
 }
 
@@ -171,11 +189,11 @@ void d_play_scene(play_scene *play_scene)
    d_play_map(play_scene);
    d_play_dragndrop(play_scene);
    d_turret_placed(play_scene);
-   d_waves(play_scene);
    d_play_hud(play_scene);
    d_price_dnd(play_scene);
    d_player_infos(play_scene);
    d_pause_menu(play_scene);
+   d_waves(play_scene);
 }
 
 void d_cursor(game_core *game_core)

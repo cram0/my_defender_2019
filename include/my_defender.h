@@ -201,9 +201,12 @@ typedef struct enemy_t {
     sfSprite *sprite;
     sfVector2f pos;
     sfIntRect hitbox;
+    sfRectangleShape *hbar_max;
+    sfRectangleShape *hbar;
     bool moving;
     int type;
     int health;
+    int max_health;
     int index_reached;
     struct enemy_t *previous;
     struct enemy_t *next;
@@ -323,6 +326,7 @@ void set_play_values(play_scene *play_scene);
 void set_map_coord(map *map);
 void set_texts(play_scene *play_scene);
 void set_dnd_texts(play_scene *play_scene);
+void set_hbars_enemy(enemy_t *enemy);
 
 //INITIALISATION
 void i_game_core(game_core *game_core);

@@ -479,6 +479,12 @@ void u_turret_tracking(play_scene *scene)
     }
 }
 
+void u_waves_hpbar(enemy_t *enemy)
+{
+    sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setPosition(enemy->hbar, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+}
+
 void u_waves(play_scene *scene)
 {
     while (scene->waves->previous != NULL)
@@ -513,6 +519,7 @@ void u_waves(play_scene *scene)
                         scene->waves->enemy->pos.y -= 0.06 * sfTime_asMilliseconds(sfClock_getElapsedTime(scene->general_clock));
                     sfSprite_setPosition(scene->waves->enemy->sprite, scene->waves->enemy->pos);
                 }
+                u_waves_hpbar(scene->waves->enemy);
                 scene->map.coord = scene->map.coord->next;
             }
             scene->waves->enemy = scene->waves->enemy->next;
