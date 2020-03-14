@@ -460,26 +460,27 @@ void u_turret_tracking(play_scene *scene)
         while (scene->turrets_placed.turrets->previous != NULL)
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
         while (scene->turrets_placed.turrets->next != NULL) {
+            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
             while (scene->waves->previous != NULL)
                 scene->waves = scene->waves->previous;
             while (scene->waves->next != NULL) {
                 while (scene->waves->enemy->previous != NULL)
                     scene->waves->enemy = scene->waves->enemy->previous;
                 while (scene->waves->enemy->next != NULL) {
+                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->previous);
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                     scene->waves->enemy = scene->waves->enemy->next;
                 }
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 scene->waves = scene->waves->next;
             }
-            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-            while (scene->waves->enemy->previous != NULL)
-                    scene->waves->enemy = scene->waves->enemy->previous;
-            while (scene->waves->enemy->next != NULL) {
-                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                scene->waves->enemy = scene->waves->enemy->next;
-            }
-            scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
+            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->previous);
+            //while (scene->waves->enemy->previous != NULL)
+            //        scene->waves->enemy = scene->waves->enemy->previous;
+            //while (scene->waves->enemy->next != NULL) {
+            //    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+            //    scene->waves->enemy = scene->waves->enemy->next;
+            //}
         }
     }
 }
