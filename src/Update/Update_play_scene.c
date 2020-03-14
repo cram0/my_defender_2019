@@ -497,41 +497,30 @@ void u_turret_tracking(play_scene *scene)
             while (scene->waves->next != NULL) {
                 while (scene->waves->enemy->next != NULL)
                     scene->waves->enemy = scene->waves->enemy->next;
-<<<<<<< HEAD
-                if (is_the_ballons_in_map(scene->waves->enemy))
+                if (is_the_ballons_in_map(scene->waves->enemy)) {
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                }
                 while (scene->waves->enemy->previous != NULL) {
                     if (is_the_ballons_in_map(scene->waves->enemy)) {
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                        u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
                         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
+                        u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
                     }
-=======
-                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
-                while (scene->waves->enemy->previous != NULL) {
-                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
-                    u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets->next);
-                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
->>>>>>> 056d9ea1700318e800ca4b8d337cde53419c9fe9
                     scene->waves->enemy = scene->waves->enemy->previous;
                     u_waves_hpbar(scene->waves->enemy);
                 }
-<<<<<<< HEAD
-                if (is_the_ballons_in_map(scene->waves->enemy))
+                if (is_the_ballons_in_map(scene->waves->enemy)) {
                     u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
+                    u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
+                }
                 scene->waves = scene->waves->next;
             }
-            if (is_the_ballons_in_map(scene->waves->enemy))
-                u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-=======
+            if (is_the_ballons_in_map(scene->waves->enemy)) {
                 u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
                 u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
-                scene->waves = scene->waves->next;
             }
-            u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-            u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets, scene->attack_clock);
->>>>>>> 056d9ea1700318e800ca4b8d337cde53419c9fe9
             scene->turrets_placed.turrets = scene->turrets_placed.turrets->next;
         }
     }
