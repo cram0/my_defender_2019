@@ -58,16 +58,20 @@ void change_price_dnd( play_scene *scene)
 {
     dragndrop *dnd = &scene->dragndrop;
     if (dnd->turret_selected == SIMPLE_TURRET) {
-        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.simple, scene->dragndrop.money_str));
+        sfText_setString(scene->dragndrop.price_text,
+        my_itoa(scene->turret_price.simple, scene->dragndrop.money_str));
     }
     if (dnd->turret_selected == BOMB_TURRET) {
-        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.bomb, scene->dragndrop.money_str2));
+        sfText_setString(scene->dragndrop.price_text,
+        my_itoa(scene->turret_price.bomb, scene->dragndrop.money_str2));
     }
     if (dnd->turret_selected == FREEZE_TURRET) {
-        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.freeze, scene->dragndrop.money_str3));
+        sfText_setString(scene->dragndrop.price_text,
+        my_itoa(scene->turret_price.freeze, scene->dragndrop.money_str3));
     }
     if (dnd->turret_selected == SNIPER_TURRET) {
-        sfText_setString(scene->dragndrop.price_text, my_itoa(scene->turret_price.sniper, scene->dragndrop.money_str4));
+        sfText_setString(scene->dragndrop.price_text,
+        my_itoa(scene->turret_price.sniper, scene->dragndrop.money_str4));
     }
 }
 
@@ -80,20 +84,25 @@ void u_turret_click_hud_two(play_scene *scene)
         change_price_dnd(scene);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             sfVector2i pos = sfMouse_getPositionRenderWindow(scene->window);
-            sfSprite_setPosition(scene->dragndrop.sprite, (sfVector2f){pos.x, pos.y});
-            sfCircleShape_setPosition(scene->dragndrop.circle, (sfVector2f){pos.x, pos.y});
-            sfText_setPosition(scene->dragndrop.price_text, (sfVector2f){pos.x - 50, pos.y - 100});
+            sfSprite_setPosition(scene->dragndrop.sprite,
+            (sfVector2f){pos.x, pos.y});
+            sfCircleShape_setPosition(scene->dragndrop.circle,
+            (sfVector2f){pos.x, pos.y});
+            sfText_setPosition(scene->dragndrop.price_text,
+            (sfVector2f){pos.x - 50, pos.y - 100});
         }
     }
 }
 
 void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos)
 {
-    if (pos.x >= 1513 && pos.x <= 1588 && pos.y >= 277 && pos.y <= 352 && scene->turret_hud.is_buyable_freeze) {
+    if (pos.x >= 1513 && pos.x <= 1588 && pos.y >= 277 && pos.y <= 352 &&
+    scene->turret_hud.is_buyable_freeze) {
         scene->dragndrop.display = true;
         scene->dragndrop.turret_selected = FREEZE_TURRET;
     }
-    if (pos.x >= 1600 && pos.x <= 1675 && pos.y >= 277 && pos.y <= 352 && scene->turret_hud.is_buyable_sniper) {
+    if (pos.x >= 1600 && pos.x <= 1675 && pos.y >= 277 && pos.y <= 352 &&
+    scene->turret_hud.is_buyable_sniper) {
         scene->dragndrop.display = true;
         scene->dragndrop.turret_selected = SNIPER_TURRET;
     }
@@ -101,11 +110,13 @@ void u_turret_click_hud_pos_two(play_scene *scene, sfVector2i pos)
 
 void u_turret_click_hud_pos(play_scene *scene, sfVector2i pos)
 {
-    if (pos.x >= 1513 && pos.x <= 1588 && pos.y >= 193 && pos.y <= 256 && scene->turret_hud.is_buyable_simple) {
+    if (pos.x >= 1513 && pos.x <= 1588 && pos.y >= 193 && pos.y <= 256 &&
+    scene->turret_hud.is_buyable_simple) {
         scene->dragndrop.display = true;
         scene->dragndrop.turret_selected = SIMPLE_TURRET;
     }
-    if (pos.x >= 1600 && pos.x <= 1675 && pos.y >= 193 && pos.y <= 256 && scene->turret_hud.is_buyable_bomb) {
+    if (pos.x >= 1600 && pos.x <= 1675 && pos.y >= 193 && pos.y <= 256 &&
+    scene->turret_hud.is_buyable_bomb) {
         scene->dragndrop.display = true;
         scene->dragndrop.turret_selected = BOMB_TURRET;
     }
@@ -127,13 +138,17 @@ void set_turret_texture(sfSprite *sprite, int turret_type, sfTexture *tx)
 {
     sfSprite_setTexture(sprite, tx, sfFalse);
     switch (turret_type) {
-        case SIMPLE_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 0, 67, 69});
+        case SIMPLE_TURRET : sfSprite_setTextureRect(sprite,
+        (sfIntRect){0, 0, 67, 69});
             break;
-        case BOMB_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 167, 73, 83});
+        case BOMB_TURRET : sfSprite_setTextureRect(sprite,
+        (sfIntRect){0, 167, 73, 83});
             break;
-        case FREEZE_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 250, 99, 99});
+        case FREEZE_TURRET : sfSprite_setTextureRect(sprite,
+        (sfIntRect){0, 250, 99, 99});
             break;
-        case SNIPER_TURRET : sfSprite_setTextureRect(sprite, (sfIntRect){0, 69, 67, 98});
+        case SNIPER_TURRET : sfSprite_setTextureRect(sprite,
+        (sfIntRect){0, 69, 67, 98});
             break;
     }
 }
@@ -141,13 +156,17 @@ void set_turret_texture(sfSprite *sprite, int turret_type, sfTexture *tx)
 void set_turret_origin(sfSprite *sprite, int type)
 {
     switch (type) {
-        case SIMPLE_TURRET : sfSprite_setOrigin(sprite, (sfVector2f){67 / 2, 69 / 2});
+        case SIMPLE_TURRET : sfSprite_setOrigin(sprite,
+        (sfVector2f){67 / 2, 69 / 2});
             break;
-        case BOMB_TURRET : sfSprite_setOrigin(sprite, (sfVector2f){73 / 2, 83 / 2});
+        case BOMB_TURRET : sfSprite_setOrigin(sprite,
+        (sfVector2f){73 / 2, 83 / 2});
             break;
-        case FREEZE_TURRET : sfSprite_setOrigin(sprite, (sfVector2f){99 / 2, 99 / 2});
+        case FREEZE_TURRET : sfSprite_setOrigin(sprite,
+        (sfVector2f){99 / 2, 99 / 2});
             break;
-        case SNIPER_TURRET : sfSprite_setOrigin(sprite, (sfVector2f){67 / 2, 98 / 2});
+        case SNIPER_TURRET : sfSprite_setOrigin(sprite,
+        (sfVector2f){67 / 2, 98 / 2});
             break;
     }
 }
@@ -159,7 +178,8 @@ sfTexture *tx)
     scene->turrets_placed.turrets->pos = (sfVector2f){pos.x, pos.y};
     set_turret_texture(scene->turrets_placed.turrets->sprite, type, tx);
     set_turret_origin(scene->turrets_placed.turrets->sprite, type);
-    sfSprite_setPosition(scene->turrets_placed.turrets->sprite, scene->turrets_placed.turrets->pos);
+    sfSprite_setPosition(scene->turrets_placed.turrets->sprite,
+    scene->turrets_placed.turrets->pos);
     scene->turrets_placed.turrets->type = type;
     scene->turrets_placed.turrets->range = set_turret_range(type);
     scene->turrets_placed.turrets->can_attack = true;
@@ -232,7 +252,8 @@ int is_out_path_1(int x, int y)
 int is_out_path_3(int x, int y)
 {
     if ((x >= 390 && x <= 445 && y >= 0 && y <= 180) || (x >= 390 && x <= 748 &&
-        y >= 124 && y <= 179) || (x >= 690 && x <= 748 && y >= 124 && y <= 467) ||
+        y >= 124 && y <= 179) || (x >= 690 && x <= 748 && y >= 124 && y <= 467)
+        ||
         (x >= 390 && x <= 748 && y >= 394 && y <= 467) ||
         (x >= 390 && x <= 452 && y >= 400 && y <= 816) ||
         (x >= 390 && x <= 745 && y >= 762 && y <= 816) ||
@@ -285,9 +306,11 @@ int is_the_cursor_in_zones(play_scene *scene)
 void u_turret_range_color(play_scene *scene)
 {
     if (is_the_cursor_in_zones(scene) > 0) {
-        sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(218,128,128,128));
+        sfCircleShape_setFillColor(scene->dragndrop.circle,
+        sfColor_fromRGBA(218, 128, 128, 128));
     } else {
-        sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
+        sfCircleShape_setFillColor(scene->dragndrop.circle,
+        sfColor_fromRGBA(255, 255, 255, 128));
     }
 }
 
@@ -300,7 +323,9 @@ void u_turret_click_hud(play_scene *scene)
     if (scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
         if (scene->dragndrop.turret_selected != NONE) {
             if (is_the_cursor_in_zones(scene) == 1) {
-                place_turret(scene, scene->dragndrop.turret_selected, sfMouse_getPositionRenderWindow(scene->window), scene->turrets_placed.texture);
+                place_turret(scene, scene->dragndrop.turret_selected,
+                sfMouse_getPositionRenderWindow(scene->window),
+                scene->turrets_placed.texture);
                 sfSound_play(scene->set_turret_sound.sound);
             }
         }
@@ -318,7 +343,8 @@ void u_wave_button(play_scene *scene)
         scene->wave_btn.state = IDLE;
     if (scene->wave_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft))
         scene->wave_btn.state = CLICKING;
-    if (scene->wave_btn.state == HOVER && scene->event->type == sfEvtMouseButtonReleased) {
+    if (scene->wave_btn.state == HOVER &&
+    scene->event->type == sfEvtMouseButtonReleased) {
         scene->wave_btn.state = CLICKED;
         scene->wave_max += 1;
         if (scene->wave_max >= 9)
@@ -333,14 +359,16 @@ void u_pause_button(play_scene *scene)
         scene->pause_btn.state = HOVER;
     else
         scene->pause_btn.state = IDLE;
-    if (scene->pause_btn.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (scene->pause_btn.state == HOVER &&
+    sfMouse_isButtonPressed(sfMouseLeft)) {
         scene->pause_btn.state = CLICKING;
         if (scene->sound_state == 0) {
             sfSound_play(scene->click_sound.sound);
             scene->sound_state = 1;
         }
     }
-    if (scene->pause_btn.state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
+    if (scene->pause_btn.state == HOVER && scene->event->mouseButton.type
+    == sfEvtMouseButtonReleased) {
             scene->pause_btn.state = CLICKED;
             scene->pause_state = 1;
             scene->sound_state = 0;
@@ -362,7 +390,8 @@ void u_pause_menu_hover_click(play_scene *scene)
     buttons[2] = &scene->pause_menu.main_menu;
     buttons[3] = &scene->pause_menu.quit;
     for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+        if (buttons[i]->state == HOVER
+        && sfMouse_isButtonPressed(sfMouseLeft)) {
             buttons[i]->state = CLICKING;
             if (scene->sound_state == 0) {
                 sfSound_play(scene->click_sound.sound);
@@ -370,7 +399,8 @@ void u_pause_menu_hover_click(play_scene *scene)
             }
         }
     for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
+        if (buttons[i]->state == HOVER && scene->event->mouseButton.type
+        == sfEvtMouseButtonReleased) {
             buttons[i]->state = CLICKED;
             scene->sound_state = 0;
         }
@@ -419,7 +449,8 @@ void u_pause_menu_interactions(play_scene *scene)
 void u_hud_text(play_scene *scene)
 {
     sfText_setString(scene->wave_text, "Wave :");
-    sfText_setString(scene->wave_number, my_itoa(scene->wave_max, scene->wave_max_str));
+    sfText_setString(scene->wave_number, my_itoa(scene->wave_max,
+    scene->wave_max_str));
     sfText_setString(scene->player_infos.money_text, my_itoa
     (scene->player_infos.money, scene->player_infos.money_str));
     sfText_setString(scene->player_infos.health_text, my_itoa
@@ -444,7 +475,6 @@ void u_hud(play_scene *scene)
 void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock)
 {
     sfVector2f pos = enemy->pos;
-    printf("Health %d\n", enemy->health);
     int x1 = turret->pos.x;
     int y1 = turret->pos.y;
     int x2 = pos.x;
@@ -528,9 +558,12 @@ void u_turret_tracking(play_scene *scene)
 
 void u_waves_hpbar(enemy_t *enemy)
 {
-    sfRectangleShape_setPosition(enemy->hbar_max, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
-    sfRectangleShape_setPosition(enemy->hbar, (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
-    sfRectangleShape_setSize(enemy->hbar, (sfVector2f){(enemy->health / enemy->max_health) * 40, 7});
+    sfRectangleShape_setPosition(enemy->hbar_max,
+    (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setPosition(enemy->hbar,
+    (sfVector2f){enemy->pos.x, enemy->pos.y - 30});
+    sfRectangleShape_setSize(enemy->hbar,
+    (sfVector2f){(enemy->health / enemy->max_health) * 40, 7});
 }
 
 void u_waves(play_scene *scene)

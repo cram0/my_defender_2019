@@ -17,7 +17,8 @@ button create_button(char *file_path, sfFloatRect rect)
     temp.pos.x = rect.left + (rect.width / 2);
     temp.pos.y  = rect.top + (rect.height / 2);
     temp.state = IDLE;
-    sfSprite_setOrigin(temp.sprite, (sfVector2f){rect.width / 2, rect.height / 2});
+    sfSprite_setOrigin(temp.sprite, (sfVector2f){rect.width / 2,
+    rect.height / 2});
     sfSprite_setPosition(temp.sprite, temp.pos);
     sfSprite_setTexture(temp.sprite, temp.texture_idle, sfTrue);
     return (temp);

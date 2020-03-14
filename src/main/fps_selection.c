@@ -9,23 +9,19 @@
 
 int fps_selection_two(sfVector2i pos, simple_entity check)
 {
-    if (pos.x >= 1215 && pos.x <= 1215 + 60 && pos.y >= 560 && pos.y <= 560
-    + 60) {
+    if (pos.x >= 1215 && pos.x <= 1215 + 60 && pos.y >= 560 && pos.y <= 720) {
         sfSprite_setPosition(check.sprite, (sfVector2f){1235, 560});
         return (1);
     }
-    if (pos.x >= 1337 && pos.x <= 1337 + 60 && pos.y >= 560 && pos.y <= 560
-    + 60) {
+    if (pos.x >= 1337 && pos.x <= 1337 + 60 && pos.y >= 560 && pos.y <= 720) {
         sfSprite_setPosition(check.sprite, (sfVector2f){1357, 560});
         return (2);
     }
-    if (pos.x >= 1456 && pos.x <= 1456 + 60 && pos.y >= 560 && pos.y <= 560
-    + 60) {
+    if (pos.x >= 1456 && pos.x <= 1456 + 60 && pos.y >= 560 && pos.y <= 720) {
         sfSprite_setPosition(check.sprite, (sfVector2f){1476, 560});
         return (3);
     }
-    if (pos.x >= 1586 && pos.x <= 1586 + 60 && pos.y >= 560 && pos.y <= 560
-    + 60) {
+    if (pos.x >= 1586 && pos.x <= 1586 + 60 && pos.y >= 560 && pos.y <= 720) {
         sfSprite_setPosition(check.sprite, (sfVector2f){1606, 560});
         return (4);
     }
@@ -46,6 +42,6 @@ void fps_selection(menu_scene *menu_scene)
                 break;
             case 4: sfRenderWindow_setFramerateLimit(menu_scene->window, 0);
                 break;
-        } 
+        }
     }
 }

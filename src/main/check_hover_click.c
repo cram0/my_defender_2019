@@ -15,7 +15,8 @@ void check_hover_click_ui(menu_scene *menu_scene)
     buttons[2] = &menu_scene->ui.settings_btn;
     buttons[3] = &menu_scene->ui.quit_btn;
     for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+        if (buttons[i]->state == HOVER &&
+        sfMouse_isButtonPressed(sfMouseLeft)) {
             buttons[i]->state = CLICKING;
             if (menu_scene->sound_state == 0) {
                 sfSound_play(menu_scene->click_sound.sound);
@@ -23,7 +24,8 @@ void check_hover_click_ui(menu_scene *menu_scene)
             }
         }
     for (int i = 0; i < 4; i++)
-        if (buttons[i]->state == HOVER && menu_scene->event->mouseButton.type == sfEvtMouseButtonReleased) {
+        if (buttons[i]->state == HOVER && menu_scene->event->mouseButton.type
+        == sfEvtMouseButtonReleased) {
             buttons[i]->state = CLICKED;
             menu_scene->sound_state = 0;
         }
@@ -69,6 +71,17 @@ void map_selection_click(menu_scene *scene)
     }
 }
 
+void check_hover_click_choice_menu_two(menu_scene *menu_scene)
+{
+    map_selection_click(menu_scene);
+    if (*menu_scene->map_index != 0) {
+        menu_scene->choice_state = 0;
+        menu_scene->sound_state = 0;
+        set_play_values(&menu_scene->game_core->play_scene);
+        *menu_scene->game_state = PLAY;
+    }
+}
+
 void check_hover_click_choice_menu(menu_scene *menu_scene)
 {
     check_difficulty(menu_scene);
@@ -86,13 +99,7 @@ void check_hover_click_choice_menu(menu_scene *menu_scene)
             menu_scene->choice_menu.close_btn.state = CLICKED;
             menu_scene->sound_state = 0;
     }
-    map_selection_click(menu_scene);
-    if (*menu_scene->map_index != 0) {
-        menu_scene->choice_state = 0;
-        menu_scene->sound_state = 0;
-        set_play_values(&menu_scene->game_core->play_scene);
-        *menu_scene->game_state = PLAY;
-    }
+    check_hover_click_choice_menu_two(menu_scene);
 }
 
 void volume_selection(menu_scene *scene)
@@ -102,7 +109,8 @@ void volume_selection(menu_scene *scene)
     float rect_y = sfRectangleShape_getSize(scene->settings_ui.volume_rect).y;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
         if (pos.x >= 1242 && pos.x <= 1744 && pos.y >= 397 && pos.y <= 451) {
-            sfMouse_setPositionRenderWindow((sfVector2i){pos.x, 420}, scene->window);
+            sfMouse_setPositionRenderWindow((sfVector2i){pos.x, 420},
+            scene->window);
             sfRectangleShape_setSize(rect, (sfVector2f){pos.x - 1242, rect_y});
             sfMusic_setVolume(scene->music, ((pos.x - 1242) * 0.10));
         }
@@ -111,14 +119,17 @@ void volume_selection(menu_scene *scene)
 
 void check_hover_click_settings_menu(menu_scene *menu_scene)
 {
-    if (menu_scene->settings_ui.close_button.state == HOVER && sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (menu_scene->settings_ui.close_button.state == HOVER &&
+    sfMouse_isButtonPressed(sfMouseLeft)) {
         menu_scene->settings_ui.close_button.state = CLICKING;
         if (menu_scene->sound_state == 0) {
             sfSound_play(menu_scene->click_sound.sound);
             menu_scene->sound_state = 1;
         }
     }
-    if (menu_scene->settings_ui.close_button.state == HOVER && menu_scene->event->mouseButton.type == sfEvtMouseButtonReleased && menu_scene->settings_state == 1) {
+    if (menu_scene->settings_ui.close_button.state == HOVER &&
+    menu_scene->event->mouseButton.type == sfEvtMouseButtonReleased &&
+    menu_scene->settings_state == 1) {
         menu_scene->settings_ui.close_button.state = CLICKED;
         menu_scene->sound_state = 0;
     }
@@ -129,8 +140,8 @@ void check_hover_click_settings_menu(menu_scene *menu_scene)
 }
 
 void check_hover_click(menu_scene *menu_scene)
-{   
-    if(menu_scene->settings_state == 0 && menu_scene->choice_state == 0)
+{
+    if (menu_scene->settings_state == 0 && menu_scene->choice_state == 0)
         check_hover_click_ui(menu_scene);
     if (menu_scene->settings_state == 1 && menu_scene->choice_state == 0)
         check_hover_click_settings_menu(menu_scene);

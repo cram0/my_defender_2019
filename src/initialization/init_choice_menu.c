@@ -9,13 +9,19 @@
 
 void i_choice_menu(choice_menu *choice_menu)
 {
-    choice_menu->background = set_simple_entity("img/menu_scene/choice_menu/choice_menu_bg.png", (sfFloatRect){200, 50, 1521, 900});
+    choice_menu->background = set_simple_entity
+    ("img/menu_scene/choice_menu/choice_menu_bg.png",
+    (sfFloatRect){200, 50, 1521, 900});
     choice_menu->close_btn = create_button("img/in_game_buttons/close_",
     (sfFloatRect){1580, 100, 75, 75});
     choice_menu->map_one_btn = create_button("img/menu_scene/choice_menu/map1_",
     (sfFloatRect){400, 200, 320, 236});
     choice_menu->map_two_btn = create_button("img/menu_scene/choice_menu/map2_",
     (sfFloatRect){800, 200, 320, 236});
-    choice_menu->map_three_btn = create_button("img/menu_scene/choice_menu/map3_",(sfFloatRect){1200, 200, 320, 236});
-    choice_menu->difficulty_check = set_simple_entity("img/menu_scene/checked.png", (sfFloatRect){875, 724, 48, 50});
+    choice_menu->map_three_btn =
+    create_button("img/menu_scene/choice_menu/map3_",
+    (sfFloatRect){1200, 200, 320, 236});
+    choice_menu->difficulty_check =
+    set_simple_entity("img/menu_scene/checked.png",
+    (sfFloatRect){875, 724, 48, 50});
 }

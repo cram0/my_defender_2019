@@ -16,8 +16,8 @@ void settexture_state(button *button)
         case HOVER : sfSprite_setTexture(button->sprite, button->texture_hover,
         sfTrue);
             break;
-        case CLICKING : sfSprite_setTexture(button->sprite, button->texture_click,
-        sfTrue);
+        case CLICKING : sfSprite_setTexture(button->sprite,
+        button->texture_click, sfTrue);
             break;
     }
 }

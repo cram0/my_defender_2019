@@ -10,11 +10,14 @@
 void setscale_state(button *button)
 {
     switch (button->state) {
-        case IDLE : sfSprite_setScale(button->sprite, (sfVector2f){0.95, 0.95});
+        case IDLE : sfSprite_setScale(button->sprite,
+        (sfVector2f){0.95, 0.95});
             break;
-        case HOVER : sfSprite_setScale(button->sprite, (sfVector2f){1.0, 1.0});
+        case HOVER : sfSprite_setScale(button->sprite,
+        (sfVector2f){1.0, 1.0});
             break;
-        case CLICKING : sfSprite_setScale(button->sprite, (sfVector2f){0.90, 0.90});
+        case CLICKING : sfSprite_setScale(button->sprite,
+        (sfVector2f){0.90, 0.90});
             break;
     }
 

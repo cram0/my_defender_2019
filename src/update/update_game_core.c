@@ -9,7 +9,8 @@
 
 void pause_events(game_core *game_core)
 {
-    if (game_core->play_scene.event->type == sfEvtKeyPressed && game_core->play_scene.event->key.code == sfKeyEscape) {
+    if (game_core->play_scene.event->type == sfEvtKeyPressed &&
+    game_core->play_scene.event->key.code == sfKeyEscape) {
         u_escape_interaction(&game_core->play_scene);
     }
 }
@@ -18,19 +19,27 @@ void close_events(game_core *game_core)
 {
     if (game_core->event.type == sfEvtClosed)
             sfRenderWindow_close(game_core->window);
-    if (sfKeyboard_isKeyPressed(sfKeyEscape) && game_core->game_state == MENU && game_core->menu_scene.settings_state == 0 && game_core->menu_scene.choice_state == 0)
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) && game_core->game_state == MENU
+    && game_core->menu_scene.settings_state == 0 &&
+    game_core->menu_scene.choice_state == 0)
         sfRenderWindow_close(game_core->window);
 }
 
 void u_cursor(game_core *game_core)
 {
-    game_core->mouse_cursor.pos.x = sfMouse_getPositionRenderWindow(game_core->window).x;
-    game_core->mouse_cursor.pos.y = sfMouse_getPositionRenderWindow(game_core->window).y;
+    game_core->mouse_cursor.pos.x =
+    sfMouse_getPositionRenderWindow(game_core->window).x;
+    game_core->mouse_cursor.pos.y =
+    sfMouse_getPositionRenderWindow(game_core->window).y;
     if (sfMouse_isButtonPressed(sfMouseLeft))
-        sfSprite_setTextureRect(game_core->mouse_cursor.sprite, (sfIntRect){0, 64, 55, 64});
+        sfSprite_setTextureRect(game_core->mouse_cursor.sprite,
+        (sfIntRect){0, 64, 55, 64});
     else
-        sfSprite_setTextureRect(game_core->mouse_cursor.sprite, (sfIntRect){0, 0, 55, 64});
-    sfSprite_setPosition(game_core->mouse_cursor.sprite, game_core->mouse_cursor.pos);
+        sfSprite_setTextureRect(game_core->mouse_cursor.sprite,
+        (sfIntRect){0, 0, 55, 64});
+    sfSprite_setPosition(game_core->mouse_cursor.sprite,
+
+    game_core->mouse_cursor.pos);
 }
 
 void u_game_core(game_core *game_core)

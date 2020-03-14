@@ -49,11 +49,14 @@ void check_is_n_buyable(play_scene *scene)
         sfSprite_setTextureRect(scene->turret_hud.simple, (sfIntRect){79, 0, 79,
         86});
     if (!scene->turret_hud.is_buyable_bomb)
-        sfSprite_setTextureRect(scene->turret_hud.bomb, (sfIntRect){74, 86, 73, 85});
+        sfSprite_setTextureRect(scene->turret_hud.bomb,
+        (sfIntRect){74, 86, 73, 85});
     if (!scene->turret_hud.is_buyable_freeze)
-        sfSprite_setTextureRect(scene->turret_hud.freeze, (sfIntRect){66, 171, 67, 78});
+        sfSprite_setTextureRect(scene->turret_hud.freeze,
+        (sfIntRect){66, 171, 67, 78});
     if (!scene->turret_hud.is_buyable_sniper)
-        sfSprite_setTextureRect(scene->turret_hud.sniper, (sfIntRect){71, 249, 71, 113});
+        sfSprite_setTextureRect(scene->turret_hud.sniper,
+        (sfIntRect){71, 249, 71, 113});
 }
 
 void u_turret_hud(play_scene *scene)

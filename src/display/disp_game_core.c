@@ -30,7 +30,7 @@ void d_settings_background(settings_ui *ui, sfRenderWindow *window)
 void d_settings(menu_scene *menu_scene)
 {
     d_settings_background(&menu_scene->settings_ui, menu_scene->window);
-    d_settings_ui(&menu_scene->settings_ui,menu_scene->window);
+    d_settings_ui(&menu_scene->settings_ui, menu_scene->window);
 }
 
 void d_choice_menu_bg(simple_entity *background, sfRenderWindow *window)
@@ -95,9 +95,11 @@ void d_player_infos(play_scene *play_scene)
     play_scene->wave_text, NULL);
     sfRenderWindow_drawText(play_scene->window, play_scene->wave_number, NULL);
     if (play_scene->wave_btn.state == HOVER)
-        sfRenderWindow_drawText(play_scene->window, play_scene->wave_button, NULL);
+        sfRenderWindow_drawText(play_scene->window, play_scene->wave_button,
+        NULL);
     if (play_scene->pause_btn.state == HOVER)
-        sfRenderWindow_drawText(play_scene->window, play_scene->setting_txt, NULL);
+        sfRenderWindow_drawText(play_scene->window, play_scene->setting_txt,
+        NULL);
 }
 
 void d_price_dnd(play_scene *scene)
@@ -112,11 +114,14 @@ void d_play_dragndrop(play_scene *scene)
 {
     if (scene->dragndrop.display == true) {
         if (is_the_cursor_in_zones(scene) > 0) {
-            sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(255,255,255,128));
+            sfCircleShape_setFillColor(scene->dragndrop.circle,
+            sfColor_fromRGBA(255, 255, 255, 128));
         } else {
-            sfCircleShape_setFillColor(scene->dragndrop.circle, sfColor_fromRGBA(228,128,128,128));
+            sfCircleShape_setFillColor(scene->dragndrop.circle,
+            sfColor_fromRGBA(228, 128, 128, 128));
         }
-        sfRenderWindow_drawCircleShape(scene->window, scene->dragndrop.circle, NULL);
+        sfRenderWindow_drawCircleShape(scene->window,
+        scene->dragndrop.circle, NULL);
         sfRenderWindow_drawSprite(scene->window, scene->dragndrop.sprite, NULL);
     }
 }
@@ -142,12 +147,30 @@ void d_turret_placed(play_scene *scene)
 void d_pause_menu(play_scene *scene)
 {
     if (scene->pause_state == 1) {
-        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.background.sprite, NULL);
-        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.resume.sprite, NULL);
-        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.restart.sprite, NULL);
-        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.main_menu.sprite, NULL);
-        sfRenderWindow_drawSprite(scene->window, scene->pause_menu.quit.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window,
+        scene->pause_menu.background.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window,
+        scene->pause_menu.resume.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window,
+        scene->pause_menu.restart.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window,
+        scene->pause_menu.main_menu.sprite, NULL);
+        sfRenderWindow_drawSprite(scene->window,
+        scene->pause_menu.quit.sprite, NULL);
     }
+}
+
+void d_waves_two(play_scene *scene)
+{
+    if (scene->waves->enemy->health > 0) {
+        sfRenderWindow_drawSprite(scene->window,
+        scene->waves->enemy->sprite, NULL);
+        sfRenderWindow_drawRectangleShape(scene->window,
+        scene->waves->enemy->hbar_max, NULL);
+        sfRenderWindow_drawRectangleShape(scene->window,
+        scene->waves->enemy->hbar, NULL);
+    }
+    scene->waves = scene->waves->next;
 }
 
 void d_waves(play_scene *scene)
@@ -159,31 +182,29 @@ void d_waves(play_scene *scene)
             scene->waves->enemy = scene->waves->enemy->previous;
         while (scene->waves->enemy->next != NULL) {
             if (scene->waves->enemy->health > 0) {
-                sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
-                sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
-                sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
+                sfRenderWindow_drawSprite(scene->window,
+                scene->waves->enemy->sprite, NULL);
+                sfRenderWindow_drawRectangleShape(scene->window,
+                scene->waves->enemy->hbar_max, NULL);
+                sfRenderWindow_drawRectangleShape(scene->window,
+                scene->waves->enemy->hbar, NULL);
             }
             scene->waves->enemy = scene->waves->enemy->next;
         }
-        if (scene->waves->enemy->health > 0) {
-            sfRenderWindow_drawSprite(scene->window, scene->waves->enemy->sprite, NULL);
-            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar_max, NULL);
-            sfRenderWindow_drawRectangleShape(scene->window, scene->waves->enemy->hbar, NULL);
-        }
-        scene->waves = scene->waves->next;
+        d_waves_two(scene);
     }
 }
 
 void d_play_scene(play_scene *play_scene)
 {
-   d_play_map(play_scene);
-   d_play_dragndrop(play_scene);
-   d_turret_placed(play_scene);
-   d_play_hud(play_scene);
-   d_price_dnd(play_scene);
-   d_player_infos(play_scene);
-   d_pause_menu(play_scene);
-   d_waves(play_scene);
+    d_play_map(play_scene);
+    d_play_dragndrop(play_scene);
+    d_turret_placed(play_scene);
+    d_play_hud(play_scene);
+    d_price_dnd(play_scene);
+    d_player_infos(play_scene);
+    d_pause_menu(play_scene);
+    d_waves(play_scene);
 }
 
 void d_cursor(game_core *game_core)

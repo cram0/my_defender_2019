@@ -10,8 +10,10 @@
 void i_menu_background(menu_background *menu_background)
 {
     menu_background->sprite = sfSprite_create();
-    menu_background->texture = sfTexture_createFromFile("img/menu_scene/background.png", NULL);
+    menu_background->texture = sfTexture_createFromFile
+    ("img/menu_scene/background.png", NULL);
     menu_background->pos = (sfVector2f){0.0, 0.0};
-    sfSprite_setTexture(menu_background->sprite, menu_background->texture, sfTrue);
+    sfSprite_setTexture(menu_background->sprite, menu_background->texture,
+    sfTrue);
     sfSprite_setPosition(menu_background->sprite, menu_background->pos);
 }

@@ -7,7 +7,6 @@
 
 #include "../../include/my_defender.h"
 
-
 char *my_itoa(int number, char *str)  {
     int i = 0;
     while (number != 0) {
