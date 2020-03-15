@@ -276,6 +276,10 @@ typedef struct play_scene {
     char settings_str[9];
     char wave_max_str[999];
     char wave_str[11];
+    sfText *victory_txt;
+    sfText *loose_txt;
+    sfText *yr_score_txt;
+    sfText *score;
 } play_scene;
 
 typedef struct game_core {
@@ -453,5 +457,7 @@ void d_waves_two(play_scene *scene);
 void d_waves(play_scene *scene);
 void d_play_scene(play_scene *play_scene);
 void d_cursor(game_core *game_core);
+void d_defeat(play_scene *scene);
+void d_victory(play_scene *scene);
 
 #endif

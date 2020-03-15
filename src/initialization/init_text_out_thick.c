@@ -18,4 +18,8 @@ void i_text_out_thick(play_scene *play_scene)
     sfText_setOutlineThickness(play_scene->wave_number, 2);
     sfText_setOutlineThickness(play_scene->setting_txt, 2);
     sfText_setOutlineThickness(play_scene->wave_button, 2);
+    sfText_setOutlineThickness(play_scene->victory_txt, 5);
+    sfText_setOutlineThickness(play_scene->loose_txt, 5);
+    sfText_setOutlineThickness(play_scene->yr_score_txt, 5);
+    sfText_setOutlineThickness(play_scene->score, 5);
 }

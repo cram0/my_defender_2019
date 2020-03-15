@@ -32,6 +32,17 @@ void set_dnd_texts(play_scene *play_scene)
     (sfVector2f){1580, 184});
     sfText_setString(play_scene->dragndrop.price_text, my_itoa
     (play_scene->turret_price.bomb, play_scene->dragndrop.money_str));
+    play_scene->victory_txt = sfText_create();
+    play_scene->loose_txt = sfText_create();
+    play_scene->yr_score_txt = sfText_create();
+    play_scene->score = sfText_create();
+    sfText_setPosition(play_scene->victory_txt, (sfVector2f){500, 900});
+    sfText_setPosition(play_scene->loose_txt, (sfVector2f){500, 900});
+    sfText_setPosition(play_scene->yr_score_txt, (sfVector2f){500, 950});
+    sfText_setPosition(play_scene->score, (sfVector2f){825, 950});
+    sfText_setString(play_scene->victory_txt, "You Win !");
+    sfText_setString(play_scene->loose_txt, "You Loose...");
+    sfText_setString(play_scene->yr_score_txt, "Your Final Score :");
 }
 
 void set_texts(play_scene *play_scene)

@@ -30,6 +30,9 @@ void u_victory_lose(play_scene *scene)
     if (scene->player_infos.health <= 0 && scene->playing == true) {
         scene->playing = false;
     }
+    if (scene->player_infos.score >= 9550 && scene->playing == true) {
+        scene->playing = false;
+    }
 }
 
 void u_play_scene(play_scene *scene)
