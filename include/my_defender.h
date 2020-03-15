@@ -163,10 +163,13 @@ typedef struct turret_hud {
 typedef struct player_infos {
     int health;
     int money;
+    int score;
     sfText *health_text;
     sfText *money_text;
+    sfText *score_text;
     char health_str[4];
     char money_str[11];
+    char score_str[4];
 } player_infos;
 
 typedef struct turret_t {
@@ -259,6 +262,7 @@ typedef struct play_scene {
     sfMusic *music;
     sound_t click_sound;
     sound_t set_turret_sound;
+    sfText *score_text_dot;
     sfText *wave_text;
     sfText *wave_number;
     sfText *wave_button;
@@ -280,7 +284,6 @@ typedef struct game_core {
     cursor mouse_cursor;
 } game_core;
 
-//OTHER
 void run(void);
 char *my_strcat(char *, char *);
 int my_strlen(char *str);
@@ -312,11 +315,9 @@ void change_texture_dnd(play_scene *scene);
 void change_origin_dnd(play_scene *scene);
 int is_the_cursor_in_zones(play_scene *scene);
 bool is_mouse_in_map(play_scene *scene);
-
-//GET
+int turret_damage(turret_t *turret);
 sfVector2i get_mouse_pos(sfRenderWindow *window);
-
-//SET
+void check_difficulty(menu_scene *menu_scene);
 simple_entity set_simple_entity(char *pathname, sfFloatRect size);
 void setscale_state(button *button);
 void setscale_allbuttons(menu_scene *menu_scene);
@@ -329,8 +330,8 @@ void set_map_coord(map *map);
 void set_texts(play_scene *play_scene);
 void set_dnd_texts(play_scene *play_scene);
 void set_hbars_enemy(enemy_t *enemy);
-
-//INITIALISATION
+void set_turret_texture(sfSprite *sprite, int turret_type, sfTexture *tx);
+int set_turret_range(int turret_type);
 void i_game_core(game_core *game_core);
 void i_game_core_pointers(game_core *game_core);
 void i_play_scene(play_scene *, sfRenderWindow *);
@@ -354,8 +355,28 @@ void i_dragndrop(play_scene *scene);
 void i_font(play_scene *play_scene);
 void i_player_infos(play_scene *play_scene);
 void i_text_out_thick(play_scene *play_scene);
-
-//UPDATE
+void i_hud(play_scene *scene);
+void fill_map_texture(play_scene *play_scene);
+void i_map(play_scene *play_scene);
+void set_difficulty(play_scene *play_scene);
+void set_money(play_scene *play_scene);
+void set_txt_en_rect(sfSprite *sprite, sfTexture *texture, sfIntRect rect);
+void set_texture_enemy(sfSprite *sprite, sfTexture *texture, int e_list);
+void add_enemy_node_non_existing(play_scene *scene, int *e_list, int index);
+void add_enemy_node_existing(play_scene *scene, int *e_list, int index);
+void add_enemy_node(play_scene *scene, int *e_list, int index);
+void add_wave_existing(play_scene *scene, int index, int *e_list);
+void add_wave_non_existing(play_scene *scene, int index, int *e_list);
+void add_wave_node(play_scene *scene, int index, int *e_list);
+void set_waves(play_scene *scene);
+void set_waves_positions_index(enemy_t *enemy, int index);
+void set_waves_positions(play_scene *scene);
+void i_pause_menu(play_scene *scene);
+void set_hbars_enemy(enemy_t *enemy);
+void i_wave_index(play_scene *scene);
+void i_play_scene(play_scene *play_scene, sfRenderWindow *window);
+int set_enemy_health(int type);
+void set_turret_node(play_scene *scene);
 void u_game_core(game_core *game_core);
 void u_menu_scene(menu_scene *menu_scene);
 void u_play_scene(play_scene *play_scene);
@@ -371,9 +392,60 @@ void u_escape_interaction(play_scene *play_scene);
 void u_turret_tracking(play_scene *scene);
 void u_turret_direction(enemy_t *enemy, turret_t *turret);
 void u_waves_hpbar(enemy_t *enemy);
-
-
-//DISPLAY
+void u_waves(play_scene *scene);
+void u_enemy_damage_map(play_scene *scene);
+void u_enemy_damage(play_scene *scene);
+void u_waves_health(play_scene *scene);
+void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock);
+void u_hud(play_scene *scene);
+void u_hud_text(play_scene *scene);
+void u_pause_menu_hover_click(play_scene *scene);
+void u_pause_menu_hover(play_scene *scene);
+void u_pause_menu(play_scene *scene);
+void u_pause_menu_interactions(play_scene *scene);
+int sub_money(play_scene *scene);
+void u_turret_click_hud(play_scene *scene);
+void u_wave_button(play_scene *scene);
+void u_pause_button(play_scene *scene);
+void u_hud_interaction(play_scene *scene);
+int is_out_path_1(int x, int y);
+int is_out_path_3(int x, int y);
+bool is_the_ballons_in_map(enemy_t *enemy);
+int is_the_cursor_in_zones(play_scene *scene);
+void u_turret_range_color(play_scene *scene);
+void add_turret_node_non_existing(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
+void add_turret_node(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
+void place_turret(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
+void add_turret_node_existing(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
+void set_turret_origin(sfSprite *sprite, int type);
+void change_price_dnd( play_scene *scene);
+void change_texture_dnd(play_scene *scene);
+void change_origin_dnd(play_scene *scene);
+void change_origin_circle(play_scene *scene);
+void check_hover_click_choice_menu_two(menu_scene *menu_scene);
+void u_tt_bloon(play_scene *scene);
+void u_tt_three(play_scene *scene);
+void u_tt_two(play_scene *scene);
 void d_game_core(game_core *, sfRenderWindow *);
+void d_menu_ui(menu_ui *ui, sfRenderWindow *window);
+void d_settings_ui(settings_ui *ui, sfRenderWindow *window);
+void d_settings_background(settings_ui *ui, sfRenderWindow *window);
+void d_settings(menu_scene *menu_scene);
+void d_choice_menu_bg(simple_entity *background, sfRenderWindow *window);
+void d_menu_background(menu_background *bg, sfRenderWindow *window);
+void d_choice_menu_btns(choice_menu *choice, sfRenderWindow *window);
+void d_choice_menu(menu_scene *menu_scene);
+void d_menu_scene(menu_scene *menu_scene);
+void d_play_hud(play_scene *scene);
+void d_play_map(play_scene *play_scene);
+void d_player_infos(play_scene *play_scene);
+void d_price_dnd(play_scene *scene);
+void d_play_dragndrop(play_scene *scene);
+void d_turret_placed(play_scene *scene);
+void d_pause_menu(play_scene *scene);
+void d_waves_two(play_scene *scene);
+void d_waves(play_scene *scene);
+void d_play_scene(play_scene *play_scene);
+void d_cursor(game_core *game_core);
 
-#endif /* !MY_DEFENDER_H_ */
+#endif

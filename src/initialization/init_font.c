@@ -12,7 +12,9 @@ void i_font(play_scene *play_scene)
     play_scene->font = sfFont_createFromFile("font/font.TTF");
     sfText_setFont(play_scene->player_infos.health_text, play_scene->font);
     sfText_setFont(play_scene->player_infos.money_text, play_scene->font);
+    sfText_setFont(play_scene->score_text_dot, play_scene->font);
     sfText_setFont(play_scene->dragndrop.price_text, play_scene->font);
+    sfText_setFont(play_scene->player_infos.score_text, play_scene->font);
     sfText_setFont(play_scene->wave_text, play_scene->font);
     sfText_setFont(play_scene->wave_number, play_scene->font);
     sfText_setFont(play_scene->wave_button, play_scene->font);
