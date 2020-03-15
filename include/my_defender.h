@@ -401,7 +401,7 @@ void u_waves(play_scene *scene);
 void u_enemy_damage_map(play_scene *scene);
 void u_enemy_damage(play_scene *scene);
 void u_waves_health(play_scene *scene);
-void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock);
+void u_turret_attack(play_scene *scene, turret_t *turret, sfClock *clock);
 void u_hud(play_scene *scene);
 void u_hud_text(play_scene *scene);
 void u_pause_menu_hover_click(play_scene *scene);

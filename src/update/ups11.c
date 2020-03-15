@@ -11,7 +11,7 @@ void u_tt_bloon(play_scene *scene)
 {
     if (is_the_ballons_in_map(scene->waves->enemy)) {
         u_turret_direction(scene->waves->enemy, scene->turrets_placed.turrets);
-        u_turret_attack(scene->waves->enemy, scene->turrets_placed.turrets,
+        u_turret_attack(scene, scene->turrets_placed.turrets,
         scene->attack_clock);
     }
 }
@@ -22,11 +22,11 @@ void u_tt_three(play_scene *scene)
         if (is_the_ballons_in_map(scene->waves->enemy)) {
             u_turret_direction(scene->waves->enemy,
             scene->turrets_placed.turrets);
-            u_turret_attack(scene->waves->enemy,
+            u_turret_attack(scene,
             scene->turrets_placed.turrets, scene->attack_clock);
             u_turret_direction(scene->waves->enemy,
             scene->turrets_placed.turrets->next);
-            u_turret_attack(scene->waves->enemy,
+            u_turret_attack(scene,
             scene->turrets_placed.turrets->next, scene->attack_clock);
         }
         scene->waves->enemy = scene->waves->enemy->previous;

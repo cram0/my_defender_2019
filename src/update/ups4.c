@@ -33,20 +33,24 @@ int turret_damage(turret_t *turret)
     }
 }
 
-void u_turret_attack(enemy_t *enemy, turret_t *turret, sfClock *clock)
+void u_turret_attack(play_scene *scene, turret_t *turret, sfClock *clock)
 {
-    sfVector2f pos = enemy->pos;
+    sfVector2f pos = scene->waves->enemy->pos;
     int x1 = turret->pos.x;
     int y1 = turret->pos.y;
     int x2 = pos.x;
     int y2 = pos.y;
     int dist = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-    if (dist <= turret->range && enemy->health != 0) {
+    if (dist <= turret->range && scene->waves->enemy->health != 0) {
         if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) >= 1) {
             turret->can_attack = true;
         }
-        if (turret->can_attack == true && enemy->health > 0) {
-            enemy->health -= turret_damage(turret);
+        if (turret->can_attack == true && scene->waves->enemy->health > 0) {
+            scene->waves->enemy->health -= turret_damage(turret);
+            if (scene->waves->enemy->health <= 0) {
+                scene->player_infos.money += 5;
+                scene->player_infos.score += 50;
+            }
             turret->can_attack = false;
         }
     }
