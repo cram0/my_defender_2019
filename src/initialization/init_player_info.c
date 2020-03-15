@@ -9,8 +9,8 @@
 
 void i_player_infos(play_scene *play_scene)
 {
+    play_scene->player_infos.score = 1337;
     set_difficulty(play_scene);
     set_money(play_scene);
     set_texts(play_scene);
-    play_scene->player_infos.score = 1;
 }

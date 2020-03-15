@@ -11,7 +11,8 @@ void u_turret_tracking(play_scene *scene)
 {
     if (scene->turrets_placed.turrets->range != -1) {
         while (scene->turrets_placed.turrets->previous != NULL)
-            scene->turrets_placed.turrets = scene->turrets_placed.turrets->previous;
+            scene->turrets_placed.turrets =
+            scene->turrets_placed.turrets->previous;
         u_tt_two(scene);
     }
 }
@@ -39,6 +40,10 @@ void u_play_scene(play_scene *scene)
         u_turret_tracking(scene);
         u_waves_health(scene);
     }
+    if (scene->pause_state == 0)
+        scene->playing = true;
+    else
+        scene->playing = false;
     u_enemy_damage(scene);
     u_victory_lose(scene);
     u_clock_restart(scene);

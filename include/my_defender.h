@@ -105,6 +105,11 @@ typedef struct settings_ui {
     menu_background sound_bg;
     simple_entity check_mark;
     sfRectangleShape *volume_rect;
+    sfSprite *pepe_sprite;
+    sfTexture *pepe_txt;
+    sfClock *pepe_clock;
+    sfIntRect pepe_rect;
+    sfClock *gen_clock;
 } settings_ui;
 
 typedef struct menu_scene {
@@ -413,6 +418,7 @@ int is_out_path_3(int x, int y);
 bool is_the_ballons_in_map(enemy_t *enemy);
 int is_the_cursor_in_zones(play_scene *scene);
 void u_turret_range_color(play_scene *scene);
+void u_pepe_ui(settings_ui *ui);
 void add_turret_node_non_existing(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
 void add_turret_node(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);
 void place_turret(play_scene *scene, int type, sfVector2i pos, sfTexture *tx);

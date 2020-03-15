@@ -80,4 +80,6 @@ void u_hud_text(play_scene *scene)
     (scene->player_infos.money, scene->player_infos.money_str));
     sfText_setString(scene->player_infos.health_text, my_itoa
     (scene->player_infos.health, scene->player_infos.health_str));
+    sfText_setString(scene->player_infos.score_text, my_itoa
+    (scene->player_infos.score, scene->player_infos.score_str));
 }
