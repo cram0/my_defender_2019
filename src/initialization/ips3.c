@@ -41,7 +41,7 @@ void set_dnd_texts(play_scene *play_scene)
     sfText_setPosition(play_scene->yr_score_txt, (sfVector2f){500, 950});
     sfText_setPosition(play_scene->score, (sfVector2f){825, 950});
     sfText_setString(play_scene->victory_txt, "You Win !");
-    sfText_setString(play_scene->loose_txt, "You Loose...");
+    sfText_setString(play_scene->loose_txt, "You Lost...");
     sfText_setString(play_scene->yr_score_txt, "Your Final Score :");
 }
 
