@@ -11,7 +11,7 @@ SRC     =       $(shell find . -name '*.c')
 
 OBJ     =       $(SRC:.c=.o)
 
-LIBS=-L/usr/lib/x86_64-linux-gnu -lsndfile -lm
+LIBS	=		-lm
 
 CFLAGS  +=      -Wall -Wextra -g -lz
 
